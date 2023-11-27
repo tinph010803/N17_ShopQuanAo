@@ -1,20 +1,3 @@
-INDEX VERSION 1.127+D:\N17_ShopQuanAo\.metadata\.plugins\org.eclipse.jdt.core
-2574655887.index
-279103350.index
-3724312790.index
-3424761750.index
-1724248983.index
-3009130688.index
-2083043589.index
-1311534519.index
-3504996842.index
+INDEX VERSION 1.131+N:\N17_ShopQuanAo\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
 1245987560.index
-2738631464.index
-2162209334.index
-1175272167.index
-1245022933.index
-2715629415.index
-3924940057.index
-3478434063.index
-2054194808.index
-1937937636.index
