@@ -709,6 +709,102 @@ public class TrangChu extends JFrame implements ActionListener {
 	}
 	
 
+	private void setLaiMau() {
+		if (btnChon == btnTrangChu) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnBanHang) {
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnKhachHang) {
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnSanPham) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnHoaDon) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnNhanVien) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnTroGiup) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnKhuyenMai) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnNCC.setBackground(Color.decode("#ffa500"));
+		} else if (btnChon == btnNCC) {
+			btnBanHang.setBackground(Color.decode("#ffa500"));
+			btnKhachHang.setBackground(Color.decode("#ffa500"));
+			btnSanPham.setBackground(Color.decode("#ffa500"));
+			btnHoaDon.setBackground(Color.decode("#ffa500"));
+			btnNhanVien.setBackground(Color.decode("#ffa500"));
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnTrangChu.setBackground(Color.decode("#ffa500"));
+			btnTroGiup.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setBackground(Color.decode("#ffa500"));
+		}
+		
+		
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
