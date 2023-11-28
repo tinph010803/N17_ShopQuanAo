@@ -339,6 +339,42 @@ public class TrangChu extends JFrame implements ActionListener {
 
 		// =====================================================================================
 
+		System.err.println(ten);
+		if (daotk.getTKtheoMa(ten).isVaiTro()) {
+			btnTrangChu.setVisible(true);
+			btnTrangChu.setBounds(0, 302, 264, 54);
+			btnBanHang.setVisible(true);
+			btnKhachHang.setVisible(true);
+			btnSanPham.setVisible(true);
+			btnHoaDon.setVisible(true);
+			btnNhanVien.setVisible(true);
+			menuBarThongKe.setVisible(true);
+			menuBarThongKe.setBackground(Color.decode("#ffa500"));
+			btnKhuyenMai.setVisible(true);
+			btnNCC.setVisible(true);
+			btnTroGiup.setVisible(true);
+			btnTroGiup.setBounds(0, 905, 264, 54);
+		} else {
+			btnTrangChu.setVisible(true);
+			btnBanHang.setVisible(true);
+			btnKhachHang.setVisible(true);
+			btnSanPham.setVisible(true);
+			btnHoaDon.setVisible(true);
+			btnNhanVien.setVisible(false);
+			menuBarThongKe.setVisible(false);
+			pnlThongKe.setBackground(new Color(0, 250, 154));
+			btnKhuyenMai.setVisible(false);
+			btnNCC.setVisible(false);
+			btnTroGiup.setVisible(true);
+			btnTrangChu.setBounds(0, 362, 264, 54);
+			btnTroGiup.setBounds(0, 817, 264, 54);
+			btnBanHang.setBounds(0, 453, 264, 54);
+			btnKhachHang.setBounds(0, 544, 264, 54);
+			btnSanPham.setBounds(0, 635, 264, 54);
+			btnHoaDon.setBounds(0, 726, 264, 54);
+			
+		}
+
 		btnDangXuat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
