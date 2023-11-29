@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -30,6 +32,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.security.interfaces.RSAKey;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -47,6 +50,7 @@ import javax.swing.JScrollBar;
 
 import java.awt.Rectangle;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -59,6 +63,7 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static String imageName = null;
 	private JTextField txtTimKiem;
 	private JTextField txtMaNV;
 	private JTextField txtHoTen;
@@ -98,6 +103,8 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 	private JComboBox cboTK;
 	private JDateChooser txtLocNgayVL;
 	private JLabel lblThongBao;
+	private JLabel lblAnh;
+	private JPanel panel_2;
 
 	/**
 	 * Create the panel.
@@ -222,7 +229,7 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 					if (radNu.isSelected() == true) {
 						gtBoolean = false;
 					}
-					NhanVien nv = new NhanVien(ma, ten, sdt, email, diaChi, cccd, gtBoolean, ngay);
+					NhanVien nv = new NhanVien(ma, ten, sdt, email, diaChi, cccd, gtBoolean, ngay,imageName);
 					System.err.println(nv);
 					if (daoNV.them(nv)) {
 						busNV.dodulieu(model, daoNV.layNV());
@@ -241,7 +248,7 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
 				getThongTin();
 				System.err.println("Ngay được chọn :" + ngay);
-				NhanVien nVien = new NhanVien(ma, ten, sdt, email, diaChi, cccd, gtBoolean, ngay);
+				NhanVien nVien = new NhanVien(ma, ten, sdt, email, diaChi, cccd, gtBoolean, ngay,imageName);
 				daoNV.sua(nVien);
 				busNV.dodulieu(model, daoNV.layNV());
 //				System.err.println(getDieuKienLoc());
@@ -252,12 +259,14 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 		btnSua.setBounds(511, 280, 92, 45);
 		panel_1.add(btnSua);
 
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panel_2.setBounds(40, 80, 167, 222);
 		panel_1.add(panel_2);
+		panel_2.setLayout(null);
 
-		JLabel lblAnh = new JLabel("");
+		lblAnh = new JLabel("");
+		lblAnh.setBounds(0, 0, 167, 222);
 		panel_2.add(lblAnh);
 
 		txtMaNV = new JTextField(busNV.updateMa());
@@ -477,9 +486,10 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				xoaTrang();
-
+				
 				int row = table.getSelectedRow();
-				txtMaNV.setText(table.getValueAt(row, 1).toString().trim());
+				String maNV = table.getValueAt(row, 1).toString().trim();
+				txtMaNV.setText(maNV);
 				txtHoTen.setText(table.getValueAt(row, 2).toString().trim());
 				if (table.getValueAt(row, 3).toString().trim() == "Nữ") {
 					radNam.setSelected(false);
@@ -500,6 +510,7 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 				txtDiaChi.setText(table.getValueAt(row, 6).toString().trim());
 				txtSDT.setText(table.getValueAt(row, 7).toString().trim());
 				txtCCCD.setText(table.getValueAt(row, 8).toString().trim());
+				lbl_ImageNV(dao.DAO_NhanVien.layNVTheoMa(maNV).getHinhAnh());
 				TaiKhoan tk = daotk.getTKtheoMa(table.getValueAt(row, 1).toString().trim());
 
 				if (tk != null) {
@@ -537,7 +548,45 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 		
 		cboGioiTinh.addActionListener(this);
 		cboTK.addActionListener(this);
+		
+		lblAnh.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				lblAnhMouseClicked(evt);
+			}
+		});
 
+	}
+	
+	File f;
+
+	private void lblAnhMouseClicked(MouseEvent evt) {
+		// TODO Auto-generated method stub
+		String path = "IMG_NhanVien";
+		JFileChooser file = new JFileChooser(path);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"*.Images", "jpg", "gif", "png");
+		file.addChoosableFileFilter(filter);
+		int resuft = file.showOpenDialog(null);
+		if (resuft == JFileChooser.APPROVE_OPTION) {
+			f = file.getSelectedFile();
+			imageName = f.getAbsolutePath();
+			ImageIcon ii = new ImageIcon(new ImageIcon(imageName).getImage()
+					.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(),
+							Image.SCALE_SMOOTH));
+			lblAnh.setIcon(ii);
+			imageName = f.getName(); // LẤY TÊN FILE
+			// imageName = f.getAbsolutePath(); // LẤY ĐƯỜNG DẪN
+		}
+		System.out.println(imageName);
+	}
+	
+	public void lbl_ImageNV(String ImagePath) {
+		ImageIcon icon = new ImageIcon("IMG_NhanVien\\" + ImagePath);
+		// ImageIcon icon = new ImageIcon(ImagePath);
+		Image image = icon.getImage();
+		ImageIcon icon1 = new ImageIcon(image.getScaledInstance(
+				lblAnh.getWidth(), lblAnh.getHeight(), image.SCALE_SMOOTH));
+		lblAnh.setIcon(icon1);
 	}
 
 	public void xoaTrang() {
@@ -555,7 +604,7 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 		txtDiaChi.setText("");
 		txtMK2.setText("");
 		txtGhiChu.setText("");
-
+		lbl_ImageNV("");
 	}
 
 	public void getThongTin() {
