@@ -69,4 +69,17 @@ public class DAO_TaiKhoan {
 			return false;
 		}
 	}
-}
+	
+	public  boolean suaTK(String ma, String mkMoi){
+		String sql ="Update TaiKhoan set matKhau = N'"+mkMoi+"' where tenTaiKhoan = '"+ma+"'";
+		int kq = ConnectionManager.executeTruyVan(sql);
+		if(kq>0){
+			thongbao.thongbao("đúng", "");
+			return true;
+		}else {
+			thongbao.thongbao("Sai", "");
+			return false;
+		}
+
+
+	}}
