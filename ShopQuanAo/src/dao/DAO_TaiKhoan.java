@@ -39,4 +39,22 @@ public class DAO_TaiKhoan {
 		}
 		return tk;
 	}
+	
+	public boolean themTaiKhoan(TaiKhoan a) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		int i=1;
+		if(a.isVaiTro()) i=0;
+		String sql= "insert into TaiKhoan (tenTaiKhoan, matKhau, ngayLap,ghiChu,vaiTro,maNhanVien) values (N'"+a.getTenTaiKhoan().trim()+"',N'"+a.getMatKhau()+"','"+a.getNgayLap().format(formatter)+"',N'"+a.getGhiChu()+"',"+i+",N'"+a.getTenTaiKhoan()+"')";
+		
+		int kq= ConnectionManager.executeTruyVan(sql);
+		if(kq>0) {
+			thongbao.thongbao("dung", "");
+			return true;
+		}
+		else {
+			thongbao.thongbao("sai", "");
+			return false;
+		}
+	}
 }
