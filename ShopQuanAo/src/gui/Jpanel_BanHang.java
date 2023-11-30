@@ -1036,10 +1036,10 @@ public class Jpanel_BanHang extends JPanel {
 					for (int i = 0; i < rowCount; i++) {
 						String maSP = (String) modelCTHD.getValueAt(i, 0);
 						if (sp.getMaSanPham().equals(maSP)) {
+							kt = true;
 							if (rowC == 0) {
 								soLuongTrongBang = (int) modelCTHD.getValueAt(
 										i, 2);
-								kt = true;
 								// Lấy số lượng sản phẩm có trong danh sách chờ
 
 								if (soLuong + soLuongTrongBang + soLuongCho > sp
@@ -1071,7 +1071,6 @@ public class Jpanel_BanHang extends JPanel {
 								}
 								break;
 							} else {
-								kt = true;
 
 								cthd.setSoLuong(soLuong);
 								cthd.setThanhTien();
