@@ -57,4 +57,16 @@ public class DAO_TaiKhoan {
 			return false;
 		}
 	}
+
+	public boolean xoaTaiKhoan(String ma) {
+		int kq= ConnectionManager.executeTruyVan("delete from TaiKhoan where tenTaiKhoan= N'"+ma+"'");
+		if(kq>0) {
+			thongbao.thongbao("Xoa Thanh Công ", "");
+			return true;
+		}
+		else {
+			thongbao.thongbao("Xoa  KHÔNG Thanh Công ", "");
+			return false;
+		}
+	}
 }
