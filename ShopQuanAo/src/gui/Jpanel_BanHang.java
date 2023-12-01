@@ -139,9 +139,6 @@ public class Jpanel_BanHang extends JPanel {
 	public static Webcam webcam;
 	public static WebcamPanel webcamPanel;
 
-	// Sử dụng public static để khi chuyển panel không bị mất dữ liệu
-	// public static List<HoaDon> dsHDCho = new ArrayList<HoaDon>();
-	// public static List<List<ChiTietHoaDon>> listDSCTHD = new ArrayList<>();
 
 	/**
 	 * Create the panel.
@@ -152,8 +149,7 @@ public class Jpanel_BanHang extends JPanel {
 		panel_left_bot.setBounds(0, 535, 315, 440);
 		add(panel_left_bot);
 		panel_left_bot.setLayout(null);
-		panel_left_bot.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(
-				0, 0, 0)));
+		panel_left_bot.setBorder(new MatteBorder(0, 0, 0, 2, (Color) new Color(0, 0, 0)));
 
 		dsCTHD.clear();
 
@@ -349,7 +345,7 @@ public class Jpanel_BanHang extends JPanel {
 		panel_right_top.add(lblAnh);
 
 		panel_right_bot = new JPanel();
-		panel_right_bot.setBounds(325, 287, 1331, 688);
+		panel_right_bot.setBounds(315, 287, 1331, 688);
 		add(panel_right_bot);
 		panel_right_bot.setLayout(null);
 
