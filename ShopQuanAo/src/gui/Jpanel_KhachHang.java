@@ -220,17 +220,17 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtMaKH.setCaretColor(Color.RED);
 		txtMaKH.setBorder(null);
 		txtMaKH.setBackground(new Color(240, 246, 251));
-		txtMaKH.setBounds(317, 60, 211, 23);
+		txtMaKH.setBounds(317, 60, 211, 25);
 		pnCenterRight.add(txtMaKH);
 
 		lblTenKH = new JLabel("Tên khách hàng : ");
 		lblTenKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTenKH.setBounds(81, 130, 154, 23);
+		lblTenKH.setBounds(81, 130, 154, 25);
 		pnCenterRight.add(lblTenKH);
 
 		lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblEmail.setBounds(81, 270, 154, 23);
+		lblEmail.setBounds(81, 270, 154, 25);
 		pnCenterRight.add(lblEmail);
 
 		txtTenKH = new JTextField();
@@ -240,23 +240,23 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtTenKH.setColumns(10);
 		txtTenKH.setCaretColor(Color.RED);
 		txtTenKH.setBackground(new Color(240, 246, 251));
-		txtTenKH.setBounds(317, 130, 211, 23);
+		txtTenKH.setBounds(317, 130, 211, 25);
 		pnCenterRight.add(txtTenKH);
 
 		lblGioiTinh = new JLabel("Giới Tính : ");
 		lblGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGioiTinh.setBounds(81, 200, 154, 23);
+		lblGioiTinh.setBounds(81, 200, 154, 25);
 		pnCenterRight.add(lblGioiTinh);
 
 		radNam = new JRadioButton("Nam");
 		radNam.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		radNam.setSelected(true);
-		radNam.setBounds(317, 200, 77, 21);
+		radNam.setBounds(317, 200, 77, 25);
 		pnCenterRight.add(radNam);
 
 		radNu = new JRadioButton("Nữ");
 		radNu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radNu.setBounds(446, 200, 77, 21);
+		radNu.setBounds(446, 200, 77, 25);
 		pnCenterRight.add(radNu);
 
 		groupLoc = new ButtonGroup();
@@ -265,7 +265,7 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 
 		lblSDT = new JLabel("Số điện thoại : ");
 		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSDT.setBounds(81, 340, 154, 23);
+		lblSDT.setBounds(81, 340, 154, 25);
 		pnCenterRight.add(lblSDT);
 
 		txtEmail = new JTextField();
@@ -275,7 +275,7 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtEmail.setColumns(10);
 		txtEmail.setCaretColor(Color.RED);
 		txtEmail.setBackground(new Color(240, 246, 251));
-		txtEmail.setBounds(317, 270, 211, 23);
+		txtEmail.setBounds(317, 270, 211, 25);
 		pnCenterRight.add(txtEmail);
 
 		txtSDT = new JTextField();
@@ -285,7 +285,7 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtSDT.setColumns(10);
 		txtSDT.setCaretColor(Color.RED);
 		txtSDT.setBackground(new Color(240, 246, 251));
-		txtSDT.setBounds(317, 340, 211, 23);
+		txtSDT.setBounds(317, 340, 211, 25);
 		pnCenterRight.add(txtSDT);
 		
 		// Tạo một DocumentFilter để chỉ cho phép số
@@ -325,12 +325,12 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 
 		lblMaKH = new JLabel("Mã khách hàng : ");
 		lblMaKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMaKH.setBounds(81, 60, 154, 23);
+		lblMaKH.setBounds(81, 60, 154, 25);
 		pnCenterRight.add(lblMaKH);
 
 		lblSTDM = new JLabel("Số tiền đã mua:");
 		lblSTDM.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSTDM.setBounds(81, 410, 154, 23);
+		lblSTDM.setBounds(81, 410, 154, 25);
 		pnCenterRight.add(lblSTDM);
 
 		txtSTDM = new JTextField();
@@ -340,7 +340,7 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtSTDM.setColumns(10);
 		txtSTDM.setCaretColor(Color.RED);
 		txtSTDM.setBackground(new Color(240, 246, 251));
-		txtSTDM.setBounds(317, 410, 211, 23);
+		txtSTDM.setBounds(317, 410, 211, 25);
 		pnCenterRight.add(txtSTDM);
 
 		ganTXTMaKH();
