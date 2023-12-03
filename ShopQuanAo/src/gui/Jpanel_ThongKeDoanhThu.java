@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,6 +38,9 @@ import com.toedter.calendar.JDateChooser;
 import connectDB.ConnectionManager;
 import dao.DAO_SanPham;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class Jpanel_ThongKeDoanhThu extends JPanel {
 
 	private JPanel pnlThongKeDT;
@@ -48,7 +52,7 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 	private JLabel lblSoHD;
 	private JPanel pnlTongTien;
 	private JLabel lblTongTien;
-	private JLabel lblTextTongTien; 
+	private JLabel lblTextTongTien;
 	private JPanel pnlVAT;
 	private JLabel lblTongVAT;
 	private JLabel lblTextVAT;
@@ -90,7 +94,7 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		lblTextSHD.setBounds(65, 15, 140, 40);
 		pnlSoHD.add(lblTextSHD);
 
-		lblSoHD = new JLabel("");  // text ghi số hóa đơn
+		lblSoHD = new JLabel(""); // text ghi số hóa đơn
 		lblSoHD.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblSoHD.setBounds(47, 108, 175, 35);
 		pnlSoHD.add(lblSoHD);
@@ -163,7 +167,7 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		txtTimNgayBD.setDateFormatString("dd/MM/yyyy");
 		txtTimNgayBD.setBounds(135, 100, 120, 35);
 		pnlThongKeDT.add(txtTimNgayBD);
-		
+
 		JLabel lblDen = new JLabel("Đến");
 		lblDen.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblDen.setBounds(335, 100, 50, 30);
@@ -173,232 +177,337 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		txtTimNgayKT.setDateFormatString("dd/MM/yyyy");
 		txtTimNgayKT.setBounds(385, 100, 120, 35);
 		pnlThongKeDT.add(txtTimNgayKT);
-		
+
 		pnlRight = new JPanel();
 		pnlRight.setLayout(null);
-//		pnlRight.setBounds(964, 0, 682, 820);
+		// pnlRight.setBounds(964, 0, 682, 820);
 		pnlRight.setBounds(850, 205, 700, 600);
 		pnlThongKeDT.add(pnlRight);
-	
-		//btnThongKe.setFocusPainted(false);
-		btnXuat.setFocusPainted(false);
+
+		// btnThongKe.setFocusPainted(false);
+		// btnXuat.setFocusPainted(false);
 		capNhatSoLuongHD();
 		capNhatTongTienHD();
 		capNhatTongVAT();
-		
+		capNhatTongLoiNhuan();
+
 		veBieuDoCot();
-		
+
 		btnThongKe = new JButton("Thống kê");
 		btnThongKe.setBackground(new Color(152, 251, 152));
 		btnThongKe.setFont(new Font("Tahoma", Font.BOLD, 22));
 		btnThongKe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				timKiemThongKe();	
+				timKiemThongKe();
 			}
 		});
 		btnThongKe.setBounds(802, 90, 150, 50);
 		pnlThongKeDT.add(btnThongKe);
-		
+
+		btnXuat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				xuatDuLieuExcel();
+			}
+		});
+
 	}
+
 	private void capNhatSoLuongHD() {
-		int totalHD=dao.DAO_ThongKe.getTongSoHD();
+		int totalHD = dao.DAO_ThongKe.getTongSoHD();
 		lblSoHD.setText("" + totalHD);
 	}
+
 	private void capNhatSoLuongHDTheoNgay() {
-		 Date ngayBD = txtTimNgayBD.getDate();
-		 Date ngayKT = txtTimNgayKT.getDate();
-		 lblSoHD.setText("" + dao.DAO_ThongKe.getSoLuongHD(ngayBD, ngayKT));
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
+		lblSoHD.setText("" + dao.DAO_ThongKe.getSoLuongHD(ngayBD, ngayKT));
 
 	}
+
 	private void capNhatTongTienHD() {
 		DecimalFormat df = new DecimalFormat("#,###");
-		double totalTien=dao.DAO_ThongKe.getTongTienHoaDon();
-		lblTextTongTien.setText(""+df.format(totalTien));
+		double totalTien = dao.DAO_ThongKe.getTongTienHoaDon();
+		lblTextTongTien.setText("" + df.format(totalTien));
 	}
+
 	private void capNhatTongTienHDTheoNgay() {
-		 Date ngayBD = txtTimNgayBD.getDate();
-		 Date ngayKT = txtTimNgayKT.getDate();
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
 		DecimalFormat df = new DecimalFormat("#,###");
-		lblTextTongTien.setText(""+df.format(dao.DAO_ThongKe.getTongTienHD(ngayBD, ngayKT)));
+		lblTextTongTien.setText(""
+				+ df.format(dao.DAO_ThongKe.getTongTienHD(ngayBD, ngayKT)));
 	}
+
 	private void capNhatTongVAT() {
 		DecimalFormat df = new DecimalFormat("#,###");
-		double totalVAT=dao.DAO_ThongKe.getTongVAT();
-		lblTextVAT.setText(""+df.format(totalVAT));
+		double totalVAT = dao.DAO_ThongKe.getTongVAT();
+		lblTextVAT.setText("" + df.format(totalVAT));
 	}
+
 	private void capNhatTongVATTheoNgay() {
-		 Date ngayBD = txtTimNgayBD.getDate();
-		 Date ngayKT = txtTimNgayKT.getDate();
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
 		DecimalFormat df = new DecimalFormat("#,###");
-		lblTextVAT.setText(""+df.format(dao.DAO_ThongKe.getTongVAT(ngayBD, ngayKT)));
+		lblTextVAT.setText(""
+				+ df.format(dao.DAO_ThongKe.getTongVAT(ngayBD, ngayKT)));
 	}
+
+	private void capNhatTongLoiNhuan() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		double totalLoiNhuan = dao.DAO_ThongKe.getTongLoiNhuan();
+		lblTextLoiNhuan.setText("" + df.format(totalLoiNhuan));
+	}
+
+	private void capNhatTongLoiNhuanTheoNgay() {
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
+		DecimalFormat df = new DecimalFormat("#,###");
+		lblTextLoiNhuan.setText(""
+				+ df.format(dao.DAO_ThongKe.getTongLoiNhuanTheoNgay(ngayBD,
+						ngayKT)));
+	}
+
 	private void veBieuDoCot() {
-        CategoryDataset dataset = createColumnDataset();
-        JFreeChart chart = ChartFactory.createBarChart(
-                "BIỂU ĐỒ DOANH THU", "Ngày", "Tổng doanh thu", dataset,
-                PlotOrientation.VERTICAL, true, true, false);
+		CategoryDataset dataset = createColumnDataset();
+		JFreeChart chart = ChartFactory.createBarChart("BIỂU ĐỒ DOANH THU",
+				"Ngày", "Tổng doanh thu", dataset, PlotOrientation.VERTICAL,
+				true, true, false);
 
-        chart.setBackgroundPaint(new Color(0, 0, 0, 0));
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setBackgroundPaint(null);
+		chart.setBackgroundPaint(new Color(0, 0, 0, 0));
+		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		plot.setBackgroundPaint(null);
 
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.STANDARD);
-        
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createStandardTickUnits());
+		CategoryAxis domainAxis = plot.getDomainAxis();
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.STANDARD);
 
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        rangeAxis.setNumberFormatOverride(decimalFormat);
+		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		rangeAxis.setStandardTickUnits(NumberAxis.createStandardTickUnits());
 
-        LegendTitle legend = chart.getLegend();
-        legend.setBackgroundPaint(null);
-        legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
+		DecimalFormat decimalFormat = new DecimalFormat("#,###");
+		rangeAxis.setNumberFormatOverride(decimalFormat);
 
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBounds(69, 52, 581, 517);
-        chartPanel.setBorder(null);
-        //chartPanel.setBackground(new Color(0, 0, 0, 0));
-        pnlRight.add(chartPanel);
-        pnlRight.revalidate();
-        pnlRight.repaint();
-    }
-	 private CategoryDataset createColumnDataset() {
-	        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-	        ConnectionManager connectionManager = new ConnectionManager();
-	        Connection conn = connectionManager.conn;
-	        try {
-	            String sqlQuery = "SELECT CONVERT(VARCHAR(10), ngay, 103) AS ngayThangNam, SUM(tongTien) AS tongTien,ngay " +
-	                    "FROM HoaDon "  +
-	                    "GROUP BY CONVERT(VARCHAR(10), ngay, 103),ngay ORDER BY ngay asc";
-	            PreparedStatement statement = conn.prepareStatement(sqlQuery);
-	            ResultSet resultSet = statement.executeQuery();
+		LegendTitle legend = chart.getLegend();
+		legend.setBackgroundPaint(null);
+		legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
 
-	            while (resultSet.next()) {
-	                String ngayThangNam = resultSet.getString("ngayThangNam");
-	                double tongTien = resultSet.getDouble("tongTien");
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setBounds(69, 52, 581, 517);
+		chartPanel.setBorder(null);
+		// chartPanel.setBackground(new Color(0, 0, 0, 0));
+		pnlRight.add(chartPanel);
+		pnlRight.revalidate();
+		pnlRight.repaint();
+	}
 
-	                dataset.addValue(tongTien, "Tổng tiền", ngayThangNam);
-	            }
+	private CategoryDataset createColumnDataset() {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		ConnectionManager connectionManager = new ConnectionManager();
+		Connection conn = connectionManager.conn;
+		try {
+			String sqlQuery = "SELECT CONVERT(VARCHAR(10), ngay, 103) AS ngayThangNam, SUM(tongTien) AS tongTien,ngay "
+					+ "FROM HoaDon "
+					+ "GROUP BY CONVERT(VARCHAR(10), ngay, 103),ngay ORDER BY ngay asc";
+			PreparedStatement statement = conn.prepareStatement(sqlQuery);
+			ResultSet resultSet = statement.executeQuery();
 
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            if (conn != null) {
-	                try {
-	                    conn.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
+			while (resultSet.next()) {
+				String ngayThangNam = resultSet.getString("ngayThangNam");
+				double tongTien = resultSet.getDouble("tongTien");
 
-	        return dataset;
-	    }
-	
-		private boolean validateNgayTimKiem() {
-		    Date ngayBD = txtTimNgayBD.getDate();
-		    Date ngayKT = txtTimNgayKT.getDate();
+				dataset.addValue(tongTien, "Tổng tiền", ngayThangNam);
+			}
 
-		    if (ngayBD == null || ngayKT == null) {
-		        thongbao.thongbao("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.", "");
-		        return false;
-		    }
-
-		    if (ngayBD.after(ngayKT)) {
-
-		        thongbao.thongbao("Ngày kết thúc không thể trước ngày bắt đầu.", "");
-		        txtTimNgayKT.requestFocus();
-		        return false;
-		    }
-
-		    return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		private void timKiemThongKe() {
-		    if (validateNgayTimKiem()) {
-		        Date ngayBD = txtTimNgayBD.getDate();
-		        Date ngayKT = txtTimNgayKT.getDate();
 
-		        // Gọi các phương thức cập nhật dữ liệu dựa trên khoảng ngày đã chọn
-		        capNhatSoLuongHDTheoNgay();;
-		       capNhatTongTienHDTheoNgay();
-		      capNhatTongVATTheoNgay();
-		        // =====================thiếu Lợi nhuận===========
+		return dataset;
+	}
 
-		        // Cập nhật biểu đồ cột
-		        veBieuDoCot(ngayBD, ngayKT);
-		    }
+	private boolean validateNgayTimKiem() {
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
+
+		if (ngayBD == null || ngayKT == null) {
+			thongbao.thongbao(
+					"Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.", "");
+			return false;
 		}
-		
-		private CategoryDataset createColumnDataset(Date ngayBD, Date ngayKT) {
-		    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		    ConnectionManager connectionManager = new ConnectionManager();
-		    Connection conn = connectionManager.conn;
-		    try {
-		        String sqlQuery = "SELECT CONVERT(VARCHAR(10), ngay, 103) AS ngayThangNam, SUM(tongTien) AS tongTien, ngay " +
-		                           "FROM HoaDon " +
-		                           "WHERE ngay BETWEEN ? AND ? " +
-		                           "GROUP BY CONVERT(VARCHAR(10), ngay, 103), ngay ORDER BY ngay asc";
-		        PreparedStatement statement = conn.prepareStatement(sqlQuery);
-		        statement.setDate(1, new java.sql.Date(ngayBD.getTime()));
-		        statement.setDate(2, new java.sql.Date(ngayKT.getTime()));
-		        ResultSet resultSet = statement.executeQuery();
 
-		        while (resultSet.next()) {
-		            String ngayThangNam = resultSet.getString("ngayThangNam");
-		            double tongTien = resultSet.getDouble("tongTien");
+		if (ngayBD.after(ngayKT)) {
 
-		            dataset.addValue(tongTien, "Tổng tiền", ngayThangNam);
-		        }
-
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    } finally {
-		        if (conn != null) {
-		            try {
-		                conn.close();
-		            } catch (SQLException e) {
-		                e.printStackTrace();
-		            }
-		        }
-		    }
-
-		    return dataset;
+			thongbao.thongbao("Ngày kết thúc không thể trước ngày bắt đầu.", "");
+			txtTimNgayKT.requestFocus();
+			return false;
 		}
-		
-		private void veBieuDoCot(Date ngayBD, Date ngayKT) {
-	        CategoryDataset dataset = createColumnDataset(ngayBD, ngayKT);
-	        JFreeChart chart = ChartFactory.createBarChart(
-	                "BIỂU ĐỒ DOANH THU", "Ngày", "Tổng doanh thu", dataset,
-	                PlotOrientation.VERTICAL, true, true, false);
 
-	        chart.setBackgroundPaint(new Color(0, 0, 0, 0));
-	        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-	        plot.setBackgroundPaint(null);
+		return true;
+	}
 
-	        CategoryAxis domainAxis = plot.getDomainAxis();
-	        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-	        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.STANDARD);
-	        
-	        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-	        rangeAxis.setStandardTickUnits(NumberAxis.createStandardTickUnits());
+	private void timKiemThongKe() {
+		if (validateNgayTimKiem()) {
+			Date ngayBD = txtTimNgayBD.getDate();
+			Date ngayKT = txtTimNgayKT.getDate();
 
-	        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-	        rangeAxis.setNumberFormatOverride(decimalFormat);
+			// Gọi các phương thức cập nhật dữ liệu dựa trên khoảng ngày đã chọn
+			capNhatSoLuongHDTheoNgay();
+			;
+			capNhatTongTienHDTheoNgay();
+			capNhatTongVATTheoNgay();
+			capNhatTongLoiNhuanTheoNgay();
+			// Cập nhật biểu đồ cột
+			veBieuDoCot(ngayBD, ngayKT);
+		}
+	}
 
-	        LegendTitle legend = chart.getLegend();
-	        legend.setBackgroundPaint(null);
-	        legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
+	private CategoryDataset createColumnDataset(Date ngayBD, Date ngayKT) {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		ConnectionManager connectionManager = new ConnectionManager();
+		Connection conn = connectionManager.conn;
+		try {
+			String sqlQuery = "SELECT CONVERT(VARCHAR(10), ngay, 103) AS ngayThangNam, SUM(tongTien) AS tongTien, ngay "
+					+ "FROM HoaDon "
+					+ "WHERE ngay BETWEEN ? AND ? "
+					+ "GROUP BY CONVERT(VARCHAR(10), ngay, 103), ngay ORDER BY ngay asc";
+			PreparedStatement statement = conn.prepareStatement(sqlQuery);
+			statement.setDate(1, new java.sql.Date(ngayBD.getTime()));
+			statement.setDate(2, new java.sql.Date(ngayKT.getTime()));
+			ResultSet resultSet = statement.executeQuery();
 
-	        ChartPanel chartPanel = new ChartPanel(chart);
-	        chartPanel.setBounds(69, 52, 581, 517);
-	        chartPanel.setBorder(null);
-	        chartPanel.setBackground(new Color(0, 0, 0, 0));
-	        pnlRight.removeAll();
-	        pnlRight.add(chartPanel);
-	        pnlRight.revalidate();
-	        pnlRight.repaint();
-	    }
+			while (resultSet.next()) {
+				String ngayThangNam = resultSet.getString("ngayThangNam");
+				double tongTien = resultSet.getDouble("tongTien");
+
+				dataset.addValue(tongTien, "Tổng tiền", ngayThangNam);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return dataset;
+	}
+
+	private void veBieuDoCot(Date ngayBD, Date ngayKT) {
+		CategoryDataset dataset = createColumnDataset(ngayBD, ngayKT);
+		JFreeChart chart = ChartFactory.createBarChart("BIỂU ĐỒ DOANH THU",
+				"Ngày", "Tổng doanh thu", dataset, PlotOrientation.VERTICAL,
+				true, true, false);
+
+		chart.setBackgroundPaint(new Color(0, 0, 0, 0));
+		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		plot.setBackgroundPaint(null);
+
+		CategoryAxis domainAxis = plot.getDomainAxis();
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.STANDARD);
+
+		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		rangeAxis.setStandardTickUnits(NumberAxis.createStandardTickUnits());
+
+		DecimalFormat decimalFormat = new DecimalFormat("#,###");
+		rangeAxis.setNumberFormatOverride(decimalFormat);
+
+		LegendTitle legend = chart.getLegend();
+		legend.setBackgroundPaint(null);
+		legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
+
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setBounds(69, 52, 581, 517);
+		chartPanel.setBorder(null);
+		chartPanel.setBackground(new Color(0, 0, 0, 0));
+		pnlRight.removeAll();
+		pnlRight.add(chartPanel);
+		pnlRight.revalidate();
+		pnlRight.repaint();
+	}
+
+	private void xuatDuLieuExcel() {
+		try {
+			Workbook workbook = new XSSFWorkbook();
+			Sheet sheet = workbook.createSheet("ThongKeDoanhThu");
+
+			// Tạo dòng cho tiêu đề
+			Row rowTitle = sheet.createRow(0);
+			Cell cellTitle = rowTitle.createCell(0);
+			cellTitle.setCellValue("Thông Tin Thống Kê Doanh Thu");
+			cellTitle.setCellStyle(getBoldCellStyle(workbook));
+
+			// Tạo dòng cho các tiêu đề cụ thể
+			Row rowHeaders = sheet.createRow(2);
+			createCell(rowHeaders, 0, "Số hóa đơn");
+			createCell(rowHeaders, 1, "Tổng tiền");
+			createCell(rowHeaders, 2, "Tổng VAT");
+			createCell(rowHeaders, 3, "Lợi nhuận");
+
+			// Tạo dòng cho giá trị
+			Row rowValues = sheet.createRow(3);
+			createCell(rowValues, 0, lblSoHD.getText());
+			createCell(rowValues, 1, lblTextTongTien.getText());
+			createCell(rowValues, 2, lblTextVAT.getText());
+			createCell(rowValues, 3, lblTextLoiNhuan.getText());
+
+			// Lấy giá trị ngày từ txtTimNgayBD và txtTimNgayKT
+			Date ngayBDValue = txtTimNgayBD.getDate();
+			Date ngayKTValue = txtTimNgayKT.getDate();
+
+			String uniqueFileName;
+			if (ngayBDValue != null && ngayKTValue != null) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+				String ngayBD = dateFormat.format(ngayBDValue);
+				String ngayKT = dateFormat.format(ngayKTValue);
+
+				// Tạo tên tệp tin dựa trên ngày
+				uniqueFileName = "ThongKe/ThongKeDoanhThu_" + ngayBD + "_"
+						+ ngayKT + ".xlsx";
+			} else {
+				// Trường hợp không chọn ngày, giữ nguyên tên cũ hoặc có thể đặt
+				// tên mới theo logic mong muốn
+				uniqueFileName = "ThongKe/ThongKeDoanhThu_Default.xlsx";
+			}
+
+			// Lưu workbook xuống tệp tin Excel với tên độc đáo
+			try (FileOutputStream fileOut = new FileOutputStream(uniqueFileName)) {
+				workbook.write(fileOut);
+				thongbao.thongbao("Xuất File thành công!", "Thông báo");
+			}
+
+			workbook.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			thongbao.thongbao("Xuất File thất bại!", "Thông báo");
+		}
+	}
+
+	private void createCell(Row row, int columnIndex, String value) {
+		Cell cell = row.createCell(columnIndex);
+		cell.setCellValue(value);
+	}
+
+	private CellStyle getBoldCellStyle(Workbook workbook) {
+		CellStyle style = workbook.createCellStyle();
+		org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+		font.setBold(true);
+		style.setFont(font);
+		return style;
+	}
 
 }
