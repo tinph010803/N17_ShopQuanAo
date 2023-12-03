@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,6 +43,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import com.toedter.calendar.JDateChooser;
 
 import connectDB.ConnectionManager;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 public class Jpanel_ThongKeKhachHang extends JPanel {
 
@@ -213,8 +218,13 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
 		
 		
 		//btnThongKe.setFocusPainted(false);
-		btnXuatHD.setFocusPainted(false);
-		
+		//btnXuatHD.setFocusPainted(false);
+		btnXuatHD.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        exportToExcel();
+		    }
+		});
 		veBieuDoCot();
 		 
 	}
@@ -236,7 +246,7 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
         rangeAxis.setStandardTickUnits(NumberAxis.createStandardTickUnits());
 
         // Sử dụng DecimalFormat để định dạng giá trị số
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
         rangeAxis.setNumberFormatOverride(decimalFormat);
         
         LegendTitle legend = chart.getLegend();
@@ -248,7 +258,7 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBounds(69, 52, 581, 517);
         chartPanel.setBorder(null);
-        chartPanel.setBackground(new Color(0, 0, 0, 0));
+        //chartPanel.setBackground(new Color(0, 0, 0, 0));
         pnlRight.add(chartPanel);
         pnlRight.revalidate();
         pnlRight.repaint();
@@ -296,6 +306,126 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
 	    return dataset;
 	}
 
+
+	private void exportToExcel() {
+	    try {
+	        Workbook workbook = new XSSFWorkbook();
+	        Sheet sheet = workbook.createSheet("ThongKeKhachHang");
+
+	        // Thêm dòng tiêu đề tĩnh (có thể điều chỉnh để in hoa và tô đậm nếu cần)
+//	        Row titleRow = sheet.createRow(0);
+//	        Cell titleCell = titleRow.createCell(0);
+//	        titleCell.setCellValue("THỐNG KÊ KHÁCH HÀNG");
+//	        titleCell.setCellStyle(getTitleCellStyle(workbook, sheet));
+
+	        // Tạo dòng tiêu đề
+	        Row headerRow = sheet.createRow(1);
+
+	        // Thêm cột STT vào đầu tiên
+	        Cell sttHeaderCell = headerRow.createCell(0);
+	        sttHeaderCell.setCellValue("STT");
+	        sttHeaderCell.setCellStyle(getHeaderCellStyle(workbook));
+	        sheet.autoSizeColumn(0);
+
+	        // Thêm các cột từ bảng vào tiếp theo
+	        for (int col = 0; col < table.getColumnCount(); col++) {
+	            Cell cell = headerRow.createCell(col + 1);
+	            cell.setCellValue(table.getColumnName(col));
+	            cell.setCellStyle(getHeaderCellStyle(workbook));
+
+	            // Điều chỉnh chiều rộng của mỗi cột trong tiêu đề
+	            sheet.setColumnWidth(col + 1, 15 * 256);
+	        }
+
+	        // Thêm dữ liệu từ bảng
+	        for (int row = 0; row < table.getRowCount(); row++) {
+	            Row sheetRow = sheet.createRow(row + 2);
+	            Cell sttCell = sheetRow.createCell(0);
+	            sttCell.setCellValue(row + 1);
+	            sttCell.setCellStyle(getCellTextStyle(workbook, true));
+	            sheet.setColumnWidth(0, 0 * 256);
+
+	            for (int col = 0; col < table.getColumnCount(); col++) {
+	                Cell cell = sheetRow.createCell(col + 1);
+	                cell.setCellValue(String.valueOf(table.getValueAt(row, col)));
+	                cell.setCellStyle(getCellTextStyle(workbook, false));
+	            }
+
+	            // Điều chỉnh chiều cao của từng dòng
+	            sheetRow.setHeightInPoints(20); // Đặt giá trị chiều cao mong muốn (đơn vị là điểm)
+	        }
+
+	        // Điều chỉnh chiều rộng của từng cột
+	        for (int col = 0; col <= table.getColumnCount(); col++) {
+	            sheet.autoSizeColumn(col);
+	        }
+
+	        // Đường dẫn tuyệt đối để lưu file Excel
+	        String absoluteFilePath = "ThongKe/ThongKeKhachHang.xlsx";
+
+	        try (FileOutputStream outputStream = new FileOutputStream(absoluteFilePath)) {
+	            workbook.write(outputStream);
+	            thongbao.thongbao("Xuất File thành công!", "Thông báo");
+	            System.out.println("Xuất Excel thành công!");
+	        } catch (Exception e) {
+	            thongbao.thongbao("Xuất File không thành công!", "Thông báo");
+	        }
+
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	}
+
+	private CellStyle getTitleCellStyle(Workbook workbook, Sheet sheet) {
+	    CellStyle style = workbook.createCellStyle();
+	    org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+	    font.setBold(true);
+	    font.setFontHeightInPoints((short) 10);
+	    font.setColor(IndexedColors.BLACK.getIndex());
+	    style.setFont(font);
+	    style.setAlignment(HorizontalAlignment.CENTER);
+	    style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+	    // Điều chỉnh căn giữa theo chiều ngang
+	    style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+
+	    // Điều chỉnh căn giữa theo chiều dọc
+	    style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+	    // Điều chỉnh chiều rộng của cột để căn giữa
+	    int numColumns = table.getColumnCount();
+	    int totalColumnWidth = 0;
+	    for (int col = 0; col < numColumns; col++) {
+	        totalColumnWidth += sheet.getColumnWidth(col);
+	    }
+	    int remainingWidth = sheet.getColumnWidth(numColumns) - totalColumnWidth;
+	    int offset = remainingWidth / 2;
+	    sheet.setColumnWidth(numColumns, totalColumnWidth + offset);
+
+	    return style;
+	}
 	
 
+	private CellStyle getHeaderCellStyle(Workbook workbook) {
+	    CellStyle style = workbook.createCellStyle();
+	    org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+	    font.setBold(true);
+	    style.setFont(font);
+	    return style;
+	}
+	private CellStyle getCellTextStyle(Workbook workbook, boolean isBold) {
+	    CellStyle style = workbook.createCellStyle();
+	    org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+	    font.setBold(isBold);
+	    font.setFontHeightInPoints((short) 12);
+	    font.setColor(IndexedColors.BLACK.getIndex());
+	    style.setFont(font);
+	    style.setAlignment(HorizontalAlignment.LEFT);
+	    style.setVerticalAlignment(VerticalAlignment.CENTER);
+	    style.setBorderTop(BorderStyle.THIN);
+	    style.setBorderBottom(BorderStyle.THIN);
+	    style.setBorderLeft(BorderStyle.THIN);
+	    style.setBorderRight(BorderStyle.THIN);
+	    return style;
+	}
 }
