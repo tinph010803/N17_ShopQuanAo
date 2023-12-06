@@ -185,7 +185,7 @@ public class Jpanel_BanHang extends JPanel {
 		txtNgayLapHD.setHorizontalAlignment(SwingConstants.LEADING);
 		txtNgayLapHD.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNgayLapHD.setEditable(false);
-		DateTimeFormatter d = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		txtNgayLapHD.setText(d.format(LocalDate.now()));
 		txtNgayLapHD.setBounds(135, 242, 167, 26);
 		panel_left_bot.add(txtNgayLapHD);
