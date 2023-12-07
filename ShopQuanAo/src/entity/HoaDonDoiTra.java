@@ -1,6 +1,5 @@
 package entity;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import javax.swing.JFrame;
@@ -81,9 +80,8 @@ public class HoaDonDoiTra {
 
 	@Override
 	public String toString() {
-		DecimalFormat df = new DecimalFormat("#,###");
 		return "HoaDonDoiTra [maHDDT=" + maHDDT + ", hoaDon=" + hoaDon.getMaHoaDon() + ", ngay=" + ngay + ", nhanVien=" + nhanVien.getTenNhanVien()
-				+ ", tongTienHoanTra=" +df.format(tongTienHoanTra) + "]\n";
+				+ ", tongTienHoanTra=" + tongTienHoanTra + "]\n";
 	}
 
 

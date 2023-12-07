@@ -16,8 +16,8 @@ public class ChiTietHoaDon {
 		setHoaDon(hoaDon);
 		setSanPham(sanPham);
 		setSoLuong(soLuong);
-		setKhuyenMai();
 		setThanhTien();
+		setKhuyenMai();
 		setTienCuoiCung();
 	}
 
@@ -26,8 +26,8 @@ public class ChiTietHoaDon {
 		setHoaDon(hoaDon);
 		setSanPham(sanPham);
 		setSoLuong(soLuong);
-		setKhuyenMai();
 		setThanhTien();
+		setKhuyenMai();
 		setTienCuoiCung();
 	}
 
@@ -71,17 +71,17 @@ public class ChiTietHoaDon {
 	public void setThanhTien() {
 		this.thanhTien = sanPham.getGiaBan() * this.soLuong;
 	}
-	
-	// tính tiền khuyến mãi mỗi sản phẩm
-		public void setKhuyenMai() {
-			KhuyenMai km = this.sanPham.getKhuyenMai();
-			if (km != null) {
-				this.khuyenMai = getThanhTien() * km.getPhanTram() / 100;
-			} else {
-				this.khuyenMai = 0;
-			}
 
+	// tính tiền khuyến mãi mỗi sản phẩm
+	public void setKhuyenMai() {
+		KhuyenMai km = this.sanPham.getKhuyenMai();
+		if (km != null) {
+			this.khuyenMai = getThanhTien() * km.getPhanTram() / 100;
+		} else {
+			this.khuyenMai = 0;
 		}
+
+	}
 
 	// tính thành tiền của mỗi sản phẩm
 	public double getThanhTien() {
@@ -92,11 +92,9 @@ public class ChiTietHoaDon {
 		return this.khuyenMai;
 	}
 
-	
-
 	public double tinhTienThue() {
-		return (getThanhTien() - getKhuyenMai())
-				* this.getHoaDon().getVAT() / 100;
+		return (getThanhTien() - getKhuyenMai()) * this.getHoaDon().getVAT()
+				/ 100;
 	}
 
 	public double tinhTienTheoBac() {
@@ -109,8 +107,8 @@ public class ChiTietHoaDon {
 	}
 
 	public void setTienCuoiCung() {
-		this.tienCuoiCung = getThanhTien() - getKhuyenMai()
-				+ tinhTienThue() - tinhTienTheoBac();
+		this.tienCuoiCung = getThanhTien() - getKhuyenMai() + tinhTienThue()
+				- tinhTienTheoBac();
 		System.out.println(tienCuoiCung);
 	}
 

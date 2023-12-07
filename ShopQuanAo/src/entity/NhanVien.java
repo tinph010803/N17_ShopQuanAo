@@ -6,13 +6,14 @@ public class NhanVien {
 	private String maNhanVien,tenNhanVien,sdt,email,diaChi,cccd;
 	private boolean gioiTinh;
 	private LocalDate ngayVaoLam;
+	String hinhAnh;
 	
 	/*
 	 * bỏ set mã nhân viên 
 	 */
 	public NhanVien(String maNhanVien, String tenNhanVien, String sdt,
 			String email, String diaChi, String cccd, boolean gioiTinh,
-			LocalDate ngayVaoLam) {
+			LocalDate ngayVaoLam,String hinhAnh) {
 		
 		this.maNhanVien = maNhanVien;
 		setTenNhanVien(tenNhanVien);
@@ -22,6 +23,13 @@ public class NhanVien {
 		setNgayVaoLam(ngayVaoLam);
 		setDiaChi(diaChi);
 		setCccd(cccd);
+		setHinhAnh(hinhAnh);
+	}
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
 	}
 	public NhanVien(String maNhanVien) {
 		super();

@@ -135,8 +135,8 @@ public class SanPham {
 	}
 
 	public void setSoLuong(int soLuong) {
-		if (soLuong <= 0)
-			this.soLuong = 1;
+		if (soLuong < 0)
+			this.soLuong = 0;
 		else
 			this.soLuong = soLuong;
 	}

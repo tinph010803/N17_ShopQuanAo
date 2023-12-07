@@ -79,7 +79,7 @@ public class HoaDon {
 	public double tinhTongTien(List<ChiTietHoaDon> dsCTHD){
 		double tongTien = 0.0;
 		for (ChiTietHoaDon chiTietHoaDon : dsCTHD) {
-			tongTien += chiTietHoaDon.tinhThanhTien();
+			tongTien += chiTietHoaDon.getThanhTien();
 		}
 		return tongTien;
 	}
@@ -87,7 +87,7 @@ public class HoaDon {
 	public double tinhTongTienKM(List<ChiTietHoaDon> dsCTHD){
 		double tongTienKM = 0.0;
 		for (ChiTietHoaDon chiTietHoaDon : dsCTHD) {
-			tongTienKM += chiTietHoaDon.tinhTienKhuyenMai();
+			tongTienKM += chiTietHoaDon.getKhuyenMai();
 		}
 		return tongTienKM;
 	}
@@ -143,13 +143,6 @@ public class HoaDon {
 	
 	public double tinhTienThua(List<ChiTietHoaDon> dsCTHD){
 		return this.tienKhachDua - this.tongTienCanThu;
-	}
-
-
-	@Override
-	public String toString() {
-		return "HoaDon [maHoaDon=" + maHoaDon + ", khachHang=" + khachHang.getTenKhachHang() + ", ngay=" + ngay + ", nhanVien=" + nhanVien.getTenNhanVien()
-				+ ", tienKhachDua=" + tienKhachDua + ", VAT=" + VAT + ", tongTienCanThu=" + tongTienCanThu + "]";
 	}
 	
 	
