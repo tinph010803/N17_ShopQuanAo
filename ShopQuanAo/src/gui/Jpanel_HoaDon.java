@@ -538,41 +538,42 @@ public class Jpanel_HoaDon extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HoaDon hd = null;
-				int row = tableHD.getSelectedRow();
-				hd = daoHD.layHoaDonTheoMa(tableHD.getValueAt(row, 0).toString()
-						.trim());
-				// System.err.println(hd);
-				if (row != -1) {
+				
+				int soRowChon = tableHD.getSelectedRowCount();
+				if (soRowChon == 1) {
+					HoaDon hd = null;
+					int row = tableHD.getSelectedRow();
+					hd = daoHD.layHoaDonTheoMa(tableHD.getValueAt(row, 0).toString()
+							.trim());
+						int result = JOptionPane.showConfirmDialog(null,
+								"Bạn có chắc chắn muốn đổi trả HÓA ĐƠN này?",
+								"Xác nhận Đổi Trả", JOptionPane.YES_NO_OPTION);
+						if (result == 0) {
+							int day = (int) ChronoUnit.DAYS.between(hd.getNgay(),
+									LocalDate.now());
 
-					int result = JOptionPane.showConfirmDialog(null,
-							"Bạn có chắc chắn muốn đổi trả HÓA ĐƠN này?",
-							"Xác nhận Đổi Trả", JOptionPane.YES_NO_OPTION);
-					if (result == 0) {
-						int day = (int) ChronoUnit.DAYS.between(hd.getNgay(),
-								LocalDate.now());
-
-						if (day >= 3) {
-							thongbao.thongbao("Hóa đơn này đã quá hạn đổi trả",
-									"Thông báo");
-						} else {
-							// System.out.println(hd);
-							pnl_HoaDon.removeAll();
-							pnl_HoaDon.setLayout(new BorderLayout());
-							pnl_HoaDon.add(new Jpanel_DoiTra(hd, nvhientai));
-							pnl_HoaDon.revalidate();
-							pnl_HoaDon.repaint();
-							btnChon = btnDoiTra;
-							tableHD.clearSelection();
-						}
+							if (day >= 3) {
+								thongbao.thongbao("Hóa đơn này đã quá hạn đổi trả",
+										"Thông báo");
+							} else {
+								// System.out.println(hd);
+								pnl_HoaDon.removeAll();
+								pnl_HoaDon.setLayout(new BorderLayout());
+								pnl_HoaDon.add(new Jpanel_DoiTra(hd, nvhientai));
+								pnl_HoaDon.revalidate();
+								pnl_HoaDon.repaint();
+								btnChon = btnDoiTra;
+								tableHD.clearSelection();
+							}
 
 					}
 
-				} else if (row == -1) {
-					thongbao.thongbao("Yêu cầu chọn hóa đơn đổi trả", "");
+					
+				}else{
+					thongbao.thongbao("Chọn 1 hóa đơn để đổi trả", "");
 				}
+				
 
-				// setLaiMau();
 			}
 		});
 
