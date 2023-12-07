@@ -111,11 +111,11 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 	 */
 	public Jpanel_NhanVien() {
 		setBounds(new Rectangle(0, 0, 1999, 969));
-		setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0, 0, 0)));
+		setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new MatteBorder(2, 0, 2, 2, (Color) new Color(0, 0, 0)));
+		panel.setBorder(new MatteBorder(2, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		panel.setBounds(0, 0, 1646, 90);
 		add(panel);
 		panel.setLayout(null);
@@ -175,7 +175,7 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 		panel.add(lblLocNgayVL);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0, 0, 0)));
+		panel_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		panel_1.setBounds(0, 90, 1646, 335);
 		add(panel_1);
 		panel_1.setLayout(null);
@@ -451,8 +451,8 @@ public class Jpanel_NhanVien extends JPanel implements ActionListener{
 		lblGhiChu.setBounds(1468, 105, 114, 30);
 		panel_1.add(lblGhiChu);
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0, 0, 0)));
-		panel_3.setBounds(10, 426, 1646, 550);
+		panel_3.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		panel_3.setBounds(0, 426, 1646, 550);
 		add(panel_3);
 
 		String row[] = { "STT", "Mã nhân viên", "Tên nhân viên", "Giới tính", "Email", "Ngày vào làm", "Địa chỉ", "Số điện thoại",

@@ -65,19 +65,6 @@ public class DanhSachCho extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// DanhSachCho frame = new DanhSachCho();
-	// frame.setVisible(true);
-	// frame.setLocationRelativeTo(null);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
 	public static List<HoaDon> dsHoaDonCho = new ArrayList<HoaDon>();
 	public static List<List<ChiTietHoaDon>> listDanhSachCTHDCho = new ArrayList<>();
 

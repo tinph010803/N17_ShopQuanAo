@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.JPanel;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 
 import javax.swing.JLabel;
@@ -11,6 +12,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
@@ -18,10 +20,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,12 +54,16 @@ import bus.BUS_KhuyenMai;
 import com.toedter.calendar.JDateChooser;
 
 import connectDB.ConnectionManager;
+import entity.ChiTietHoaDon;
 import entity.Enum_BangLoaiSanPham;
+import entity.HoaDon;
 import entity.KhachHang;
 import entity.KhuyenMai;
 import entity.SanPham;
 import connectDB.ConnectionManager;
+import dao.DAO_ChiTietHoaDon;
 import dao.DAO_KhuyenMai;
+import dao.DAO_SanPham;
 
 public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 	private JTextField txtMaKM;
@@ -274,7 +282,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		scrollPane1.setLocation(26, 51);
 		scrollPane1.setSize(809, 847);
 		panel_1.add(scrollPane1);
-		bus.BUS_SanPham.dodulieu(table1);
+		bus.BUS_KhuyenMai.dodulieu_SanPham(table1,DAO_SanPham.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
 
 		table1.setRowHeight(30);
 		JTableHeader tableHeader1 = table1.getTableHeader();
@@ -341,7 +349,8 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		txtTimNgayKT.setDateFormatString("dd/MM/yyyy");
 		txtTimNgayKT.setBounds(543, 414, 150, 26);
 		panel.add(txtTimNgayKT);
-
+		txtTimNgayBD.setDate(new java.util.Date());
+		txtTimNgayKT.setDate(new java.util.Date());
 		JLabel lblDen = new JLabel("Đến");
 		lblDen.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblDen.setBounds(507, 414, 50, 26);
@@ -354,7 +363,18 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		btnTimKM.setBounds(705, 414, 67, 26);
 		btnTimKM.setContentAreaFilled(false);
 		panel.add(btnTimKM);
-
+		
+		table2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int row = table2.getSelectedRow();
+				String maKM = table2.getValueAt(row, 0).toString().trim();
+				thongTinChiTiet(maKM);
+				hienThiSanPham(maKM);
+				
+			}
+		});
+		
 		
 		btnReset.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,15 +400,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		        timKiemKhuyenMai();
 		    }
 		});
-
-		
-
-		table2.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				tableMouseClicked(evt);
-			}
-		});
-
+	
 		btnTaoKM.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
@@ -404,6 +416,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 				ResultSet rs = dao.DAO_KhuyenMai.layKM();
 				System.out.println(rs);// Xem có dữ liệu hay không
 				String maxMaKM = null;
+				String mota= txtMaKM.getText().trim();
 				try {
 					while (rs.next()) {
 						maxMaKM = rs.getString("maKhuyenMai");
@@ -424,6 +437,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 					System.out.println(newMaKM);
 				}
 				txtMaKM.setText(newMaKM);
+				khuyenMai.setMoTa(mota);
 				khuyenMai.setMaKhuyenMai(newMaKM);
 				khuyenMai.setTenKhuyenMai(txtTenKM.getText().toString());
 				khuyenMai.setPhanTram(Integer.parseInt(txtPhanTram.getText()
@@ -502,12 +516,13 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 				}
 
 				bus.BUS_KhuyenMai.dodulieu(table2);
-				bus.BUS_SanPham.dodulieu(table1);
+				bus.BUS_KhuyenMai.dodulieu_SanPham(table1,DAO_SanPham.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
 
 				kiemTraVaCapNhatSanPham();
 			}
 		});
-
+		
+		
 	}
 
 	private int extractSerialNumber(String customerID) {
@@ -541,7 +556,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 	    java.sql.Date sqlNgayBD = null;
 	    java.sql.Date sqlNgayKT = null;
 	    // Chuyển đổi từ java.util.Date sang java.sql.Date để sử dụng trong câu truy vấn SQL
-	    if (!(ngayBD == null || ngayKT==null || ngayKT.after(ngayBD))) {
+	    if (!(ngayBD == null || ngayKT==null || ngayKT.before(ngayBD))) {
 	    	sqlNgayBD = new java.sql.Date(ngayBD.getTime());
 		    sqlNgayKT = new java.sql.Date(ngayKT.getTime());
 		}
@@ -574,54 +589,30 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 			vitri = table2.getSelectedRow();
 			String maKM = table2.getValueAt(vitri, 0).toString();
 			thongTinChiTiet(maKM);
-			hienThiSanPhamTheoKhuyenMai(maKM);
+//			hienThiSanPhamTheoKhuyenMai(maKM);
 		}
 
 	}
+	
+	
 
-	// private void tableMouseClicked(MouseEvent evt) {
-	// if (table2.getSelectedRowCount() == 1) {
-	// int vitriMoi = table2.getSelectedRow();
-	// String maKMMoi = table2.getValueAt(vitriMoi, 0).toString().trim();
-	//
-	// // Kiểm tra xem có chọn mã khuyến mãi mới hay không
-	// if (!maKMMoi.equals(maKM)) {
-	// maKM = maKMMoi;
-	// thongTinChiTiet(maKM);
-	// hienThiSanPhamTheoKhuyenMai(maKM);
-	// }
-	// }
-	// }
 
-	private void thongTinChiTiet(String maKM) {
-		ResultSet rs = dao.DAO_KhuyenMai.layKMTheoMa(maKM);
-		// System.err.println( "kq : "+rs);
-		try {
-			if (rs != null && rs.next()) {
-				txtMaKM.setText(rs.getString("maKhuyenMai"));
-				txtTenKM.setText(rs.getString("tenKhuyenMai"));
 
-				int phanTram = rs.getInt("phanTram");
-				DecimalFormat df = new DecimalFormat("#,##");
-				txtPhanTram.setText(df.format(phanTram));
 
-				Date ngayBatDau = rs.getDate("ngayBatDau");
-				txtNgayBD.setDate(ngayBatDau);
-
-				Date ngayKetThuc = rs.getDate("ngayKetThuc");
-				txtNgayKetThuc.setDate(ngayKetThuc);
-
-				txtMota.setText(rs.getString("moTa"));
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			kiemTraVaCapNhatSanPham();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	private void thongTinChiTiet(String ma) {
+		
+	
+		KhuyenMai km= DAO_KhuyenMai.layKhuyenMaiTheoMa(ma);
+		txtMaKM.setText(km.getMaKhuyenMai().trim());
+		txtTenKM.setText(km.getTenKhuyenMai().trim());
+		txtPhanTram.setText(km.getPhanTram()+"");
+		txtMota.setText(km.getMoTa());
+		Date datebd = Date.from( km.getNgayBatDau().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date datekt = Date.from( km.getNgayKetThuc().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		txtNgayBD.setDate(datebd);
+		txtNgayKetThuc.setDate(datekt);
+		
+		
 	}
 
 	private static boolean isNumeric(String text) {
@@ -666,9 +657,14 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		txtMaKM.setText("");
 		txtTenKM.setText("");
 		txtPhanTram.setText("");
-		txtNgayBD.setDate(null);
-		txtNgayKetThuc.setDate(null);
+		txtNgayBD.setDate(new java.util.Date());
+		txtNgayKetThuc.setDate(new java.util.Date());
 		txtTenKM.requestFocus();
+		txtTimKhuyenMai.setText("");
+		txtTimNgayBD.setDate(new java.util.Date());
+		txtTimNgayKT.setDate(new java.util.Date());
+		bus.BUS_KhuyenMai.dodulieu(table2);
+		bus.BUS_KhuyenMai.dodulieu_SanPham(table1,DAO_SanPham.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
 		// ganTXTMaKM();
 
 	}
@@ -699,36 +695,11 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		txtMaKM.setText(newMaKM);
 	}
 
-	private void hienThiSanPhamTheoKhuyenMai(String maKhuyenMai) {
-		// Thực hiện truy vấn SQL để lấy danh sách sản phẩm dựa trên mã khuyến
-		// mãi
-		String sql = "SELECT * FROM SanPham WHERE maKhuyenMai = ?";
-		try (Connection conn = connectionManager.conn;
-				PreparedStatement preparedStatement = conn
-						.prepareStatement(sql)) {
-
-			preparedStatement.setString(1, maKhuyenMai);
-
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			// Xóa dữ liệu cũ trong table1
-			model1.setRowCount(0);
-			int stt = 0;
-			// Đổ dữ liệu mới vào table1
-			Object obj[] = new Object[5];
-			while (resultSet.next()) {
-				stt++;
-				obj[0] = stt;
-				obj[1] = resultSet.getString("maSanPham");
-				obj[2] = resultSet.getString("tenSanPham");
-				obj[3] = resultSet.getString("loai");
-				obj[4] = resultSet.getDouble("giaNhap");
-				model1.addRow(obj);
-			}
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
+	private void hienThiSanPham(String maKhuyenMai) {
+		String sql = "select * from SanPham \n where SanPham.maKhuyenMai= '"+maKhuyenMai+"'";
+		System.err.println(sql);
+		List<SanPham> dsSP= DAO_SanPham.getDsSanPham_Querry(sql);
+		BUS_KhuyenMai.dodulieu_SanPham(table1,dsSP);
 	}
 	
 	private boolean validateNgayTimKiem() {
@@ -762,9 +733,15 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 	    // Chuyển đổi từ java.util.Date sang java.sql.Date để sử dụng trong câu truy vấn SQL
 	    java.sql.Date sqlNgayBD = new java.sql.Date(ngayBD.getTime());
 	    java.sql.Date sqlNgayKT = new java.sql.Date(ngayKT.getTime());
-
+	    String tuKhoa = txtTimKhuyenMai.getText().trim();
 	    // Thực hiện truy vấn SQL để lấy danh sách khuyến mãi dựa trên ngày bắt đầu và kết thúc
-	    String sql = "SELECT * FROM KhuyenMai WHERE ngayBatDau >= ? AND ngayKetThuc <= ?";
+	    String sql = "SELECT * FROM KhuyenMai WHERE (ngayBatDau >= ? AND ngayKetThuc <= ?) and (tenKhuyenMai LIKE N'%"
+				+ tuKhoa + "%' OR maKhuyenMai LIKE N'%" + tuKhoa
+				+ "%')";
+//	    String sql = "SELECT * FROM KhuyenMai WHERE (tenKhuyenMai LIKE N'%"
+//				+ tukhoa + "%' OR maKhuyenMai LIKE N'%" + tukhoa
+//				+ "%' OR ngayBatDau LIKE N'%" + tukhoa
+//				+ "%' OR ngayKetThuc LIKE N'%" + tukhoa + "%')";
 	    try (
 	         PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
@@ -793,5 +770,6 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 	        ex.printStackTrace();
 	    }
 	}
-
+	
+	
 }

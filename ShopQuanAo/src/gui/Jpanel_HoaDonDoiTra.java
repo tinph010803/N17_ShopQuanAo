@@ -2,8 +2,11 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -73,10 +76,10 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 	private JTextField txtSDT;
 	private String cl_yellow = "#fcbe00";
 	private String cl_green = "#00c691";
-	private DefaultTableModel model;
-	private JTable table;
-	private DefaultTableModel model1;
-	private JTable table1;
+	private DefaultTableModel modelHDDT;
+	private JTable tableHDDT;
+	private DefaultTableModel modelCTHDDT;
+	private JTable tableCTHDDT;
 	private JPanel pnl_HoaDon;
 	private JPanel panel_left;
 	private JLabel lblTimKiem;
@@ -98,10 +101,10 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 	private BUS_NhanVien busNV = new BUS_NhanVien();
 	private BUS_HoaDonDoiTra busDT = new BUS_HoaDonDoiTra();
 	private DAO_HoaDonDoiTra daoHDDT = new DAO_HoaDonDoiTra();
-//	private BUS_HoaDonDoiTra busHDDT = new BUS_HoaDonDoiTra();
+	// private BUS_HoaDonDoiTra busHDDT = new BUS_HoaDonDoiTra();
 	private ConnectionManager connectionManager = new ConnectionManager();
-private JComboBox cboNhanvien;
-private JLabel lblKqTimKiem;
+	private JComboBox cboNhanvien;
+	private JLabel lblKqTimKiem;
 
 	/**
 	 * Create the panel.
@@ -115,7 +118,8 @@ private JLabel lblKqTimKiem;
 		pnl_HoaDon.setLayout(null);
 
 		panel_left = new JPanel();
-		panel_left.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0, 0, 0)));
+		panel_left.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0,
+				0, 0)));
 		panel_left.setBounds(0, 0, 320, 975);
 		pnl_HoaDon.add(panel_left);
 		panel_left.setLayout(null);
@@ -149,17 +153,20 @@ private JLabel lblKqTimKiem;
 		panel_left.add(txtSDT);
 
 		lblMaHD = new JLabel("Mã hóa đơn đổi trả:");
-		lblMaHD.setFont(lblMaHD.getFont().deriveFont(lblMaHD.getFont().getStyle() | Font.BOLD, 20f));
+		lblMaHD.setFont(lblMaHD.getFont().deriveFont(
+				lblMaHD.getFont().getStyle() | Font.BOLD, 20f));
 		lblMaHD.setBounds(20, 210, 199, 25);
 		panel_left.add(lblMaHD);
 
 		lblMaKH = new JLabel("Tên khách hàng:");
-		lblMaKH.setFont(lblMaKH.getFont().deriveFont(lblMaKH.getFont().getStyle() | Font.BOLD, 20f));
+		lblMaKH.setFont(lblMaKH.getFont().deriveFont(
+				lblMaKH.getFont().getStyle() | Font.BOLD, 20f));
 		lblMaKH.setBounds(20, 290, 233, 25);
 		panel_left.add(lblMaKH);
 
 		lblSDT = new JLabel("Số điện thoại:");
-		lblSDT.setFont(lblSDT.getFont().deriveFont(lblSDT.getFont().getStyle() | Font.BOLD, 20f));
+		lblSDT.setFont(lblSDT.getFont().deriveFont(
+				lblSDT.getFont().getStyle() | Font.BOLD, 20f));
 		lblSDT.setBounds(20, 370, 200, 25);
 		panel_left.add(lblSDT);
 
@@ -180,24 +187,33 @@ private JLabel lblKqTimKiem;
 		lblHoaDon.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblHoaDon.setForeground(Color.decode(cl_yellow));
 
-		String row[] = { "Mã hóa đơn đổi trả", "Mã hóa đơn", "Ngày lập HĐ", "Tên KH", "Số điện thoại", "Nhân viên",
-				"Tổng tiền Hoàn Trả" };
-		model = new DefaultTableModel(row, 0);
-		table = new JTable(model);
-		table.setRowHeight(30);
-		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255, 153)));
-		JTableHeader tbHeader = table.getTableHeader();
+		String row[] = { "Mã hóa đơn đổi trả", "Mã hóa đơn", "Ngày lập HĐ",
+				"Tên KH", "Số điện thoại", "Nhân viên", "Tổng tiền Hoàn Trả" };
+		modelHDDT = new DefaultTableModel(row, 0);
+		tableHDDT = new JTable(modelHDDT);
+		tableHDDT.setRowHeight(30);
+		tableHDDT.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
+				255, 153)));
+		JTableHeader tbHeader = tableHDDT.getTableHeader();
 		tbHeader.setBackground((Color.decode("#00c691")));
 		tbHeader.setForeground(Color.white);
 		tbHeader.setFont(new Font("Tahoma", Font.BOLD, 10));
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = new JScrollPane(tableHDDT);
 		scrollPane.setBorder(null);
 		scrollPane.setLocation(30, 58);
 		scrollPane.setSize(1281, 277);
-		JTableHeader tableHeader = table.getTableHeader();
+		JTableHeader tableHeader = tableHDDT.getTableHeader();
 		tableHeader.setFont(new Font("Tohoma", Font.BOLD, 18));
-		table.setFont(new Font("Tohoma", Font.PLAIN, 16));
+		tableHDDT.setFont(new Font("Tohoma", Font.PLAIN, 16));
 		panel_right_top.add(scrollPane);
+
+		TableColumnModel columnModelHDDT = tableHDDT.getColumnModel();
+		TableColumn tongTien = columnModelHDDT.getColumn(6);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		tongTien.setCellRenderer(rightRenderer);
+
+
 
 		lblChiTietHD = new JLabel("CHI TIẾT HÓA ĐƠN ĐỔI TRẢ");
 		lblChiTietHD.setHorizontalAlignment(SwingConstants.CENTER);
@@ -208,9 +224,9 @@ private JLabel lblKqTimKiem;
 
 		panel_right_bot = new JPanel();
 		panel_right_bot.setBounds(10, 348, 1323, 620);
-		table.setRowHeight(30);
-		
-		 lblKqTimKiem = new JLabel("");
+		tableHDDT.setRowHeight(30);
+
+		lblKqTimKiem = new JLabel("");
 		lblKqTimKiem.setForeground(new Color(255, 51, 0));
 		lblKqTimKiem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lblKqTimKiem.setBounds(90, 15, 150, 30);
@@ -218,27 +234,39 @@ private JLabel lblKqTimKiem;
 
 		panel_right.add(panel_right_bot);
 
-		String row1[] = { "Tên sản phẩm", "Loại", "Màu sắc", "Kích thước", "Số lượng", "Thành tiền",
-				"Tiền hoàn trả" };
-		model1 = new DefaultTableModel(row1, 0);
-		table1 = new JTable(model1);
-		table1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255, 153)));
-		table1.setRowHeight(30);
-		JTableHeader tbHeader1 = table1.getTableHeader();
+		String row1[] = { "Tên sản phẩm", "Loại", "Màu sắc", "Kích thước",
+				"Số lượng", "Thành tiền", "Tiền hoàn trả" };
+		modelCTHDDT = new DefaultTableModel(row1, 0);
+		tableCTHDDT = new JTable(modelCTHDDT);
+		tableCTHDDT.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
+				255, 153)));
+		tableCTHDDT.setRowHeight(30);
+		JTableHeader tbHeader1 = tableCTHDDT.getTableHeader();
 		tbHeader1.setBackground((Color.decode("#00c691")));
 		tbHeader1.setForeground(Color.white);
 		tbHeader1.setFont(new Font("Tahoma", Font.BOLD, 10));
 		panel_right_bot.setLayout(null);
-		JScrollPane scrollPane1 = new JScrollPane(table1);
+		JScrollPane scrollPane1 = new JScrollPane(tableCTHDDT);
 		scrollPane1.setBorder(null);
 		scrollPane1.setLocation(32, 66);
 		scrollPane1.setSize(1276, 464);
 		tbHeader1.setFont(new Font("Tohoma", Font.BOLD, 18));
-		table1.setFont(new Font("Tohoma", Font.PLAIN, 16));
+		tableCTHDDT.setFont(new Font("Tohoma", Font.PLAIN, 16));
 		panel_right_bot.add(scrollPane1);
-
+		
+		
+		
+		TableColumnModel columnModelCTHDDT= tableCTHDDT.getColumnModel();
+		TableColumn soLuong = columnModelCTHDDT.getColumn(4);
+		TableColumn thanhTien = columnModelCTHDDT.getColumn(5);
+		TableColumn tongTra = columnModelCTHDDT.getColumn(6);
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		soLuong.setCellRenderer(rightRenderer);
+		thanhTien.setCellRenderer(rightRenderer);
+		tongTra.setCellRenderer(rightRenderer);
 		JPanel pnl_left_bot = new JPanel();
-		pnl_left_bot.setBorder(new MatteBorder(2, 0, 0, 2, (Color) new Color(0, 0, 0)));
+		pnl_left_bot.setBorder(new MatteBorder(2, 0, 0, 2, (Color) new Color(0,
+				0, 0)));
 		pnl_left_bot.setBounds(0, 488, 320, 487);
 		panel_left.add(pnl_left_bot);
 		pnl_left_bot.setLayout(null);
@@ -251,7 +279,8 @@ private JLabel lblKqTimKiem;
 		pnl_left_bot.add(lblLoc);
 
 		JLabel lblKhoanNgay = new JLabel("Khoảng ngày:");
-		lblKhoanNgay.setFont(lblKhoanNgay.getFont().deriveFont(lblKhoanNgay.getFont().getStyle() | Font.BOLD, 20f));
+		lblKhoanNgay.setFont(lblKhoanNgay.getFont().deriveFont(
+				lblKhoanNgay.getFont().getStyle() | Font.BOLD, 20f));
 		lblKhoanNgay.setBounds(50, 110, 200, 32);
 		pnl_left_bot.add(lblKhoanNgay);
 
@@ -286,7 +315,8 @@ private JLabel lblKqTimKiem;
 		pnl_left_bot.add(txtNgayKT);
 
 		JLabel lblNhanVien = new JLabel("Nhân viên:");
-		lblNhanVien.setFont(lblNhanVien.getFont().deriveFont(lblNhanVien.getFont().getStyle() | Font.BOLD, 20f));
+		lblNhanVien.setFont(lblNhanVien.getFont().deriveFont(
+				lblNhanVien.getFont().getStyle() | Font.BOLD, 20f));
 		lblNhanVien.setBounds(50, 245, 175, 32);
 		pnl_left_bot.add(lblNhanVien);
 
@@ -303,18 +333,19 @@ private JLabel lblKqTimKiem;
 		btnDoiTra.setBackground(new Color(244, 221, 212));
 		btnDoiTra.setBounds(176, 400, 125, 40);
 		pnl_left_bot.add(btnDoiTra);
-		ResultSet rs= ConnectionManager.getdata("select sum= sum(1) from NhanVien");
-		int i=1;
+		ResultSet rs = ConnectionManager
+				.getdata("select sum= sum(1) from NhanVien");
+		int i = 1;
 		try {
-			while(rs.next()){
-				i=rs.getInt("sum");
+			while (rs.next()) {
+				i = rs.getInt("sum");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String a[] = new String[i + 1];
-	
+
 		rs = DAO_NhanVien.layNV();
 		int j = 1;
 		a[0] = "Tất cả";
@@ -327,7 +358,7 @@ private JLabel lblKqTimKiem;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 cboNhanvien = new JComboBox();
+		cboNhanvien = new JComboBox();
 		cboNhanvien.setModel(new DefaultComboBoxModel(a));
 		cboNhanvien.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cboNhanvien.setBounds(15, 285, 285, 35);
@@ -343,7 +374,8 @@ private JLabel lblKqTimKiem;
 		btnIn.setFocusPainted(false);
 
 		JPanel pnl_rdo = new JPanel();
-		pnl_rdo.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0, 0, 0)));
+		pnl_rdo.setBorder(new MatteBorder(0, 0, 2, 2,
+				(Color) new Color(0, 0, 0)));
 		pnl_rdo.setBounds(0, 0, 320, 129);
 		panel_left.add(pnl_rdo);
 		pnl_rdo.setLayout(null);
@@ -368,45 +400,49 @@ private JLabel lblKqTimKiem;
 				// Xử lý khi nhấn vào rdoHD
 				pnl_HoaDon.removeAll();
 				pnl_HoaDon.setLayout(new BorderLayout());
-				pnl_HoaDon.add(new Jpanel_HoaDon(nvhientai)); // Tạo một instance mới của Jpanel_HoaDon
+				pnl_HoaDon.add(new Jpanel_HoaDon(nvhientai)); // Tạo một
+																// instance mới
+																// của
+																// Jpanel_HoaDon
 				pnl_HoaDon.revalidate();
 				pnl_HoaDon.repaint();
 				rdoHD.setSelected(true);
 			}
 		});
-		
-		BUS_HoaDonDoiTra.docDulieu_HDDT(model, daoHDDT.getDsHoaDons());
-		
+
+		BUS_HoaDonDoiTra.docDulieu_HDDT(modelHDDT, daoHDDT.getDsHoaDons());
+
 		String sql = "select a.* from HoaDonDoiTra a join HoaDon b on a.maHoaDon=b.maHoaDon join KhachHang c on b.maKhachHang= c.maKhachHang\r\n"
 				+ "   where a.maHDDT like '%231124%' and upper(c.tenKhachHang) like upper(N'% %') and c.sdt like N'%0%'";
-		List<HoaDonDoiTra> ds= daoHDDT.getDsHDDT_QuerrySQL(sql);
-//		System.err.println("ds timkiem :\n"+ds);
-		
-		
-		
+		List<HoaDonDoiTra> ds = daoHDDT.getDsHDDT_QuerrySQL(sql);
+		// System.err.println("ds timkiem :\n"+ds);
+
 		rdoHDDT.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Xử lý khi nhấn vào rdoHDDT
 				pnl_HoaDon.removeAll();
 				pnl_HoaDon.setLayout(new BorderLayout());
-				pnl_HoaDon.add(new Jpanel_HoaDonDoiTra(nvhientai)); // Tạo một instance mới của Jpanel_HoaDonDoiTra
+				pnl_HoaDon.add(new Jpanel_HoaDonDoiTra(nvhientai)); // Tạo một
+																	// instance
+																	// mới của
+																	// Jpanel_HoaDonDoiTra
 				pnl_HoaDon.revalidate();
 				pnl_HoaDon.repaint();
 				rdoHDDT.setSelected(true);
 			}
 		});
-		
-		
-		table.addMouseListener(new MouseAdapter() {
+
+		tableHDDT.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int row = table.getSelectedRow();
-				String mahddt = table.getValueAt(row, 0).toString().trim();
-				List<ChiTietHoaDonDoiTra> ds= DAO_ChiTietHoaDonDoiTra.getDsCTHDDT_theomaHDDT(mahddt);
-			
-				BUS_HoaDonDoiTra.docDulieu_CTHDDT(model1, ds);
-				
+				int row = tableHDDT.getSelectedRow();
+				String mahddt = tableHDDT.getValueAt(row, 0).toString().trim();
+				List<ChiTietHoaDonDoiTra> ds = DAO_ChiTietHoaDonDoiTra
+						.getDsCTHDDT_theomaHDDT(mahddt);
+
+				BUS_HoaDonDoiTra.docDulieu_CTHDDT(modelCTHDDT, ds);
+
 			}
 		});
 		txtMaHD.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -414,19 +450,19 @@ private JLabel lblKqTimKiem;
 				timKiem();
 			}
 		});
-		
+
 		txtMaKH.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyReleased(java.awt.event.KeyEvent evt) {
 				timKiem();
 			}
 		});
-		
+
 		txtSDT.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyReleased(java.awt.event.KeyEvent evt) {
 				timKiem();
 			}
 		});
-		
+
 		btnLoc.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -436,12 +472,12 @@ private JLabel lblKqTimKiem;
 				txtNgayKT.setDate(new java.util.Date());
 				txtNgayBD.setDate(new java.util.Date());
 				cboNhanvien.setSelectedItem(a[0]);
-				busDT.docDulieu_HDDT(model, daoHDDT.getDsHoaDons());
+				busDT.docDulieu_HDDT(modelHDDT, daoHDDT.getDsHoaDons());
 				lblKqTimKiem.setText("");
-				busDT.DeleteDataTable(model1);
+				busDT.DeleteDataTable(modelCTHDDT);
 			}
 		});
-		
+
 		cboNhanvien.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -451,76 +487,79 @@ private JLabel lblKqTimKiem;
 			}
 		});
 
-		txtNgayBD.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if ("date".equals(evt.getPropertyName())) {
-					Loc();
+		txtNgayBD.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent evt) {
+						if ("date".equals(evt.getPropertyName())) {
+							Loc();
 
-				}
-			}
-		});
+						}
+					}
+				});
 
-		txtNgayKT.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if ("date".equals(evt.getPropertyName())) {
-					Loc();
+		txtNgayKT.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent evt) {
+						if ("date".equals(evt.getPropertyName())) {
+							Loc();
 
-				}
-			}
-		});
-		
+						}
+					}
+				});
+
 	}
+
 	public void timKiem() {
 
 		String maHDDT = txtMaHD.getText().trim();
 		String tenKH = txtMaKH.getText().trim();
 		String sdt = txtSDT.getText().trim();
-		
-		if( sdt.equals("null")==true || tenKH.equals("null")==true) {
-			List<HoaDonDoiTra>  ds = daoHDDT.getDsHoaDons();
+
+		if (sdt.equals("null") == true || tenKH.equals("null") == true) {
+			List<HoaDonDoiTra> ds = daoHDDT.getDsHoaDons();
 			List<HoaDonDoiTra> ds2 = new ArrayList<>();
 			for (HoaDonDoiTra a : ds) {
-				if(a.getHoaDon().getKhachHang()==null)
+				if (a.getHoaDon().getKhachHang() == null)
 					ds2.add(a);
 			}
-		
-			busDT.DeleteDataTable(model);
-			busDT.DeleteDataTable(model1);
+
+			busDT.DeleteDataTable(modelHDDT);
+			busDT.DeleteDataTable(modelCTHDDT);
 			lblKqTimKiem.setText(ds2.size() + " kết quả");
-			busDT.docDulieu_HDDT(model, ds2);
-		}
-		else {
-			String sql ="select a.* from HoaDonDoiTra a join HoaDon b on a.maHoaDon=b.maHoaDon join KhachHang c on b.maKhachHang= c.maKhachHang"
-					+ "    where a.maHDDT like '%"+maHDDT+"%' and upper(c.tenKhachHang) like upper(N'%"+tenKH+"%') and c.sdt like N'%"+sdt+"%' ";
-//			System.err.println(sql);
+			busDT.docDulieu_HDDT(modelHDDT, ds2);
+		} else {
+			String sql = "select a.* from HoaDonDoiTra a join HoaDon b on a.maHoaDon=b.maHoaDon join KhachHang c on b.maKhachHang= c.maKhachHang"
+					+ "    where a.maHDDT like '%"
+					+ maHDDT
+					+ "%' and upper(c.tenKhachHang) like upper(N'%"
+					+ tenKH
+					+ "%') and c.sdt like N'%" + sdt + "%' ";
+			// System.err.println(sql);
 			List<HoaDonDoiTra> dshddt = daoHDDT.getDsHDDT_QuerrySQL(sql);
 
-		
-
 			if (maHDDT.equals(tenKH) && maHDDT.equals(sdt) && maHDDT.equals("")) {
-				busDT.DeleteDataTable(model);
-				busDT.DeleteDataTable(model1);
+				busDT.DeleteDataTable(modelHDDT);
+				busDT.DeleteDataTable(modelCTHDDT);
 				lblKqTimKiem.setText("");
-				busDT.docDulieu_HDDT(model, dshddt);
+				busDT.docDulieu_HDDT(modelHDDT, dshddt);
 			} else {
-//				System.err.println(sql + "\n");
+				// System.err.println(sql + "\n");
 				if (!dshddt.isEmpty()) {
-					busDT.DeleteDataTable(model);
-					busDT.DeleteDataTable(model1);
+					busDT.DeleteDataTable(modelHDDT);
+					busDT.DeleteDataTable(modelCTHDDT);
 					lblKqTimKiem.setText(dshddt.size() + " kết quả");
-					busDT.docDulieu_HDDT(model, dshddt);
+					busDT.docDulieu_HDDT(modelHDDT, dshddt);
 				} else {
-					busDT.DeleteDataTable(model);
-					busDT.DeleteDataTable(model1);
+					busDT.DeleteDataTable(modelHDDT);
+					busDT.DeleteDataTable(modelCTHDDT);
 					lblKqTimKiem.setText(dshddt.size() + " kết quả");
 				}
 			}
 
 		}
-		
+
 	}
-	
-	
+
 	public boolean Loc() {
 		String selectedValue = cboNhanvien.getSelectedItem().toString();
 		LocalDate ngaybd1 = busNV.chuyenDoiKieuNgay(txtNgayBD);
@@ -538,24 +577,27 @@ private JLabel lblKqTimKiem;
 		// Tạo điều kiện tìm kiếm
 		String condition = "";
 		if (selectedValue != "Tất cả") {
-			condition += "NhanVien.tenNhanVien = N'" + selectedValue + "' AND HoaDonDoiTra.ngay BETWEEN '"
-					+ ngaybd1.format(formatter) + "' AND '" + ngaykt1.format(formatter) + "'";
+			condition += "NhanVien.tenNhanVien = N'" + selectedValue
+					+ "' AND HoaDonDoiTra.ngay BETWEEN '"
+					+ ngaybd1.format(formatter) + "' AND '"
+					+ ngaykt1.format(formatter) + "'";
 		} else {
-			condition += " HoaDonDoiTra.ngay BETWEEN '" + ngaybd1.format(formatter) + "' AND '" + ngaykt1.format(formatter)
-					+ "'";
+			condition += " HoaDonDoiTra.ngay BETWEEN '"
+					+ ngaybd1.format(formatter) + "' AND '"
+					+ ngaykt1.format(formatter) + "'";
 		}
 		// Thực hiện truy vấn SQL với điều kiện tìm kiếm
 		String sql = "SELECT HoaDonDoiTra.* FROM HoaDonDoiTra  INNER JOIN NhanVien ON HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien WHERE "
 				+ condition;
-//		System.err.println(sql);
+		// System.err.println(sql);
 		List<HoaDonDoiTra> ds = daoHDDT.getDsHDDT_QuerrySQL(sql);
 		if (!ds.isEmpty()) {
-			busDT.DeleteDataTable(model);
-			busDT.DeleteDataTable(model1);
-			busDT.docDulieu_HDDT(model, ds);
+			busDT.DeleteDataTable(modelHDDT);
+			busDT.DeleteDataTable(modelCTHDDT);
+			busDT.docDulieu_HDDT(modelHDDT, ds);
 		} else {
-			busDT.DeleteDataTable(model);
-			busDT.DeleteDataTable(model1);
+			busDT.DeleteDataTable(modelHDDT);
+			busDT.DeleteDataTable(modelCTHDDT);
 		}
 		lblKqTimKiem.setText(ds.size() + " kết quả");
 		return true;

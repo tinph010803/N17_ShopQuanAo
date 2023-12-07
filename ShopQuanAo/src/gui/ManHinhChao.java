@@ -7,11 +7,18 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import dao.DAO_SanPham;
+import entity.SanPham;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Dimension;
@@ -66,7 +73,7 @@ public class ManHinhChao extends javax.swing.JFrame {
 		getContentPane().add(ProgLoading);
 		ProgLoading.setBounds(0, 650, 1020, 20);
 
-		pnlTieuDe.setBackground(new java.awt.Color(0, 102, 255));
+		pnlTieuDe.setBackground(Color.decode("#00c691"));
 
 		lblTieuDe.setFont(new Font("Tahoma", Font.BOLD, 48)); // NOI18N
 		lblTieuDe.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,6 +116,21 @@ public class ManHinhChao extends javax.swing.JFrame {
 
 		pack();
 		setLocationRelativeTo(null);
+		xoaKhuyenMaiSP();
+		
+	}
+	
+	public void xoaKhuyenMaiSP() {
+		
+		List<SanPham> dsSPCoKM= DAO_SanPham.getDsSanPham_Querry("select * from SanPham where SanPham.maKhuyenMai is not null");
+		
+		for (SanPham a : dsSPCoKM) {
+			int day= (int) ChronoUnit.DAYS.between( a.getKhuyenMai().getNgayKetThuc(),LocalDate.now());
+			if(day>0) {
+				a.setKhuyenMai(null);
+				DAO_SanPham.capNhatKhuyenMai(a.getMaSanPham().trim());
+			}
+		}
 	}
 
 

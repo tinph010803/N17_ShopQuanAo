@@ -87,26 +87,6 @@ public class ThanhToan extends JFrame {
 	private JLabel lblTienTra;
 	private JButton btnThanhToan;
 
-	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// ThanhToan frame = new ThanhToan(new HoaDon(),new KhachHang(),new
-	// ArrayList<ChiTietHoaDon>());
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
-
-	/**
-	 * Create the frame.
-	 */
 	private HoaDon hoaDon;
 	private List<ChiTietHoaDon> dsChiTietHoaDon;
 
@@ -290,7 +270,7 @@ public class ThanhToan extends JFrame {
 				}
 				for (ChiTietHoaDon chiTietHoaDon : dsCTHD) {
 					dao.DAO_ChiTietHoaDon.them(chiTietHoaDon);
-					dao.DAO_SanPham.capNhatSoLuong(chiTietHoaDon.getSanPham(),
+					dao.DAO_SanPham.capNhatSoLuongGiam(chiTietHoaDon.getSanPham(),
 							chiTietHoaDon.getSoLuong());
 				}
 				xuatHoaDon();
@@ -307,7 +287,6 @@ public class ThanhToan extends JFrame {
 
 	public void xuatHoaDon() {
 		try {
-			DecimalFormat decimalFormat = new DecimalFormat("#,###");
 			Map<String, Object> map = new Hashtable();
 			JasperReport report = JasperCompileManager
 					.compileReport("src/gui/rp_XuatHoaDon.jrxml");
@@ -340,226 +319,12 @@ public class ThanhToan extends JFrame {
 		}
 	}
 
-	// private void xuatPDF(){
-	// // String pdfFilePath = "DSHoaDon//"
-	//
-	//
-	// }
-	//
-	// private void taoPDF(String filePath, ){
-	// Document
-	// }
 
 	private String getCurrentTimestamp() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		return sdf.format(new Date());
 	}
 
-	// private void xuatHDFilePDF(){
-	// String maHD = hoaDon.getMaHoaDon();
-	// String pdfFilePath = "DSHoaDon//" + maHD + ".pdf";
-	//
-	// try {
-	// createInvoicePDF(pdfFilePath);
-	// System.out.println("PDF created successfully.");
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-
-	// private void createInvoicePDF(String filePath) throws Exception {
-	// Document document = new Document();
-	// PdfWriter.getInstance(document, new FileOutputStream(filePath));
-	// document.open();
-	//
-	// // Add content to the PDF
-	// addInvoiceContent(document);
-	//
-	// document.close();
-	// }
-
-	// private void addInvoiceContent(Document document) throws SQLException,
-	// DocumentException, IOException {
-	// String fontPath = "Font//Font_Freedom.ttf";
-	// BaseFont freedom = BaseFont.createFont(fontPath,
-	// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-	//
-	// BaseFont unicode = BaseFont.createFont("Font//unicode.ttf",
-	// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-	//
-	// com.itextpdf.text.Font font18 = new com.itextpdf.text.Font(unicode, 18);
-	// com.itextpdf.text.Font font14 = new com.itextpdf.text.Font(unicode, 14);
-	// com.itextpdf.text.Font font10 = new com.itextpdf.text.Font(unicode, 10);
-	// com.itextpdf.text.Font font = new com.itextpdf.text.Font(freedom, 28);
-	//
-	// Paragraph tenShop = new Paragraph("STREET FASHION SHOP", font);
-	// tenShop.setAlignment(Element.ALIGN_CENTER);
-	// tenShop.setSpacingAfter(30f);
-	// document.add(tenShop);
-	//
-	// Paragraph hdbh = new Paragraph("HÓA ĐƠN BÁN HÀNG", font18);
-	// hdbh.setAlignment(Element.ALIGN_CENTER);
-	// hdbh.setSpacingAfter(15f);
-	// document.add(hdbh);
-	//
-	// Paragraph para = new Paragraph();
-	// para.add(new Chunk("Mã HĐ: " + hoaDon.getMaHoaDon(),font14));
-	// para.add(new Chunk("                              "));
-	// if (hoaDon.getKhachHang()!=null) {
-	// para.add(new Chunk("Mã KH: " +
-	// hoaDon.getKhachHang().getMaKhachHang(),font14));
-	// }else{
-	// para.add(new Chunk("Mã KH: Khách vãng lai",font14));
-	// }
-	// para.add(Chunk.NEWLINE);
-	// String tg = getCurrentTimestamp();
-	// para.add(new Chunk("Ngày bán: " + tg,font14));
-	// para.add(new Chunk("                     "));
-	// para.add(new Chunk("Tên NV: " +
-	// hoaDon.getNhanVien().getTenNhanVien(),font14));
-	//
-	// para.setSpacingAfter(20f);
-	// para.setIndentationLeft(65f);
-	//
-	// document.add(para);
-	//
-	// addInvoiceDetailsToTable(document);
-	//
-	// DecimalFormat decimalFormat = new DecimalFormat("#,###");
-	// PdfPTable bangTien = new PdfPTable(2);
-	// bangTien.setWidthPercentage(100);
-	// bangTien.getDefaultCell().setBorder(0);
-	//
-	// addCell_NoBorder(bangTien, "Tổng thành tiền:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.tinhTongTien(dsChiTietHoaDon)), font14,
-	// Element.ALIGN_RIGHT);
-	//
-	// addCell_NoBorder(bangTien, "Tiền khuyến mãi:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.tinhTongTienKM(dsChiTietHoaDon)), font14,
-	// Element.ALIGN_RIGHT);
-	//
-	// addCell_NoBorder(bangTien, "Tổng tiền thuế:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.tinhTongTienThue(dsChiTietHoaDon)), font14,
-	// Element.ALIGN_RIGHT);
-	//
-	// addCell_NoBorder(bangTien, "Tiền khuyến mãi theo bậc:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.tinhTongKhuyeMaiTheoBac(dsChiTietHoaDon)),
-	// font14, Element.ALIGN_RIGHT);
-	//
-	// addCell_NoBorder(bangTien, "Tổng tiền cần thu:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.getTongTienCanThu()), font14,
-	// Element.ALIGN_RIGHT);
-	//
-	// addCell_NoBorder(bangTien, "Tiền khách đưa:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.getTienKhachDua()), font14,
-	// Element.ALIGN_RIGHT);
-	//
-	// addCell_NoBorder(bangTien, "Tổng tiền trả lại:", font14,
-	// Element.ALIGN_LEFT);
-	// addCell_NoBorder(bangTien,
-	// decimalFormat.format(hoaDon.tinhTienThua(dsChiTietHoaDon)), font14,
-	// Element.ALIGN_RIGHT);
-	// bangTien.setSpacingAfter(15f);
-	// document.add(bangTien);
-	//
-	// Paragraph xhd = new Paragraph("Chỉ xuất hóa đơn trong ngày", font10);
-	// xhd.setAlignment(Element.ALIGN_CENTER);
-	// document.add(xhd);
-	//
-	// Paragraph xhdTA = new
-	// Paragraph("Tax Invoice will be issued within same day", font10);
-	// xhdTA.setAlignment(Element.ALIGN_CENTER);
-	// xhdTA.setSpacingAfter(10f);
-	// document.add(xhdTA);
-	//
-	// Paragraph camon = new Paragraph("CẢM ƠN QUÝ KHÁCH VÀ HẸN GẶP LẠI",
-	// font14);
-	// camon.setAlignment(Element.ALIGN_CENTER);
-	// document.add(camon);
-	//
-	// Paragraph hotline = new Paragraph("Hotline: 0366459144 - Tòng", font10);
-	// hotline.setAlignment(Element.ALIGN_CENTER);
-	// document.add(hotline);
-	//
-	// }
-	//
-	// private void addInvoiceDetailsToTable(Document document)
-	// throws SQLException, DocumentException, IOException {
-	// PdfPTable table = new PdfPTable(5);
-	// table.setWidthPercentage(100);
-	// table.setSpacingAfter(15f);
-	// addTableHeader(table);
-	// addInvoiceDetailsRows(table);
-	//
-	// document.add(table);
-	// }
-	//
-	//
-	// private void addTableHeader(PdfPTable table) throws DocumentException,
-	// IOException {
-	// BaseFont unicode = BaseFont.createFont("Font//unicode.ttf",
-	// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-	//
-	// com.itextpdf.text.Font font13 = new com.itextpdf.text.Font(unicode, 13);
-	//
-	// addCell(table, "Tên sản phẩm", font13,Element.ALIGN_CENTER);
-	// addCell(table, "Đơn giá", font13,Element.ALIGN_CENTER);
-	// addCell(table, "Số lượng", font13,Element.ALIGN_CENTER);
-	// addCell(table, "Tiền khuyến mãi", font13,Element.ALIGN_CENTER);
-	// addCell(table, "Tổng tiền", font13,Element.ALIGN_CENTER);
-	// }
-	//
-	// private static void addCell(PdfPTable table, String text,
-	// com.itextpdf.text.Font font13,int alignment) {
-	// PdfPCell cell = new PdfPCell(new Phrase(text, font13));
-	// cell.setHorizontalAlignment(alignment);
-	// table.addCell(cell);
-	// }
-	//
-	// private static void addCell_NoBorder(PdfPTable table, String text,
-	// com.itextpdf.text.Font font13,int alignment) {
-	// PdfPCell cell = new PdfPCell(new Phrase(text, font13));
-	// cell.setHorizontalAlignment(alignment);
-	// cell.setBorder(0);
-	// table.addCell(cell);
-	// }
-	//
-	// private void addInvoiceDetailsRows(PdfPTable table) throws SQLException,
-	// DocumentException, IOException {
-	// DecimalFormat decimalFormat = new DecimalFormat("#,###");
-	// BaseFont unicode = BaseFont.createFont("Font//unicode.ttf",
-	// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-	//
-	// com.itextpdf.text.Font font12 = new com.itextpdf.text.Font(unicode, 12);
-	//
-	//
-	//
-	// for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
-	// addCell(table, cthd.getSanPham().getTenSanPham(),
-	// font12,Element.ALIGN_LEFT);
-	// addCell(table, decimalFormat.format(cthd.getSanPham().getGiaBan()),
-	// font12,Element.ALIGN_RIGHT);
-	// addCell(table, decimalFormat.format(cthd.getSoLuong()),
-	// font12,Element.ALIGN_RIGHT);
-	// addCell(table, decimalFormat.format(cthd.tinhTienKhuyenMai()),
-	// font12,Element.ALIGN_RIGHT);
-	// addCell(table, decimalFormat.format(cthd.tinhThanhTien()),
-	// font12,Element.ALIGN_RIGHT);
-	// }
-	//
-	// }
+	
 
 }

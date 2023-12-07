@@ -42,25 +42,6 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 	private JButton btnHienMK_2;
 	private BUS_DangNhap busTK= new BUS_DangNhap();
 	ConnectionManager connectionManager= new ConnectionManager();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DangNhap frame = new DangNhap();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public DangNhap() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,7 +119,7 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		lblMatKhau.setBounds(34, 245, 165, 33);
 		pnRight.add(lblMatKhau);
 
-		txtMatKhau = new JPasswordField("123");
+		txtMatKhau = new JPasswordField("12345678");
 		txtMatKhau.setForeground(Color.WHITE);
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(255, 255, 255)));

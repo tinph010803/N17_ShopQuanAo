@@ -39,26 +39,6 @@ public class JFrame_QuenMatKhau extends JFrame {
 	private JButton btnQuayLai;
 	private boolean chon = true, chon2 = true;
 	ConnectionManager connectionManager = new ConnectionManager();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrame_QuenMatKhau frame = new JFrame_QuenMatKhau("");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public JFrame_QuenMatKhau(String ma) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 686, 402);
