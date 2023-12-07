@@ -67,7 +67,8 @@ public class DAO_ThongKe {
 		Connection conn = connectionManager.conn;
 
 		try {
-			String query = "SELECT maHoaDon, SUM(tongTien * VAT/100) AS totalVAT FROM HoaDon GROUP BY maHoaDon";
+//			String query = "SELECT maHoaDon, SUM(tongTien * VAT/100) AS totalVAT FROM HoaDon GROUP BY maHoaDon";
+			String query = "SELECT maHoaDon, SUM(tongTien * 100/108*VAT/100) AS totalVAT FROM HoaDon GROUP BY maHoaDon";
 			PreparedStatement statement = conn.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
 

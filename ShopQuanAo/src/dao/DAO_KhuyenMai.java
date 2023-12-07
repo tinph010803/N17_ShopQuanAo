@@ -66,11 +66,13 @@ public class DAO_KhuyenMai {
 		String sql = "SELECT * FROM [dbo].[KhuyenMai]";
 		return ConnectionManager.getdata(sql);
 	}
+	
 	public static KhuyenMai layKhuyenMaiTheoMa(String ma) {
 		KhuyenMai km=null;
 		ResultSet rs= ConnectionManager.getdata("select *from KhuyenMai where maKhuyenMai='"+ma+"'");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate ngayBD,ngayKT;
+		
 		try {
 			while(rs.next()) {
 				ngayBD = LocalDate.parse(rs.getString("ngayBatDau"), formatter);
