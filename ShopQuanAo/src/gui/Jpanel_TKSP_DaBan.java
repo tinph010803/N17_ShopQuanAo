@@ -27,8 +27,11 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import org.jfree.chart.ChartFactory;
@@ -236,6 +239,13 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		lblTien.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblTien.setBounds(493, 650, 145, 25);
 		pnlRight.add(lblTien);
+		
+		
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn tongTien = columnModel.getColumn(4);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		tongTien.setCellRenderer(rightRenderer);
 
 		lblTbTien = new JLabel("");
 		lblTbTien.setHorizontalAlignment(SwingConstants.CENTER);
@@ -258,7 +268,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 				pnlThongKe.removeAll();
 				pnlThongKe.setLayout(new BorderLayout());
 				try {
-					pnlThongKe.add(new JPanel_TKSP_TonKho());
+					pnlThongKe.add(new Jpanel_TKSP_TonKho());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -328,7 +338,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 				}
 			}
 		});
-
+		btnXuatHD.setFocusPainted(false);
 	}
 
 	public void Loc() {

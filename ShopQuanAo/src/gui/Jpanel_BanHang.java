@@ -62,6 +62,7 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 
+import connectDB.ConnectionManager;
 import entity.ChiTietHoaDon;
 import entity.Enum_BangLoaiSanPham;
 import entity.Enum_ChatLieu;
@@ -711,6 +712,7 @@ public class Jpanel_BanHang extends JPanel {
 
 	public static void btnTaoHDActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		ConnectionManager conn = new ConnectionManager();
 		ResultSet rs = dao.DAO_HoaDon.layHD();
 		System.out.println(rs);
 		String currentDate = getCurrentDate();

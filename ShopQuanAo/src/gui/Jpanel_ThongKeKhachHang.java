@@ -25,8 +25,11 @@ import java.util.Date;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -57,7 +60,7 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
 	private JComboBox cboChon;
 	private JComboBox cboNam;
 	private JLabel lblNam;
-	private JButton btnThongKe;
+//	private JButton btnThongKe;
 	private JPanel pnlCenter;
 	private JPanel pnlRight;
 	private JButton btnXuatHD;
@@ -215,7 +218,11 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
 		tableHeader.setFont(new Font("Tohoma", Font.BOLD, 18));
 		table.setFont(new Font("Tohoma", Font.PLAIN, 18));
 		
-		
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn tongTien = columnModel.getColumn(3);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		tongTien.setCellRenderer(rightRenderer);
 		
 		//btnThongKe.setFocusPainted(false);
 		//btnXuatHD.setFocusPainted(false);
@@ -226,6 +233,7 @@ public class Jpanel_ThongKeKhachHang extends JPanel {
 		    }
 		});
 		veBieuDoCot();
+		btnXuatHD.setFocusPainted(false);
 		 
 	}
 	private void veBieuDoCot() {

@@ -93,6 +93,7 @@ public static void DeleteDataTable(DefaultTableModel model) {
 		}
 	}
 	public static void dodulieu_SanPham(JTable tbl,List<SanPham> ds) {
+		DecimalFormat decimalFormat = new DecimalFormat("#,###");
 	    DefaultTableModel tblModel = (DefaultTableModel) tbl.getModel();
 	    DeleteDataTable(tblModel);
 	    int i=1;
@@ -103,7 +104,7 @@ public static void DeleteDataTable(DefaultTableModel model) {
 				sp.getMaSanPham().trim(),
 				sp.getTenSanPham().trim(),
 				sp.getLoai().getValue(),
-				String.valueOf(sp.getGiaBan())
+				decimalFormat.format(sp.getGiaBan())
 				
 		});
 		i++;

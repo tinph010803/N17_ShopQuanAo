@@ -41,8 +41,11 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -155,7 +158,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 
 		lblNgayKT = new JLabel("Ngày kết thúc:");
 		lblNgayKT.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNgayKT.setBounds(435, 215, 177, 36);
+		lblNgayKT.setBounds(435, 215, 144, 36);
 		panel.add(lblNgayKT);
 		txtNgayKetThuc = new JDateChooser();
 		txtNgayKetThuc.setDateFormatString("dd/MM/yyyy");
@@ -169,16 +172,19 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		panel.add(lblMoTa);
 
 		txtMaKM = new JTextField();
+		txtMaKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMaKM.setBounds(196, 100, 200, 36);
 		panel.add(txtMaKM);
 		txtMaKM.setColumns(10);
 
 		txtTenKM = new JTextField();
+		txtTenKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenKM.setColumns(10);
 		txtTenKM.setBounds(196, 166, 200, 36);
 		panel.add(txtTenKM);
 
 		txtPhanTram = new JTextField();
+		txtPhanTram.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtPhanTram.setColumns(10);
 		txtPhanTram.setBounds(583, 166, 90, 36);
 		panel.add(txtPhanTram);
@@ -214,6 +220,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		});
 
 		txtMota = new JTextArea();
+		txtMota.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		txtMota.setBounds(196, 271, 277, 98);
 		panel.add(txtMota);
 
@@ -227,7 +234,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		btnTaoKM = new JButton("Tạo khuyến mãi");
 		btnTaoKM.setBackground(Color.GREEN);
 		btnTaoKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnTaoKM.setBounds(589, 320, 172, 49);
+		btnTaoKM.setBounds(589, 324, 172, 45);
 		panel.add(btnTaoKM);
 
 		String row2[] = { "Mã khuyến mãi", "Tên khuyến mãi", "Phần trăm",
@@ -289,6 +296,12 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		tableHeader1.setFont(new Font("Tohoma", Font.BOLD, 18));
 		table1.setFont(new Font("Tohoma", Font.PLAIN, 18));
 
+		TableColumnModel columnModel = table1.getColumnModel();
+		TableColumn giaBan = columnModel.getColumn(4);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		giaBan.setCellRenderer(rightRenderer);
+		
 		lblSanPham = new JLabel("SẢN PHẨM");
 		lblSanPham.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblSanPham.setBounds(28, 13, 172, 36);
@@ -301,7 +314,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 
 		lblLoai = new JLabel("Loại:");
 		lblLoai.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblLoai.setBounds(12, 30, 56, 26);
+		lblLoai.setBounds(26, 30, 56, 26);
 		panel_2.add(lblLoai);
 
 		cboLoai = new JComboBox();

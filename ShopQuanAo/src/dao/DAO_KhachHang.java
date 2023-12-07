@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -138,6 +139,7 @@ public class DAO_KhachHang {
 	public static void doDuLieuThongKe(JTable table) {
 	    ConnectionManager connectionManager = new ConnectionManager();
 	    Connection conn = connectionManager.conn;
+	    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 	    // cái tổng tiền đã mua chưa lấy được từ cái tiền tính giá bán
 	    if (conn != null) {
 	        try {
@@ -157,7 +159,7 @@ public class DAO_KhachHang {
 	                int soHoaDonDaMua = resultSet.getInt("soHoaDonDaMua");
 	                double tongTienDaMua = resultSet.getDouble("tongTienDaMua");
 
-	                Object[] rowData = { maKhachHang, tenKhachHang, soHoaDonDaMua, tongTienDaMua };
+	                Object[] rowData = { maKhachHang, tenKhachHang, soHoaDonDaMua, decimalFormat.format(tongTienDaMua) };
 	                model.addRow(rowData);
 	            }
 

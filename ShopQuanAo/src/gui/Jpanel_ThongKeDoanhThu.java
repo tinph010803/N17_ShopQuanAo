@@ -40,6 +40,7 @@ import dao.DAO_SanPham;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.swing.SwingConstants;
 
 public class Jpanel_ThongKeDoanhThu extends JPanel {
 
@@ -95,8 +96,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		pnlSoHD.add(lblTextSHD);
 
 		lblSoHD = new JLabel(""); // text ghi số hóa đơn
-		lblSoHD.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblSoHD.setBounds(47, 108, 175, 35);
+		lblSoHD.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSoHD.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblSoHD.setBounds(0, 108, 270, 40);
 		pnlSoHD.add(lblSoHD);
 
 		pnlTongTien = new JPanel();
@@ -113,8 +115,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		pnlTongTien.add(lblTongTien);
 
 		lblTextTongTien = new JLabel(""); // text ghi tổng tiền
-		lblTextTongTien.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTextTongTien.setBounds(47, 108, 175, 35);
+		lblTextTongTien.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTextTongTien.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblTextTongTien.setBounds(0, 108, 270, 40);
 		pnlTongTien.add(lblTextTongTien);
 
 		pnlVAT = new JPanel();
@@ -130,8 +133,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		pnlVAT.add(lblTongVAT);
 
 		lblTextVAT = new JLabel(""); // text ghi tổng VAT
-		lblTextVAT.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTextVAT.setBounds(47, 108, 175, 35);
+		lblTextVAT.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTextVAT.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblTextVAT.setBounds(0, 108, 270, 40);
 		pnlVAT.add(lblTextVAT);
 
 		pnlLoiNhuan = new JPanel();
@@ -148,8 +152,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		pnlLoiNhuan.add(lblLoiNhan);
 
 		lblTextLoiNhuan = new JLabel("d"); // text ghi tổng lợi nhuận
-		lblTextLoiNhuan.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTextLoiNhuan.setBounds(47, 108, 175, 35);
+		lblTextLoiNhuan.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTextLoiNhuan.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblTextLoiNhuan.setBounds(0, 108, 270, 40);
 		pnlLoiNhuan.add(lblTextLoiNhuan);
 
 		btnXuat = new JButton("Xuất");
@@ -160,22 +165,22 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 
 		JLabel lblTu = new JLabel("Từ");
 		lblTu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTu.setBounds(59, 100, 75, 28);
+		lblTu.setBounds(59, 100, 40, 35);
 		pnlThongKeDT.add(lblTu);
 		// jtextfield ngày
 		txtTimNgayBD = new JDateChooser();
 		txtTimNgayBD.setDateFormatString("dd/MM/yyyy");
-		txtTimNgayBD.setBounds(135, 100, 120, 35);
+		txtTimNgayBD.setBounds(100, 100, 150, 35);
 		pnlThongKeDT.add(txtTimNgayBD);
 
 		JLabel lblDen = new JLabel("Đến");
 		lblDen.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblDen.setBounds(335, 100, 50, 30);
+		lblDen.setBounds(335, 100, 46, 35);
 		pnlThongKeDT.add(lblDen);
 		// jtextfield ngày
 		txtTimNgayKT = new JDateChooser();
 		txtTimNgayKT.setDateFormatString("dd/MM/yyyy");
-		txtTimNgayKT.setBounds(385, 100, 120, 35);
+		txtTimNgayKT.setBounds(385, 100, 150, 35);
 		pnlThongKeDT.add(txtTimNgayKT);
 
 		pnlRight = new JPanel();
@@ -201,7 +206,7 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 				timKiemThongKe();
 			}
 		});
-		btnThongKe.setBounds(802, 90, 150, 50);
+		btnThongKe.setBounds(802, 100, 150, 50);
 		pnlThongKeDT.add(btnThongKe);
 
 		btnXuat.addActionListener(new ActionListener() {
@@ -209,6 +214,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 				xuatDuLieuExcel();
 			}
 		});
+		
+		btnThongKe.setFocusPainted(false);
+		btnXuat.setFocusPainted(false);
 
 	}
 

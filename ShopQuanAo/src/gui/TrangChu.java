@@ -136,8 +136,7 @@ public class TrangChu extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		pnlHead = new JPanel();
-		pnlHead.setBorder(new MatteBorder(0, 0, 1, 0,
-				(Color) new Color(0, 0, 0)));
+		pnlHead.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		pnlHead.setBackground(new Color(0, 250, 154));
 		pnlHead.setBounds(0, 0, 1910, 70);
 		panel.add(pnlHead);
@@ -152,8 +151,7 @@ public class TrangChu extends JFrame implements ActionListener {
 		pnlHead.add(lblTenShop);
 
 		pnlMenu = new JPanel();
-		pnlMenu.setBorder(new MatteBorder(0, 0, 0, 1,
-				(Color) new Color(0, 0, 0)));
+		pnlMenu.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		pnlMenu.setBackground(new Color(0, 250, 154));
 		pnlMenu.setBounds(0, 0, 264, 1045);
 		panel.add(pnlMenu);
@@ -703,7 +701,7 @@ public class TrangChu extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					setMenuInterface(new JPanel_TKSP_TonKho());
+					setMenuInterface(new Jpanel_TKSP_TonKho());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -725,7 +723,7 @@ public class TrangChu extends JFrame implements ActionListener {
 	
 
 	private void setMenuInterface(JPanel panel) {
-
+		btnChon = null;
 		pnlMain.removeAll();
 		pnlMain.setLayout(new BorderLayout());
 		pnlMain.add(panel);

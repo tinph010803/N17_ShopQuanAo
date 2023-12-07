@@ -60,7 +60,7 @@ import entity.SanPham;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class JPanel_TKSP_TonKho extends JPanel {
+public class Jpanel_TKSP_TonKho extends JPanel {
 	private DefaultTableModel model;
 	private JComponent tbHeader;
 	private JTable table;
@@ -72,7 +72,6 @@ public class JPanel_TKSP_TonKho extends JPanel {
 	private JRadioButton rdoTKTonKho;
 	private JRadioButton rdoTKSp;
 	private JComboBox cboLoai;
-	private JButton btnTimKiem;
 	private JPanel pnlCenter;
 	private JPanel pnlLeft;
 	private JPanel pnlRight;
@@ -89,7 +88,7 @@ public class JPanel_TKSP_TonKho extends JPanel {
 	 * 
 	 * @throws SQLException
 	 */
-	public JPanel_TKSP_TonKho() throws SQLException {
+	public Jpanel_TKSP_TonKho() throws SQLException {
 		setLayout(null);
 
 		pnlThongKe = new JPanel();
@@ -125,26 +124,21 @@ public class JPanel_TKSP_TonKho extends JPanel {
 		bg.add(rdoTKTonKho);
 
 		cboLoai = new JComboBox();
-		cboLoai.setBounds(65, 80, 120, 35);
+		cboLoai.setBounds(65, 80, 148, 35);
 		cboLoai.setBackground(new Color(255, 128, 64));
 		cboLoai.setModel(new DefaultComboBoxModel(new String[] { "Tất cả",
 				"Áo", "Quần", "Váy", "Đầm" }));
 		pnlHeader.add(cboLoai);
 
-		btnTimKiem = new JButton("Tìm kiếm");
-		btnTimKiem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-
-		btnTimKiem.setBackground(Color.CYAN);
-		btnTimKiem.setBounds(350, 80, 120, 35);
-		pnlHeader.add(btnTimKiem);
-
 		txtTim = new JTextField();
 		txtTim.setColumns(10);
 		txtTim.setBounds(480, 80, 200, 35);
 		pnlHeader.add(txtTim);
+		
+		JLabel lblNewLabel = new JLabel("Tìm kiếm:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setBounds(360, 80, 100, 35);
+		pnlHeader.add(lblNewLabel);
 
 		pnlCenter = new JPanel();
 		pnlCenter.setBounds(0, 154, 1646, 821);
@@ -243,7 +237,7 @@ public class JPanel_TKSP_TonKho extends JPanel {
 				pnlThongKe.removeAll();
 				pnlThongKe.setLayout(new BorderLayout());
 				try {
-					pnlThongKe.add(new JPanel_TKSP_TonKho());
+					pnlThongKe.add(new Jpanel_TKSP_TonKho());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -282,6 +276,7 @@ public class JPanel_TKSP_TonKho extends JPanel {
 		        }
 		    }
 		});
+		btnXuatHD.setFocusPainted(false);
 		
 	}
 
