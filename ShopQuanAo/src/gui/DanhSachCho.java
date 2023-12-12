@@ -1,6 +1,5 @@
 package gui;
 
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -10,7 +9,6 @@ import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
-
 
 import javax.swing.JLabel;
 
@@ -56,10 +54,10 @@ public class DanhSachCho extends JFrame {
 	private DefaultTableModel modelHD;
 	private JTable tableCTHD;
 	private DefaultTableModel modelCTHD;
-	private JPanel pn_Top;
+	private JPanel pnl_Top;
 	private JButton btnThanhToan;
 	private JButton btnXoa;
-	private JPanel pn_Bot_center;
+	private JPanel pnl_Bot_center;
 	private JLabel lblNewLabel;
 
 	/**
@@ -82,18 +80,18 @@ public class DanhSachCho extends JFrame {
 
 		contentPane.setBackground(Color.decode(cl_greyblue));
 
-		JPanel pn_center = new JPanel();
-		pn_center.setBackground(Color.decode(cl_greyblue));
-		pn_center.setBounds(0, 69, 1200, 880);
-		contentPane.add(pn_center);
-		pn_center.setLayout(null);
+		JPanel pnl_center = new JPanel();
+		pnl_center.setBackground(Color.decode(cl_greyblue));
+		pnl_center.setBounds(0, 69, 1200, 880);
+		contentPane.add(pnl_center);
+		pnl_center.setLayout(null);
 
 		JLabel lbl_TimKiem = new JLabel("Tìm kiếm  : ");
 		lbl_TimKiem.setBounds(527, 8, 123, 25);
 		lbl_TimKiem.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_TimKiem.setIcon(new ImageIcon(
 				"N:\\Phát Triển Ứng Dụng\\Code\\Icon\\search.png"));
-		pn_center.add(lbl_TimKiem);
+		pnl_center.add(lbl_TimKiem);
 
 		txtTimkiem = new JTextField();
 		txtTimkiem.setSelectionColor(new Color(255, 128, 0));
@@ -104,25 +102,25 @@ public class DanhSachCho extends JFrame {
 		txtTimkiem.setFont(new Font("Arial", Font.ITALIC, 15));
 		txtTimkiem.setForeground(Color.black);
 
-		pn_center.add(txtTimkiem);
+		pnl_center.add(txtTimkiem);
 		txtTimkiem.setColumns(10);
 		txtTimkiem.setBackground(Color.decode(cl_greyblue));
 
-		JPanel pn_Top_center = new JPanel();
-		pn_Top_center.setBorder(new BevelBorder(BevelBorder.LOWERED, null,
+		JPanel pnl_Top_center = new JPanel();
+		pnl_Top_center.setBorder(new BevelBorder(BevelBorder.LOWERED, null,
 				null, null, null));
-		pn_Top_center.setBounds(0, 56, 1200, 342);
-		pn_center.add(pn_Top_center);
+		pnl_Top_center.setBounds(0, 56, 1200, 342);
+		pnl_center.add(pnl_Top_center);
 
 		String row[] = { "Tên khách hàng", "Số điện thoại", "Tổng tiền",
 				"Tổng tiền cần thu" };
 		modelHD = new DefaultTableModel(row, 0);
-		pn_Top_center.setLayout(null);
+		pnl_Top_center.setLayout(null);
 		tableHD = new JTable(modelHD);
 		tableHD.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JScrollPane scrollPaneHD = new JScrollPane(tableHD);
 		scrollPaneHD.setBounds(10, 10, 1030, 319);
-		pn_Top_center.add(scrollPaneHD);
+		pnl_Top_center.add(scrollPaneHD);
 		tableHD.setFont(new Font("Tohoma", Font.PLAIN, 18));
 
 		tableHD.setRowHeight(30);
@@ -130,9 +128,10 @@ public class DanhSachCho extends JFrame {
 		DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
 		for (int i = 0; i < dsHoaDonCho.size(); i++) {
-			dsHoaDonCho.get(i).setTongTienCanThu(listDanhSachCTHDCho.get(i));;
+			dsHoaDonCho.get(i).setTongTienCanThu(listDanhSachCTHDCho.get(i));
+			;
 			if (dsHoaDonCho.get(i).getKhachHang() != null) {
-				
+
 				modelHD.addRow(new Object[] {
 						dsHoaDonCho.get(i).getKhachHang().getTenKhachHang(),
 						dsHoaDonCho.get(i).getKhachHang().getSdt(),
@@ -154,7 +153,7 @@ public class DanhSachCho extends JFrame {
 
 		btnThanhToan = new JButton("Thanh Toán");
 		btnThanhToan.setBounds(1060, 83, 120, 36);
-		pn_Top_center.add(btnThanhToan);
+		pnl_Top_center.add(btnThanhToan);
 		btnThanhToan.setIcon(null);
 		btnThanhToan.setBackground(Color.decode(cl_yellow));
 		btnThanhToan.setFocusPainted(false);
@@ -163,43 +162,43 @@ public class DanhSachCho extends JFrame {
 
 		btnXoa = new JButton("Xóa");
 		btnXoa.setBounds(1060, 172, 120, 36);
-		pn_Top_center.add(btnXoa);
+		pnl_Top_center.add(btnXoa);
 		btnXoa.setFont(new Font("Arial", Font.BOLD, 13));
 		btnXoa.setFocusPainted(false);
 		btnXoa.setBorder(null);
 		btnXoa.setBackground(new Color(255, 0, 0));
 
-		pn_Bot_center = new JPanel();
-		pn_Bot_center.setBounds(0, 397, 1200, 500);
-		pn_center.add(pn_Bot_center);
+		pnl_Bot_center = new JPanel();
+		pnl_Bot_center.setBounds(0, 397, 1200, 500);
+		pnl_center.add(pnl_Bot_center);
 
 		JTableHeader tbheaderHD = tableHD.getTableHeader();
 		tbheaderHD.setBackground(Color.decode(cl_green));
 		tbheaderHD.setForeground(Color.white);
 		tbheaderHD.setFont(new Font("Tohoma", Font.BOLD, 18));
 
-		pn_Top = new JPanel();
-		pn_Top.setBounds(0, 0, 1200, 70);
-		pn_Top.setBackground(Color.decode(cl_green));
-		contentPane.add(pn_Top);
-		pn_Top.setLayout(null);
+		pnl_Top = new JPanel();
+		pnl_Top.setBounds(0, 0, 1200, 70);
+		pnl_Top.setBackground(Color.decode(cl_green));
+		contentPane.add(pnl_Top);
+		pnl_Top.setLayout(null);
 
 		lblNewLabel = new JLabel("CHỜ THANH TOÁN");
 		lblNewLabel.setBounds(485, 20, 230, 30);
 		lblNewLabel.setForeground(new Color(252, 190, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
-		pn_Top.add(lblNewLabel);
+		pnl_Top.add(lblNewLabel);
 
 		String rowCTHD[] = { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá",
 				"Tiền khuyến mãi", "Thành tiền" };
 		modelCTHD = new DefaultTableModel(rowCTHD, 0);
-		pn_Top_center.setLayout(null);
-		pn_Bot_center.setLayout(null);
+		pnl_Top_center.setLayout(null);
+		pnl_Bot_center.setLayout(null);
 		tableCTHD = new JTable(modelCTHD);
 		tableCTHD.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JScrollPane scrollPaneCTHD = new JScrollPane(tableCTHD);
 		scrollPaneCTHD.setBounds(10, 10, 1180, 431);
-		pn_Bot_center.add(scrollPaneCTHD);
+		pnl_Bot_center.add(scrollPaneCTHD);
 		tableCTHD.setFont(new Font("Tohoma", Font.PLAIN, 18));
 
 		JTableHeader tbheaderCTHD = tableCTHD.getTableHeader();
@@ -227,8 +226,7 @@ public class DanhSachCho extends JFrame {
 				}
 			}
 		});
-		
-		
+
 		TableColumnModel columnModelHD = tableHD.getColumnModel();
 		TableColumn ttHD = columnModelHD.getColumn(2);
 		TableColumn ttctHD = columnModelHD.getColumn(3);
@@ -237,9 +235,7 @@ public class DanhSachCho extends JFrame {
 		rightRendererHD.setHorizontalAlignment(SwingConstants.RIGHT);
 		ttHD.setCellRenderer(rightRendererHD);
 		ttctHD.setCellRenderer(rightRendererHD);
-		
-		
-		
+
 		TableColumnModel columnModelCTHD = tableCTHD.getColumnModel();
 		TableColumn slCTHD = columnModelCTHD.getColumn(2);
 		TableColumn giaCTHD = columnModelCTHD.getColumn(3);
@@ -288,30 +284,6 @@ public class DanhSachCho extends JFrame {
 				filterData();
 			}
 		});
-
-		// txtTimkiem.addKeyListener(new java.awt.event.KeyAdapter() {
-		// public void keyReleased(java.awt.event.KeyEvent evt) {
-		// txtTimkiemKeyReleased(evt);
-		// }
-		//
-		// private void txtTimkiemKeyReleased(KeyEvent evt) {
-		// // TODO Auto-generated method stub
-		// String tuKhoa = txtTimkiem.getText().trim();
-		//
-		// }
-		//
-		// private void timKiem(String tuKhoa) {
-		// int rowCount = modelHD.getRowCount();
-		// modelHD.setRowCount(0);
-		// for (int i = 0; i < rowCount; i++) {
-		// if (rootPaneCheckingEnabled) {
-		//
-		// }
-		// }
-		//
-		// }
-		// });
-
 	}
 
 	private void filterData() {

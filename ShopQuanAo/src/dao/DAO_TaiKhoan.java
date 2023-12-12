@@ -17,14 +17,14 @@ public class DAO_TaiKhoan {
 
 	public static TaiKhoan getTKtheoMa(String ma) {
 		TaiKhoan tk = null;
-ConnectionManager con = new ConnectionManager();
+		ConnectionManager con = new ConnectionManager();
 		ResultSet rs = ConnectionManager
 				.getdata("select * from TaiKhoan where tenTaiKhoan= N'" + ma
 						+ "'");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate a;
 		try {
-				while (rs.next()) {
+			while (rs.next()) {
 				a = LocalDate.parse(rs.getString("ngayLap"), formatter);
 				tk = new TaiKhoan(rs.getString("tenTaiKhoan").trim(), rs
 						.getString("matKhau").trim(), rs.getString("ghiChu"),
@@ -56,10 +56,10 @@ ConnectionManager con = new ConnectionManager();
 
 		int kq = ConnectionManager.executeTruyVan(sql);
 		if (kq > 0) {
-			thongbao.thongbao("dung", "");
+			thongbao.thongbao("Thêm thành công", "");
 			return true;
 		} else {
-			thongbao.thongbao("sai", "");
+			thongbao.thongbao("Thêm thất bại", "");
 			return false;
 		}
 	}
@@ -69,10 +69,10 @@ ConnectionManager con = new ConnectionManager();
 				.executeTruyVan("delete from TaiKhoan where tenTaiKhoan= N'"
 						+ ma + "'");
 		if (kq > 0) {
-			thongbao.thongbao("Xoa Thanh Công ", "");
+			thongbao.thongbao("Xóa thành công ", "");
 			return true;
 		} else {
-			thongbao.thongbao("Xoa  KHÔNG Thanh Công ", "");
+			thongbao.thongbao("Xóa thất bại ", "");
 			return false;
 		}
 	}
@@ -83,13 +83,13 @@ ConnectionManager con = new ConnectionManager();
 		// ResultSet rs = ConnectionManager.getdata(sql);
 		int kq = ConnectionManager.executeTruyVan(sql);
 		if (kq > 0) {
-			thongbao.thongbao("đúng", "");
+			thongbao.thongbao("Sửa thành công", "");
 			return true;
 		} else {
-			thongbao.thongbao("Sai", "");
+			thongbao.thongbao("Sửa thất bại", "");
 			return false;
 		}
 
 	}
-	
+
 }

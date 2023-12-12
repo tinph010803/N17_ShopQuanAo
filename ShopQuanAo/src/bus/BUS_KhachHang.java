@@ -50,11 +50,12 @@ public class BUS_KhachHang {
 		ResultSet rs = dao.DAO_KhachHang.layKH();
 		try {
 			while (rs.next()) {
-				if (!KH.getMaKhachHang().equals(rs.getString("maKhachHang").trim())) {
+				if (!KH.getMaKhachHang().equals(
+						rs.getString("maKhachHang").trim())) {
 					if (KH.getSdt().equals(rs.getString("sdt"))) {
 						thongbao.thongbao("Số điện thoại đã có người dùng", "");
 						return false;
-					}	
+					}
 				}
 
 			}

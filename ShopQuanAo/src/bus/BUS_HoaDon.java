@@ -40,24 +40,25 @@ public class BUS_HoaDon {
 		DeleteDataTable(model);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DecimalFormat df = new DecimalFormat("#,###");
-//		System.err.println(ds);
-		String tenKh,sdt;
+		String tenKh, sdt;
 		for (HoaDon e : ds) {
-			if(e.getKhachHang()==null) {
-				tenKh= "[khách vãng lai]";
-				sdt="xxx";
+			if (e.getKhachHang() == null) {
+				tenKh = "[khách vãng lai]";
+				sdt = "xxx";
+			} else {
+				tenKh = e.getKhachHang().getTenKhachHang();
+				sdt = e.getKhachHang().getSdt();
 			}
-			else {
-				tenKh= e.getKhachHang().getTenKhachHang();
-				sdt= e.getKhachHang().getSdt();
-			}
-			List<ChiTietHoaDon> dscthd= DAO_ChiTietHoaDon.layDSCTHDTheoMaHd(e.getMaHoaDon().trim());
+			List<ChiTietHoaDon> dscthd = DAO_ChiTietHoaDon.layDSCTHDTheoMaHd(e
+					.getMaHoaDon().trim());
 			hd.setTongTienCanThu(dscthd);
 			double tien = hd.getTongTienCanThu();
-			
-			model.addRow(new String[] { e.getMaHoaDon().trim(), e.getNgay().format(formatter),
-					 tenKh,sdt, e.getNhanVien().getTenNhanVien().trim(), df.format(tien)});
-		};
+
+			model.addRow(new String[] { e.getMaHoaDon().trim(),
+					e.getNgay().format(formatter), tenKh, sdt,
+					e.getNhanVien().getTenNhanVien().trim(), df.format(tien) });
+		}
+		;
 
 	}
 
@@ -68,19 +69,14 @@ public class BUS_HoaDon {
 		DecimalFormat df = new DecimalFormat("#,###,###");
 		ds.forEach(a -> {
 			SanPham sp = a.getSanPham();
-			model.addRow(new String[] { 
-					sp.getTenSanPham(),
-					sp.getLoai().getValue(),
-					sp.getMau().getValue(),
-					sp.getKichThuoc().getValue(), 
-					String.valueOf(a.getSoLuong()), 
-					df.format(sp.getGiaBan()),
-					df.format(a.getKhuyenMai()),
-					df.format(a.getThanhTien()) ,
-					df.format(a.tinhTienThue()) ,
-					df.format(a.tinhTienTheoBac()) ,
-					df.format(a.getTienCuoiCung()) 
-					});
+			model.addRow(new String[] { sp.getTenSanPham(),
+					sp.getLoai().getValue(), sp.getMau().getValue(),
+					sp.getKichThuoc().getValue(),
+					String.valueOf(a.getSoLuong()), df.format(sp.getGiaBan()),
+					df.format(a.getKhuyenMai()), df.format(a.getThanhTien()),
+					df.format(a.tinhTienThue()),
+					df.format(a.tinhTienTheoBac()),
+					df.format(a.getTienCuoiCung()) });
 		});
 	}
 }

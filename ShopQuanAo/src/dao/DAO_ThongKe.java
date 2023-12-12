@@ -4,8 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import connectDB.ConnectionManager;
 
@@ -67,7 +72,7 @@ public class DAO_ThongKe {
 		Connection conn = connectionManager.conn;
 
 		try {
-//			String query = "SELECT maHoaDon, SUM(tongTien * VAT/100) AS totalVAT FROM HoaDon GROUP BY maHoaDon";
+			//String query = "SELECT maHoaDon, SUM(tongTien * (100/108 * VAT)) AS totalVAT FROM HoaDon GROUP BY maHoaDon";
 			String query = "SELECT maHoaDon, SUM(tongTien * 100/108*VAT/100) AS totalVAT FROM HoaDon GROUP BY maHoaDon";
 			PreparedStatement statement = conn.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
@@ -179,18 +184,18 @@ public class DAO_ThongKe {
 		try {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.conn;
-			String sqlQuery = "SELECT maHoaDon, SUM(tongTien * VAT/100) AS TongVAT FROM HoaDon WHERE ngay BETWEEN ? AND ? GROUP BY maHoaDon";
-
+			//String sqlQuery = "SELECT maHoaDon, SUM(tongTien * VAT/100) AS TongVAT FROM HoaDon WHERE ngay BETWEEN ? AND ? GROUP BY maHoaDon";
+			String sqlQuery = "SELECT maHoaDon, SUM(tongTien * 100/108*VAT/100) AS totalVAT FROM HoaDon WHERE ngay BETWEEN ? AND ? GROUP BY maHoaDon";
 			PreparedStatement statement = conn.prepareStatement(sqlQuery);
 			statement.setDate(1, new java.sql.Date(ngayBD.getTime()));
 			statement.setDate(2, new java.sql.Date(ngayKT.getTime()));
 
 			ResultSet resultSet = statement.executeQuery();
 
-			if (resultSet.next()) {
-				tongVAT = resultSet.getDouble("TongVAT");
+			while (resultSet.next()) {
+				tongVAT = resultSet.getDouble("totalVAT");
 				DecimalFormat df = new DecimalFormat("#,###");
-				// lblTextVAT.setText(df.format(tongVAT));
+				tongVAT+=tongVAT;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -228,5 +233,6 @@ public class DAO_ThongKe {
 		}
 		return loiNhuan;
 	}
-
+	
+	
 }

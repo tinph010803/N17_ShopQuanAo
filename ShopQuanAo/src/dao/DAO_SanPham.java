@@ -16,7 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -65,7 +67,6 @@ public class DAO_SanPham {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.err.println("lỗi tạo sản phẩm !");
 		}
 		return sp;
 	}
@@ -112,7 +113,6 @@ public class DAO_SanPham {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.err.println("lỗi tạo sản phẩm !");
 		}
 		return sp;
 
@@ -122,7 +122,6 @@ public class DAO_SanPham {
 		String sql = "INSERT INTO [dbo].[SanPham] "
 				+ "([maSanPham],[tenSanPham],[loai],[maNhaCungCap],[moTa],[chatLieu],[mau],[kichThuoc],[giaNhap],[soLuong],[nhanHieu],[hinhAnh],[maKhuyenMai]) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		System.out.println(sp.getNhaCC().getMaNhaCungCap());
 		int kq = 0;
 		try {
 			ConnectionManager connection = new ConnectionManager(); // Lấy kết
@@ -162,9 +161,9 @@ public class DAO_SanPham {
 	}
 
 	public static void capNhatKhuyenMai(String maSP) {
-		String km=null;
-		String sql = "UPDATE [dbo].[SanPham] " + "   SET maKhuyenMai= NULL WHERE maSanPham='"
-				+ maSP + "'";
+		String km = null;
+		String sql = "UPDATE [dbo].[SanPham] "
+				+ "   SET maKhuyenMai= NULL WHERE maSanPham='" + maSP + "'";
 		ConnectionManager.executeTruyVan(sql);
 	}
 
@@ -174,7 +173,7 @@ public class DAO_SanPham {
 				+ sp.getMaSanPham() + "'";
 		ConnectionManager.executeTruyVan(sql);
 	}
-	
+
 	public static void capNhatSoLuongTang(SanPham sp, int soLuong) {
 		String sql = "UPDATE [dbo].[SanPham] " + "   SET [soLuong] = "
 				+ (sp.getSoLuong() + soLuong) + " WHERE maSanPham='"
@@ -192,12 +191,13 @@ public class DAO_SanPham {
 				+ ",[nhanHieu] =N'" + sp.getNhanHieu().getValue() + " '"
 				+ ",[chatLieu] =N'" + sp.getChatLieu().getValue() + " '"
 				+ ",[hinhAnh] =N'" + sp.getHinhAnh()
-				+ "' WHERE maSanPham LIKE N'%" + maSP  + "%'";
+				+ "' WHERE maSanPham LIKE N'%" + maSP + "%'";
 		String sqlSL = "UPDATE [dbo].[SanPham] " + " SET [soLuong] ="
-				+ sp.getSoLuong() +  " WHERE maSanPham ='" + sp.getMaSanPham() + "'";
+				+ sp.getSoLuong() + " WHERE maSanPham ='" + sp.getMaSanPham()
+				+ "'";
 		int kq = ConnectionManager.executeTruyVan(sql);
-		int kqSL =  ConnectionManager.executeTruyVan(sqlSL);
-		if (kq > 0 && kqSL >0) {
+		int kqSL = ConnectionManager.executeTruyVan(sqlSL);
+		if (kq > 0 && kqSL > 0) {
 			thongbao.thongbao("Sửa thành công", "");
 		} else {
 			thongbao.thongbao("Sửa không thành công", "");
@@ -222,8 +222,8 @@ public class DAO_SanPham {
 
 	public static ResultSet timKiem(String tukhoa, String loai, String gia,
 			String nh, String chatLieu) {
-		String sql = "select * from SanPham where (tenSanPham like N'%" + tukhoa
-				+ "%' OR mau like N'%" + tukhoa + "%')";
+		String sql = "select * from SanPham where (tenSanPham like N'%"
+				+ tukhoa + "%' OR mau like N'%" + tukhoa + "%')";
 		// Loại
 		String loaiCondition = "";
 		if (!loai.trim().equalsIgnoreCase("Tất cả")) {
@@ -530,19 +530,19 @@ public class DAO_SanPham {
 		}
 		return totalQuantity;
 	}
-	
-	public static List<SanPham> getDSSanPham(){
+
+	public static List<SanPham> getDSSanPham() {
 		String sql = "select * from SanPham order by loai asc";
-		ResultSet rs  = ConnectionManager.getdata(sql);
-		
-		List<SanPham> ds= new ArrayList<>();
+		ResultSet rs = ConnectionManager.getdata(sql);
+
+		List<SanPham> ds = new ArrayList<>();
 		try {
-			if(rs==null) {
+			if (rs == null) {
 				return ds;
 			}
-			while(rs.next()) {
-				SanPham sp =laySanPhamTheoMa(rs.getString("maSanPham").trim());
-				if(sp!=null)
+			while (rs.next()) {
+				SanPham sp = laySanPhamTheoMa(rs.getString("maSanPham").trim());
+				if (sp != null)
 					ds.add(sp);
 			}
 		} catch (SQLException e) {
@@ -551,61 +551,98 @@ public class DAO_SanPham {
 		}
 		return ds;
 	}
-	
+
 	public static List<String> getDuLieu_SPDaBan() {
-		ConnectionManager connectionManager= new ConnectionManager();
-	    String query = "SELECT c.maSanPham,SUM(c.soLuong) AS soLuongDaBan, sum(c.tienCuoiCung) as tongtien "
-                + "FROM ChiTietHoaDon c "
-                + "JOIN SanPham p ON c.maSanPham = p.maSanPham "
-                + "GROUP BY c.maSanPham, p.tenSanPham,p.giaNhap, p.loai";
-	    System.err.println(query);
-	    ResultSet rs= ConnectionManager.getdata(query);
-	   
-	    List<String> ds= new ArrayList<>() ;
-	            try {
-					while (rs.next()) {
-						String str="";
-						str+=rs.getString("maSanPham").trim() +":"+String.valueOf(rs.getInt("soLuongDaBan"))+":"+String.valueOf(rs.getDouble("tongtien"))	 ;
-						ds.add(str);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	       return ds;
-	}
-	
-	public static List<String> getDuLieu_Loc(String sql) {
-		ConnectionManager connectionManager= new ConnectionManager();
-	   
-	    ResultSet rs= ConnectionManager.getdata(sql);
-	   
-	    List<String> ds= new ArrayList<>() ;
-	            try {
-					while (rs.next()) {
-						String str="";
-						str+=rs.getString("maSanPham").trim() +":"+String.valueOf(rs.getInt("soLuongDaBan"))+":"+String.valueOf(rs.getDouble("tongtien"))	 ;
-						ds.add(str);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	       return ds;
-	}
-	
-	public static List<SanPham> getDsSanPham_Querry(String sql){
-		ConnectionManager con= new ConnectionManager();
-		ResultSet rs  = ConnectionManager.getdata(sql);
-		
-		List<SanPham> ds= new ArrayList<>();
+		ConnectionManager connectionManager = new ConnectionManager();
+		String query = "SELECT c.maSanPham,SUM(c.soLuong) AS soLuongDaBan, sum(c.tienCuoiCung) as tongtien "
+				+ "FROM ChiTietHoaDon c "
+				+ "JOIN SanPham p ON c.maSanPham = p.maSanPham "
+				+ "GROUP BY c.maSanPham, p.tenSanPham,p.giaNhap, p.loai";
+		ResultSet rs = ConnectionManager.getdata(query);
+
+		List<String> ds = new ArrayList<>();
 		try {
-			if(rs==null) {
+			while (rs.next()) {
+				String str = "";
+				str += rs.getString("maSanPham").trim() + ":"
+						+ String.valueOf(rs.getInt("soLuongDaBan")) + ":"
+						+ String.valueOf(rs.getDouble("tongtien"));
+				ds.add(str);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ds;
+	}
+	public static List<String> getDuLieu_SPDaBanTheoTG(Date ngayBD, Date ngayKT) {
+		ConnectionManager connectionManager = new ConnectionManager();
+//		String query = "SELECT c.maSanPham,SUM(c.soLuong) AS soLuongDaBan, sum(c.tienCuoiCung) as tongtien "
+//				+ "FROM ChiTietHoaDon c "
+//				+ "JOIN SanPham p ON c.maSanPham = p.maSanPham "
+//				+ "GROUP BY c.maSanPham, p.tenSanPham,p.giaNhap, p.loai";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String ngayBatDau = sdf.format(ngayBD);
+        String ngayKetThuc= sdf.format(ngayKT);
+		 String query = "SELECT c.maSanPham, SUM(c.soLuong) AS soLuongDaBan, SUM(c.tienCuoiCung) AS tongtien "
+		            + "FROM ChiTietHoaDon c "
+		            + "JOIN HoaDon h ON c.maHoaDon = h.maHoaDon "
+		            + "JOIN SanPham p ON c.maSanPham = p.maSanPham "
+		            + "WHERE h.ngay BETWEEN'"+ngayBatDau+"' AND '"+ ngayKetThuc + "' " // Thêm điều kiện WHERE
+		            + "GROUP BY c.maSanPham, p.tenSanPham, p.giaNhap, p.loai";
+		
+		
+		ResultSet rs = ConnectionManager.getdata(query);
+//		java.sql.Date sqlNgayBD = new java.sql.Date(ngayBD.getTime());
+//		java.sql.Date sqlNgayKT = new java.sql.Date(ngayKT.getTime());
+		List<String> ds = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				String str = "";
+				str += rs.getString("maSanPham").trim() + ":"
+						+ String.valueOf(rs.getInt("soLuongDaBan")) + ":"
+						+ String.valueOf(rs.getDouble("tongtien"));
+				ds.add(str);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ds;
+	}
+	public static List<String> getDuLieu_Loc(String sql) {
+		ConnectionManager connectionManager = new ConnectionManager();
+
+		ResultSet rs = ConnectionManager.getdata(sql);
+
+		List<String> ds = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				String str = "";
+				str += rs.getString("maSanPham").trim() + ":"
+						+ String.valueOf(rs.getInt("soLuongDaBan")) + ":"
+						+ String.valueOf(rs.getDouble("tongtien"));
+				ds.add(str);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ds;
+	}
+
+	public static List<SanPham> getDsSanPham_Querry(String sql) {
+		ConnectionManager con = new ConnectionManager();
+		ResultSet rs = ConnectionManager.getdata(sql);
+
+		List<SanPham> ds = new ArrayList<>();
+		try {
+			if (rs == null) {
 				return ds;
 			}
-			while(rs.next()) {
-				SanPham sp =laySanPhamTheoMa(rs.getString("maSanPham").trim());
-				if(sp!=null)
+			while (rs.next()) {
+				SanPham sp = laySanPhamTheoMa(rs.getString("maSanPham").trim());
+				if (sp != null)
 					ds.add(sp);
 			}
 		} catch (SQLException e) {

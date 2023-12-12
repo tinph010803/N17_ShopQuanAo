@@ -118,9 +118,10 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		pnl_HoaDon.setLayout(null);
 
 		panel_left = new JPanel();
-		panel_left.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0,
+		panel_left.setBackground(new Color(255, 255, 237));
+		panel_left.setBorder(new MatteBorder(0, 0, 1, 1, (Color) new Color(0,
 				0, 0)));
-		panel_left.setBounds(0, 0, 320, 975);
+		panel_left.setBounds(0, 0, 326, 975);
 		pnl_HoaDon.add(panel_left);
 		panel_left.setLayout(null);
 
@@ -171,11 +172,15 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		panel_left.add(lblSDT);
 
 		panel_right = new JPanel();
+		panel_right.setBackground(new Color(255, 255, 237));
 		panel_right.setBounds(314, 0, 1332, 975);
 		pnl_HoaDon.add(panel_right);
 		panel_right.setLayout(null);
 
 		panel_right_top = new JPanel();
+		panel_right_top.setBorder(new MatteBorder(0, 0, 1, 0,
+				(Color) new Color(0, 0, 0)));
+		panel_right_top.setBackground(new Color(255, 255, 237));
 		panel_right_top.setBounds(10, 0, 1323, 347);
 		panel_right.add(panel_right_top);
 		panel_right_top.setLayout(null);
@@ -187,33 +192,31 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		lblHoaDon.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblHoaDon.setForeground(Color.decode(cl_yellow));
 
-		String row[] = { "Mã hóa đơn đổi trả", "Mã hóa đơn", "Ngày lập HĐ",
+		String rowHDDT[] = { "Mã hóa đơn đổi trả", "Mã hóa đơn", "Ngày lập HĐ",
 				"Tên KH", "Số điện thoại", "Nhân viên", "Tổng tiền Hoàn Trả" };
-		modelHDDT = new DefaultTableModel(row, 0);
+		modelHDDT = new DefaultTableModel(rowHDDT, 0);
 		tableHDDT = new JTable(modelHDDT);
 		tableHDDT.setRowHeight(30);
 		tableHDDT.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
 				255, 153)));
-		JTableHeader tbHeader = tableHDDT.getTableHeader();
-		tbHeader.setBackground((Color.decode("#00c691")));
-		tbHeader.setForeground(Color.white);
-		tbHeader.setFont(new Font("Tahoma", Font.BOLD, 10));
-		JScrollPane scrollPane = new JScrollPane(tableHDDT);
-		scrollPane.setBorder(null);
-		scrollPane.setLocation(30, 58);
-		scrollPane.setSize(1281, 277);
-		JTableHeader tableHeader = tableHDDT.getTableHeader();
-		tableHeader.setFont(new Font("Tohoma", Font.BOLD, 18));
+		JTableHeader tbHeaderHDDT = tableHDDT.getTableHeader();
+		tbHeaderHDDT.setBackground((Color.decode("#00c691")));
+		tbHeaderHDDT.setForeground(Color.white);
+		tbHeaderHDDT.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JScrollPane scrollPaneHDDT = new JScrollPane(tableHDDT);
+		scrollPaneHDDT.setBorder(null);
+		scrollPaneHDDT.setLocation(30, 58);
+		scrollPaneHDDT.setSize(1281, 270);
+		JTableHeader tableHeaderHDDT = tableHDDT.getTableHeader();
+		tableHeaderHDDT.setFont(new Font("Tohoma", Font.BOLD, 18));
 		tableHDDT.setFont(new Font("Tohoma", Font.PLAIN, 16));
-		panel_right_top.add(scrollPane);
+		panel_right_top.add(scrollPaneHDDT);
 
 		TableColumnModel columnModelHDDT = tableHDDT.getColumnModel();
 		TableColumn tongTien = columnModelHDDT.getColumn(6);
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 		tongTien.setCellRenderer(rightRenderer);
-
-
 
 		lblChiTietHD = new JLabel("CHI TIẾT HÓA ĐƠN ĐỔI TRẢ");
 		lblChiTietHD.setHorizontalAlignment(SwingConstants.CENTER);
@@ -223,6 +226,7 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		panel_right.add(lblChiTietHD);
 
 		panel_right_bot = new JPanel();
+		panel_right_bot.setBackground(new Color(255, 255, 237));
 		panel_right_bot.setBounds(10, 348, 1323, 620);
 		tableHDDT.setRowHeight(30);
 
@@ -234,29 +238,27 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 
 		panel_right.add(panel_right_bot);
 
-		String row1[] = { "Tên sản phẩm", "Loại", "Màu sắc", "Kích thước",
+		String rowCTHDDT[] = { "Tên sản phẩm", "Loại", "Màu sắc", "Kích thước",
 				"Số lượng", "Thành tiền", "Tiền hoàn trả" };
-		modelCTHDDT = new DefaultTableModel(row1, 0);
+		modelCTHDDT = new DefaultTableModel(rowCTHDDT, 0);
 		tableCTHDDT = new JTable(modelCTHDDT);
 		tableCTHDDT.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
 				255, 153)));
 		tableCTHDDT.setRowHeight(30);
-		JTableHeader tbHeader1 = tableCTHDDT.getTableHeader();
-		tbHeader1.setBackground((Color.decode("#00c691")));
-		tbHeader1.setForeground(Color.white);
-		tbHeader1.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JTableHeader tbHeaderCTHDDT = tableCTHDDT.getTableHeader();
+		tbHeaderCTHDDT.setBackground((Color.decode("#00c691")));
+		tbHeaderCTHDDT.setForeground(Color.white);
+		tbHeaderCTHDDT.setFont(new Font("Tahoma", Font.BOLD, 10));
 		panel_right_bot.setLayout(null);
-		JScrollPane scrollPane1 = new JScrollPane(tableCTHDDT);
-		scrollPane1.setBorder(null);
-		scrollPane1.setLocation(32, 66);
-		scrollPane1.setSize(1276, 464);
-		tbHeader1.setFont(new Font("Tohoma", Font.BOLD, 18));
+		JScrollPane scrollPaneCTHDDT = new JScrollPane(tableCTHDDT);
+		scrollPaneCTHDDT.setBorder(null);
+		scrollPaneCTHDDT.setLocation(32, 66);
+		scrollPaneCTHDDT.setSize(1276, 464);
+		tbHeaderCTHDDT.setFont(new Font("Tohoma", Font.BOLD, 18));
 		tableCTHDDT.setFont(new Font("Tohoma", Font.PLAIN, 16));
-		panel_right_bot.add(scrollPane1);
-		
-		
-		
-		TableColumnModel columnModelCTHDDT= tableCTHDDT.getColumnModel();
+		panel_right_bot.add(scrollPaneCTHDDT);
+
+		TableColumnModel columnModelCTHDDT = tableCTHDDT.getColumnModel();
 		TableColumn soLuong = columnModelCTHDDT.getColumn(4);
 		TableColumn thanhTien = columnModelCTHDDT.getColumn(5);
 		TableColumn tongTra = columnModelCTHDDT.getColumn(6);
@@ -265,9 +267,10 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		thanhTien.setCellRenderer(rightRenderer);
 		tongTra.setCellRenderer(rightRenderer);
 		JPanel pnl_left_bot = new JPanel();
-		pnl_left_bot.setBorder(new MatteBorder(2, 0, 0, 2, (Color) new Color(0,
+		pnl_left_bot.setBackground(new Color(255, 255, 237));
+		pnl_left_bot.setBorder(new MatteBorder(1, 0, 0, 1, (Color) new Color(0,
 				0, 0)));
-		pnl_left_bot.setBounds(0, 488, 320, 487);
+		pnl_left_bot.setBounds(0, 488, 326, 487);
 		panel_left.add(pnl_left_bot);
 		pnl_left_bot.setLayout(null);
 
@@ -330,7 +333,7 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		JButton btnDoiTra = new JButton("Đổi trả");
 		btnDoiTra.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnDoiTra.setFocusPainted(false);
-		btnDoiTra.setBackground(new Color(244, 221, 212));
+		btnDoiTra.setBackground(new Color(255, 160, 122));
 		btnDoiTra.setBounds(176, 400, 125, 40);
 		pnl_left_bot.add(btnDoiTra);
 		ResultSet rs = ConnectionManager
@@ -374,18 +377,21 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		btnIn.setFocusPainted(false);
 
 		JPanel pnl_rdo = new JPanel();
-		pnl_rdo.setBorder(new MatteBorder(0, 0, 2, 2,
+		pnl_rdo.setBackground(new Color(255, 255, 237));
+		pnl_rdo.setBorder(new MatteBorder(0, 0, 1, 1,
 				(Color) new Color(0, 0, 0)));
-		pnl_rdo.setBounds(0, 0, 320, 129);
+		pnl_rdo.setBounds(0, 0, 326, 129);
 		panel_left.add(pnl_rdo);
 		pnl_rdo.setLayout(null);
 
 		JRadioButton rdoHD = new JRadioButton("Hóa đơn");
+		rdoHD.setBackground(new Color(255, 255, 237));
 		rdoHD.setBounds(11, 25, 200, 35);
 		pnl_rdo.add(rdoHD);
 		rdoHD.setFont(new Font("Tahoma", Font.BOLD, 21));
 
 		JRadioButton rdoHDDT = new JRadioButton("Hóa đơn đổi trả");
+		rdoHDDT.setBackground(new Color(255, 255, 237));
 		rdoHDDT.setBounds(11, 70, 200, 35);
 		pnl_rdo.add(rdoHDDT);
 		rdoHDDT.setFont(new Font("Tahoma", Font.BOLD, 21));
@@ -415,8 +421,6 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		String sql = "select a.* from HoaDonDoiTra a join HoaDon b on a.maHoaDon=b.maHoaDon join KhachHang c on b.maKhachHang= c.maKhachHang\r\n"
 				+ "   where a.maHDDT like '%231124%' and upper(c.tenKhachHang) like upper(N'% %') and c.sdt like N'%0%'";
 		List<HoaDonDoiTra> ds = daoHDDT.getDsHDDT_QuerrySQL(sql);
-		// System.err.println("ds timkiem :\n"+ds);
-
 		rdoHDDT.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -534,7 +538,6 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 					+ "%' and upper(c.tenKhachHang) like upper(N'%"
 					+ tenKH
 					+ "%') and c.sdt like N'%" + sdt + "%' ";
-			// System.err.println(sql);
 			List<HoaDonDoiTra> dshddt = daoHDDT.getDsHDDT_QuerrySQL(sql);
 
 			if (maHDDT.equals(tenKH) && maHDDT.equals(sdt) && maHDDT.equals("")) {
@@ -543,7 +546,6 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 				lblKqTimKiem.setText("");
 				busDT.docDulieu_HDDT(modelHDDT, dshddt);
 			} else {
-				// System.err.println(sql + "\n");
 				if (!dshddt.isEmpty()) {
 					busDT.DeleteDataTable(modelHDDT);
 					busDT.DeleteDataTable(modelCTHDDT);
@@ -589,7 +591,6 @@ public class Jpanel_HoaDonDoiTra extends JPanel {
 		// Thực hiện truy vấn SQL với điều kiện tìm kiếm
 		String sql = "SELECT HoaDonDoiTra.* FROM HoaDonDoiTra  INNER JOIN NhanVien ON HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien WHERE "
 				+ condition;
-		// System.err.println(sql);
 		List<HoaDonDoiTra> ds = daoHDDT.getDsHDDT_QuerrySQL(sql);
 		if (!ds.isEmpty()) {
 			busDT.DeleteDataTable(modelHDDT);

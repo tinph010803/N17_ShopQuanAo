@@ -1,12 +1,17 @@
 package gui;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,6 +45,7 @@ import dao.DAO_SanPham;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import javax.swing.SwingConstants;
 
 public class Jpanel_ThongKeDoanhThu extends JPanel {
@@ -70,6 +76,7 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 	private JPanel pnlRight;
 	private JDateChooser txtTimNgayBD;
 	private JDateChooser txtTimNgayKT;
+	private JButton btnLammoi;
 
 	/**
 	 * Create the panel.
@@ -78,7 +85,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		setLayout(null);
 
 		pnlThongKeDT = new JPanel();
-		pnlThongKeDT.setBounds(0, 0, 1646, 975);
+		pnlThongKeDT.setBounds(12, 13, 1646, 962);
+		pnlThongKeDT.setBackground(new Color(255, 255, 237));
+		//pnlRight.setBackground(new Color(255, 255, 237));
 		add(pnlThongKeDT);
 		pnlThongKeDT.setLayout(null);
 
@@ -87,18 +96,18 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		pnlSoHD.setBorder(new MatteBorder(1, 1, 1, 1,
 				(Color) new Color(0, 0, 0)));
 		pnlSoHD.setBackground(new Color(255, 215, 0));
-		pnlSoHD.setBounds(65, 205, 270, 240);
+		pnlSoHD.setBounds(63, 180, 270, 94);
 		pnlThongKeDT.add(pnlSoHD);
 
 		lblTextSHD = new JLabel("Số hóa đơn");
 		lblTextSHD.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblTextSHD.setBounds(65, 15, 140, 40);
+		lblTextSHD.setBounds(69, 0, 140, 40);
 		pnlSoHD.add(lblTextSHD);
 
-		lblSoHD = new JLabel(""); // text ghi số hóa đơn
+		lblSoHD = new JLabel("a"); // text ghi số hóa đơn
 		lblSoHD.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSoHD.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblSoHD.setBounds(0, 108, 270, 40);
+		lblSoHD.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSoHD.setBounds(49, 46, 175, 35);
 		pnlSoHD.add(lblSoHD);
 
 		pnlTongTien = new JPanel();
@@ -106,91 +115,102 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		pnlTongTien.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
 				0, 0)));
 		pnlTongTien.setBackground(new Color(72, 209, 204));
-		pnlTongTien.setBounds(465, 205, 270, 240);
+		pnlTongTien.setBounds(372, 180, 270, 94);
 		pnlThongKeDT.add(pnlTongTien);
 
 		lblTongTien = new JLabel("Tổng tiền");
 		lblTongTien.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblTongTien.setBounds(65, 15, 140, 40);
+		lblTongTien.setBounds(74, 0, 140, 40);
 		pnlTongTien.add(lblTongTien);
 
-		lblTextTongTien = new JLabel(""); // text ghi tổng tiền
+		lblTextTongTien = new JLabel("b"); // text ghi tổng tiền
 		lblTextTongTien.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTextTongTien.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblTextTongTien.setBounds(0, 108, 270, 40);
+		lblTextTongTien.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTextTongTien.setBounds(49, 46, 175, 35);
 		pnlTongTien.add(lblTextTongTien);
 
 		pnlVAT = new JPanel();
 		pnlVAT.setLayout(null);
 		pnlVAT.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		pnlVAT.setBackground(new Color(100, 149, 237));
-		pnlVAT.setBounds(67, 580, 270, 240);
+		pnlVAT.setBounds(698, 180, 270, 94);
 		pnlThongKeDT.add(pnlVAT);
 
 		lblTongVAT = new JLabel("Tổng VAT");
 		lblTongVAT.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblTongVAT.setBounds(65, 15, 140, 40);
+		lblTongVAT.setBounds(75, 0, 140, 40);
 		pnlVAT.add(lblTongVAT);
 
-		lblTextVAT = new JLabel(""); // text ghi tổng VAT
+		lblTextVAT = new JLabel("c"); // text ghi tổng VAT
 		lblTextVAT.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTextVAT.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblTextVAT.setBounds(0, 108, 270, 40);
+		lblTextVAT.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTextVAT.setBounds(49, 46, 175, 35);
 		pnlVAT.add(lblTextVAT);
-
-		pnlLoiNhuan = new JPanel();
-		pnlLoiNhuan.setLayout(null);
-		pnlLoiNhuan.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
-				0, 0)));
-		pnlLoiNhuan.setBackground(new Color(250, 250, 210));
-		pnlLoiNhuan.setBounds(465, 580, 270, 240);
-		pnlThongKeDT.add(pnlLoiNhuan);
-
-		lblLoiNhan = new JLabel("Lợi nhuận");
-		lblLoiNhan.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblLoiNhan.setBounds(65, 15, 140, 40);
-		pnlLoiNhuan.add(lblLoiNhan);
-
-		lblTextLoiNhuan = new JLabel("d"); // text ghi tổng lợi nhuận
-		lblTextLoiNhuan.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTextLoiNhuan.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblTextLoiNhuan.setBounds(0, 108, 270, 40);
-		pnlLoiNhuan.add(lblTextLoiNhuan);
 
 		btnXuat = new JButton("Xuất");
 		btnXuat.setFont(new Font("Tahoma", Font.BOLD, 22));
 		btnXuat.setBackground(new Color(250, 128, 114));
-		btnXuat.setBounds(1100, 870, 150, 50);
+		btnXuat.setBounds(1461, 600, 138, 50);
 		pnlThongKeDT.add(btnXuat);
 
 		JLabel lblTu = new JLabel("Từ");
 		lblTu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTu.setBounds(59, 100, 40, 35);
+		lblTu.setBounds(59, 100, 75, 28);
 		pnlThongKeDT.add(lblTu);
 		// jtextfield ngày
 		txtTimNgayBD = new JDateChooser();
 		txtTimNgayBD.setDateFormatString("dd/MM/yyyy");
-		txtTimNgayBD.setBounds(100, 100, 150, 35);
+		txtTimNgayBD.setBounds(104, 100, 120, 35);
 		pnlThongKeDT.add(txtTimNgayBD);
 
 		JLabel lblDen = new JLabel("Đến");
 		lblDen.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblDen.setBounds(335, 100, 46, 35);
+		lblDen.setBounds(257, 99, 50, 30);
 		pnlThongKeDT.add(lblDen);
 		// jtextfield ngày
 		txtTimNgayKT = new JDateChooser();
 		txtTimNgayKT.setDateFormatString("dd/MM/yyyy");
-		txtTimNgayKT.setBounds(385, 100, 150, 35);
+		txtTimNgayKT.setBounds(319, 100, 120, 35);
 		pnlThongKeDT.add(txtTimNgayKT);
 
 		pnlRight = new JPanel();
 		pnlRight.setLayout(null);
+		pnlRight.setBackground(new Color(255, 255, 237));
 		// pnlRight.setBounds(964, 0, 682, 820);
-		pnlRight.setBounds(850, 205, 700, 600);
+		pnlRight.setBounds(43, 362, 1441, 600);
 		pnlThongKeDT.add(pnlRight);
 
-		// btnThongKe.setFocusPainted(false);
-		// btnXuat.setFocusPainted(false);
+		JLabel lblTngQuanBo = new JLabel("Báo Cáo Doanh Thu");
+		lblTngQuanBo.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblTngQuanBo.setBounds(43, 45, 410, 28);
+		pnlThongKeDT.add(lblTngQuanBo);
+
+		pnlLoiNhuan = new JPanel();
+		pnlLoiNhuan.setBounds(1025, 180, 270, 94);
+		pnlThongKeDT.add(pnlLoiNhuan);
+		pnlLoiNhuan.setLayout(null);
+		pnlLoiNhuan.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
+				0, 0)));
+		pnlLoiNhuan.setBackground(new Color(250, 250, 210));
+
+		lblLoiNhan = new JLabel("Lợi nhuận");
+		lblLoiNhan.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblLoiNhan.setBounds(77, 0, 140, 40);
+		pnlLoiNhuan.add(lblLoiNhan);
+
+		lblTextLoiNhuan = new JLabel("d"); // text ghi tổng lợi nhuận
+		lblTextLoiNhuan.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTextLoiNhuan.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTextLoiNhuan.setBounds(49, 46, 175, 35);
+		pnlLoiNhuan.add(lblTextLoiNhuan);
+
+		btnLammoi = new JButton("Reset");
+		btnLammoi.setFont(new Font("Tahoma", Font.BOLD, 22));
+		btnLammoi.setBackground(Color.CYAN);
+		btnLammoi.setBounds(495, 90, 150, 45);
+		pnlThongKeDT.add(btnLammoi);
+
+		btnXuat.setFocusPainted(false);
 		capNhatSoLuongHD();
 		capNhatTongTienHD();
 		capNhatTongVAT();
@@ -198,26 +218,53 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 
 		veBieuDoCot();
 
-		btnThongKe = new JButton("Thống kê");
-		btnThongKe.setBackground(new Color(152, 251, 152));
-		btnThongKe.setFont(new Font("Tahoma", Font.BOLD, 22));
-		btnThongKe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				timKiemThongKe();
-			}
-		});
-		btnThongKe.setBounds(802, 100, 150, 50);
-		pnlThongKeDT.add(btnThongKe);
+		txtTimNgayKT.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent evt) {
+						if ("date".equals(evt.getPropertyName())) {
+							timKiemThongKe();
+						}
+					}
+				});
 
 		btnXuat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				xuatDuLieuExcel();
 			}
 		});
-		
-		btnThongKe.setFocusPainted(false);
-		btnXuat.setFocusPainted(false);
+		btnLammoi.setFocusPainted(false);
+		btnLammoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Reset giá trị ngày cho JDateChooser
+				xoaBieuDoCu();
 
+				// Cập nhật lại tất cả các giá trị ban đầu
+				capNhatSoLuongHD();
+				capNhatTongTienHD();
+				capNhatTongVAT();
+				capNhatTongLoiNhuan();
+
+				// Reset giá trị của JDateChooser
+				txtTimNgayBD.setDate(null);
+				txtTimNgayKT.setDate(null);
+				// Vẽ lại biểu đồ cột với dữ liệu mặc định
+				veBieuDoCot();
+
+				// Hiển thị lại dữ liệu trên giao diện
+				pnlThongKeDT.revalidate();
+				pnlThongKeDT.repaint();
+			}
+		});
+
+	}
+
+	private void xoaBieuDoCu() {
+		Component[] components = pnlRight.getComponents();
+		for (Component component : components) {
+			if (component instanceof ChartPanel) {
+				pnlRight.remove(component);
+			}
+		}
 	}
 
 	private void capNhatSoLuongHD() {
@@ -300,9 +347,10 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setBounds(69, 52, 581, 517);
+		chartPanel.setBounds(69, 52, 1250, 550);
 		chartPanel.setBorder(null);
 		// chartPanel.setBackground(new Color(0, 0, 0, 0));
+		chartPanel.setBackground(new Color(255, 255, 237));
 		pnlRight.add(chartPanel);
 		pnlRight.revalidate();
 		pnlRight.repaint();
@@ -346,8 +394,7 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		Date ngayKT = txtTimNgayKT.getDate();
 
 		if (ngayBD == null || ngayKT == null) {
-			thongbao.thongbao(
-					"Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.", "");
+
 			return false;
 		}
 
@@ -368,7 +415,6 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 
 			// Gọi các phương thức cập nhật dữ liệu dựa trên khoảng ngày đã chọn
 			capNhatSoLuongHDTheoNgay();
-			;
 			capNhatTongTienHDTheoNgay();
 			capNhatTongVATTheoNgay();
 			capNhatTongLoiNhuanTheoNgay();
@@ -438,9 +484,9 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 		legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setBounds(69, 52, 581, 517);
+		chartPanel.setBounds(69, 52, 1250, 500);
 		chartPanel.setBorder(null);
-		chartPanel.setBackground(new Color(0, 0, 0, 0));
+		chartPanel.setBackground(new Color(255, 255, 237));
 		pnlRight.removeAll();
 		pnlRight.add(chartPanel);
 		pnlRight.revalidate();
@@ -448,60 +494,68 @@ public class Jpanel_ThongKeDoanhThu extends JPanel {
 	}
 
 	private void xuatDuLieuExcel() {
-		try {
-			Workbook workbook = new XSSFWorkbook();
-			Sheet sheet = workbook.createSheet("ThongKeDoanhThu");
 
-			// Tạo dòng cho tiêu đề
-			Row rowTitle = sheet.createRow(0);
-			Cell cellTitle = rowTitle.createCell(0);
-			cellTitle.setCellValue("Thông Tin Thống Kê Doanh Thu");
-			cellTitle.setCellStyle(getBoldCellStyle(workbook));
+		int nutbam = JOptionPane.showConfirmDialog(new JFrame(),
+				"Bạn chắc chắn xuất file ?", "", JOptionPane.YES_NO_OPTION);
+		if (nutbam == JOptionPane.YES_OPTION) {
+			try {
+				Workbook workbook = new XSSFWorkbook();
+				Sheet sheet = workbook.createSheet("ThongKeDoanhThu");
 
-			// Tạo dòng cho các tiêu đề cụ thể
-			Row rowHeaders = sheet.createRow(2);
-			createCell(rowHeaders, 0, "Số hóa đơn");
-			createCell(rowHeaders, 1, "Tổng tiền");
-			createCell(rowHeaders, 2, "Tổng VAT");
-			createCell(rowHeaders, 3, "Lợi nhuận");
+				// Tạo dòng cho tiêu đề
+				Row rowTitle = sheet.createRow(0);
+				Cell cellTitle = rowTitle.createCell(0);
+				cellTitle.setCellValue("Thông Tin Thống Kê Doanh Thu");
+				cellTitle.setCellStyle(getBoldCellStyle(workbook));
 
-			// Tạo dòng cho giá trị
-			Row rowValues = sheet.createRow(3);
-			createCell(rowValues, 0, lblSoHD.getText());
-			createCell(rowValues, 1, lblTextTongTien.getText());
-			createCell(rowValues, 2, lblTextVAT.getText());
-			createCell(rowValues, 3, lblTextLoiNhuan.getText());
+				// Tạo dòng cho các tiêu đề cụ thể
+				Row rowHeaders = sheet.createRow(2);
+				createCell(rowHeaders, 0, "Số hóa đơn");
+				createCell(rowHeaders, 1, "Tổng tiền");
+				createCell(rowHeaders, 2, "Tổng VAT");
+				createCell(rowHeaders, 3, "Lợi nhuận");
 
-			// Lấy giá trị ngày từ txtTimNgayBD và txtTimNgayKT
-			Date ngayBDValue = txtTimNgayBD.getDate();
-			Date ngayKTValue = txtTimNgayKT.getDate();
+				// Tạo dòng cho giá trị
+				Row rowValues = sheet.createRow(3);
+				createCell(rowValues, 0, lblSoHD.getText());
+				createCell(rowValues, 1, lblTextTongTien.getText());
+				createCell(rowValues, 2, lblTextVAT.getText());
+				createCell(rowValues, 3, lblTextLoiNhuan.getText());
 
-			String uniqueFileName;
-			if (ngayBDValue != null && ngayKTValue != null) {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
-				String ngayBD = dateFormat.format(ngayBDValue);
-				String ngayKT = dateFormat.format(ngayKTValue);
+				// Lấy giá trị ngày từ txtTimNgayBD và txtTimNgayKT
+				Date ngayBDValue = txtTimNgayBD.getDate();
+				Date ngayKTValue = txtTimNgayKT.getDate();
 
-				// Tạo tên tệp tin dựa trên ngày
-				uniqueFileName = "ThongKe/ThongKeDoanhThu_" + ngayBD + "_"
-						+ ngayKT + ".xlsx";
-			} else {
-				// Trường hợp không chọn ngày, giữ nguyên tên cũ hoặc có thể đặt
-				// tên mới theo logic mong muốn
-				uniqueFileName = "ThongKe/ThongKeDoanhThu_Default.xlsx";
+				String uniqueFileName;
+				if (ngayBDValue != null && ngayKTValue != null) {
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"ddMMyyyy");
+					String ngayBD = dateFormat.format(ngayBDValue);
+					String ngayKT = dateFormat.format(ngayKTValue);
+
+					// Tạo tên tệp tin dựa trên ngày
+					uniqueFileName = "ThongKe/ThongKeDoanhThu_" + ngayBD + "_"
+							+ ngayKT + ".xlsx";
+				} else {
+					// Trường hợp không chọn ngày, giữ nguyên tên cũ hoặc có thể
+					// đặt
+					// tên mới theo logic mong muốn
+					uniqueFileName = "ThongKe/ThongKeDoanhThu_Default.xlsx";
+				}
+
+				// Lưu workbook xuống tệp tin Excel với tên độc đáo
+				try (FileOutputStream fileOut = new FileOutputStream(
+						uniqueFileName)) {
+					workbook.write(fileOut);
+					thongbao.thongbao("Xuất File thành công!", "Thông báo");
+				}
+
+				workbook.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				thongbao.thongbao("Xuất File thất bại!", "Thông báo");
 			}
-
-			// Lưu workbook xuống tệp tin Excel với tên độc đáo
-			try (FileOutputStream fileOut = new FileOutputStream(uniqueFileName)) {
-				workbook.write(fileOut);
-				thongbao.thongbao("Xuất File thành công!", "Thông báo");
-			}
-
-			workbook.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			thongbao.thongbao("Xuất File thất bại!", "Thông báo");
 		}
 	}
 

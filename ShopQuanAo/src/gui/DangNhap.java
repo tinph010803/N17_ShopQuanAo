@@ -40,8 +40,9 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 	private AbstractButton btnQuenMatKhau;
 	private boolean chon = true;
 	private JButton btnHienMK_2;
-	private BUS_DangNhap busTK= new BUS_DangNhap();
-	ConnectionManager connectionManager= new ConnectionManager();
+	private BUS_DangNhap busTK = new BUS_DangNhap();
+	ConnectionManager connectionManager = new ConnectionManager();
+
 	public DangNhap() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,32 +59,33 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel pnLeft = new JPanel();
-		pnLeft.setBounds(2, 2, 280, 436);
-		contentPane.add(pnLeft);
-		pnLeft.setLayout(null);
+		JPanel pnlLeft = new JPanel();
+		pnlLeft.setBounds(2, 2, 280, 436);
+		contentPane.add(pnlLeft);
+		pnlLeft.setLayout(null);
 
 		JLabel lblBacKground = new JLabel("");
 		lblBacKground.setIcon(new ImageIcon("IMG_Hinh\\logo_290x440.png"));
 		lblBacKground.setBounds(0, 0, 280, 436);
-		pnLeft.add(lblBacKground);
+		pnlLeft.add(lblBacKground);
 
-		JPanel pnRight = new JPanel();
-		pnRight.setBorder(null);
-		pnRight.setBounds(269, 2, 457, 436);
-		pnRight.setBackground(Color.decode("#00c691"));
-		contentPane.add(pnRight);
-		pnRight.setLayout(null);
+		JPanel pnlRight = new JPanel();
+		pnlRight.setBorder(null);
+		pnlRight.setBounds(269, 2, 457, 436);
+		pnlRight.setBackground(Color.decode("#00c691"));
+		contentPane.add(pnlRight);
+		pnlRight.setLayout(null);
 
 		lblTieuDe = new JLabel("Đăng Nhập");
 		lblTieuDe.setForeground(new Color(255, 255, 255));
 		lblTieuDe.setFont(new Font("Arial", Font.BOLD, 30));
 		lblTieuDe.setBounds(159, 62, 194, 47);
 
-		pnRight.add(lblTieuDe);
+		pnlRight.add(lblTieuDe);
 
 		JButton btnExit = new JButton("");
-		btnExit.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 128, 128)));
+		btnExit.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 128,
+				128)));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -91,18 +93,19 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		});
 		btnExit.setIcon(new ImageIcon("IMG_Hinh\\exit.png"));
 		btnExit.setBounds(419, 10, 30, 30);
-		pnRight.add(btnExit);
+		pnlRight.add(btnExit);
 
 		JLabel lblTaiKhoan = new JLabel("Tài Khoản             :");
 		lblTaiKhoan.setIcon(new ImageIcon("IMG_Hinh\\icons8_male_user_32.png"));
 		lblTaiKhoan.setFont(font_btn13);
 		lblTaiKhoan.setForeground(new Color(255, 255, 255));
 		lblTaiKhoan.setBounds(34, 139, 165, 33);
-		pnRight.add(lblTaiKhoan);
+		pnlRight.add(lblTaiKhoan);
 
 		txtTaiKhoan = new JTextField("NV01");
 		txtTaiKhoan.setSelectedTextColor(new Color(255, 255, 255));
-		txtTaiKhoan.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(255, 255, 255)));
+		txtTaiKhoan.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(
+				255, 255, 255)));
 		txtTaiKhoan.setForeground(new Color(255, 255, 255));
 		txtTaiKhoan.setBounds(199, 139, 172, 33);
 		txtTaiKhoan.setForeground(Color.WHITE);
@@ -110,49 +113,51 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		txtTaiKhoan.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtTaiKhoan.setCaretColor(new Color(255, 255, 255));
 		txtTaiKhoan.setBackground(Color.decode("#00c691"));
-		pnRight.add(txtTaiKhoan);
+		pnlRight.add(txtTaiKhoan);
 
 		JLabel lblMatKhau = new JLabel("Mật Khẩu             :");
 		lblMatKhau.setIcon(new ImageIcon("IMG_Hinh\\password_32px.png"));
 		lblMatKhau.setForeground(Color.WHITE);
 		lblMatKhau.setFont(new Font("Arial", Font.BOLD, 13));
 		lblMatKhau.setBounds(34, 245, 165, 33);
-		pnRight.add(lblMatKhau);
+		pnlRight.add(lblMatKhau);
 
 		txtMatKhau = new JPasswordField("12345678");
 		txtMatKhau.setForeground(Color.WHITE);
 		txtMatKhau.setColumns(10);
-		txtMatKhau.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(255, 255, 255)));
+		txtMatKhau.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(255,
+				255, 255)));
 		txtMatKhau.setBackground(new Color(0, 198, 145));
 		txtMatKhau.setBounds(199, 245, 172, 33);
 		txtMatKhau.setCaretColor(new Color(255, 255, 255));
 		txtMatKhau.setFont(new Font("Arial", Font.PLAIN, 15));
-		pnRight.add(txtMatKhau);
+		pnlRight.add(txtMatKhau);
 
 		btnDangNhap = new JButton("Đăng nhập");
 		btnDangNhap.setBorder(null);
 		btnDangNhap.setBounds(42, 355, 157, 35);
-		pnRight.add(btnDangNhap);
+		pnlRight.add(btnDangNhap);
 		btnDangNhap.setBackground(Color.decode("#fcbe00"));
 		btnDangNhap.setForeground(Color.white);
 		btnDangNhap.setHorizontalAlignment(SwingConstants.CENTER);
 		btnDangNhap.setFocusPainted(false);
 		btnDangNhap.setFont(new Font("Arial", Font.BOLD, 13));
 		btnDangNhap.setIcon(new ImageIcon("IMG_Hinh\\login.png"));
-//		btnDangNhap.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if(txtTaiKhoan.getText().equals("admin") && (txtMatKhau.getText().toString().equals("123"))){
-//						TrangChu frm = new TrangChu();
-//						frm.setVisible(true);
-//						frm.setLocationRelativeTo(null);
-//						frm.setVisible(true);
-//						frm.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//						setVisible(false);
-//					
-//				}
-//			}
-//		});
-		
+		// btnDangNhap.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent e) {
+		// if(txtTaiKhoan.getText().equals("admin") &&
+		// (txtMatKhau.getText().toString().equals("123"))){
+		// TrangChu frm = new TrangChu();
+		// frm.setVisible(true);
+		// frm.setLocationRelativeTo(null);
+		// frm.setVisible(true);
+		// frm.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		// setVisible(false);
+		//
+		// }
+		// }
+		// });
+
 		btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnDangNhapActionPerformed(evt);
@@ -167,77 +172,46 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		btnQuenMatKhau.setFont(new Font("Arial", Font.BOLD, 13));
 		btnQuenMatKhau.setBackground(Color.decode("#fcbe00"));
 		btnQuenMatKhau.setBounds(253, 355, 157, 35);
-		pnRight.add(btnQuenMatKhau);
-		
+		pnlRight.add(btnQuenMatKhau);
+
 		btnHienMK_2 = new JButton("");
-		
+
 		btnHienMK_2.setIcon(new ImageIcon("IMG_Hinh\\hide_pw_32_white.png"));
 		btnHienMK_2.setBorder(null);
 		btnHienMK_2.setBackground(Color.decode("#00c691"));
 		btnHienMK_2.setBounds(389, 245, 32, 32);
-		pnRight.add(btnHienMK_2);
+		pnlRight.add(btnHienMK_2);
 		btnHienMK_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(chon==true) {
-					btnHienMK_2.setIcon(new ImageIcon("IMG_Hinh\\hide_pw_32_white_close.png"));
-					txtMatKhau.setEchoChar((char )0);
-					chon=false;
-				}
-				else {
-					btnHienMK_2.setIcon(new ImageIcon("IMG_Hinh\\hide_pw_32_white.png"));
+				if (chon == true) {
+					btnHienMK_2.setIcon(new ImageIcon(
+							"IMG_Hinh\\hide_pw_32_white_close.png"));
+					txtMatKhau.setEchoChar((char) 0);
+					chon = false;
+				} else {
+					btnHienMK_2.setIcon(new ImageIcon(
+							"IMG_Hinh\\hide_pw_32_white.png"));
 					txtMatKhau.setEchoChar('*');
-					chon=true;
+					chon = true;
 				}
 			}
 		});
 		
-		// đăng kí sự kiện chuột
-//		btnDangNhap.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseExited(MouseEvent e) {
-//				// TODO Auto-generated method stub
-//				btnDangNhap.setBackground(Color.decode("#fcbe00"));
-//				btnDangNhap.setForeground(Color.decode("#f0f6fb"));
-//
-//			}
-//
-//			@Override
-//			public void mouseEntered(MouseEvent e) {
-//				// TODO Auto-generated method stub
-//
-//				btnDangNhap.setForeground(Color.decode("#00c691"));
-//				btnDangNhap.setBackground(Color.decode("#f0f6fb"));
-//			}
-//		});
 		btnQuenMatKhau.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String ma = txtTaiKhoan.getText().trim() ;
+				String ma = txtTaiKhoan.getText().trim();
 				JFrame_QuenMatKhau frm = new JFrame_QuenMatKhau(ma);
 				frm.setVisible(true);
 
 			}
 		});
-		
+
 		txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnDangNhapActionPerformed(evt);
 			}
 		});
-//		ResultSet a= daoTK.getDSNhanVien();
-//		String aString= "chuôi : ";
-//		try {
-//			while(a.next()) {
-//				aString += a.getString("tenTaiKhoan")+"\t";
-//				aString += a.getString("matKhau")+"\n";
-//			}
-//		} catch (SQLException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		System.out.println(aString);
-		
-
 	}
 
 	@Override
@@ -275,16 +249,14 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangNhapActionPerformed
 
-		String tk= txtTaiKhoan.getText().trim();
-		String mk= txtMatKhau.getText();
+		String tk = txtTaiKhoan.getText().trim();
+		String mk = txtMatKhau.getText();
 		NhanVien nv = dao.DAO_NhanVien.layNVTheoMa(tk);
-		if(BUS_DangNhap.kt_DangNhap(tk, mk)){
-//			thongbao.thongbao("Đăng nhập thành công", "");
-			TrangChu frm = new TrangChu(nv,null);
-			System.err.println("Tài khoản dn:"+ tk);
+		if (BUS_DangNhap.kt_DangNhap(tk, mk)) {
+			TrangChu frm = new TrangChu(nv, null);
 			frm.setVisible(true);
 			frm.setLocationRelativeTo(null);
 			frm.setVisible(true);
@@ -300,7 +272,5 @@ public class DangNhap extends JFrame implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 }

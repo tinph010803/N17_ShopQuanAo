@@ -15,8 +15,9 @@ public class DAO_NhaCungCap {
 	}
 
 	public static String layMaNCCTheoTen(String ten) {
-		String sql = "SELECT * FROM [dbo].[NhaCungCap] where tenNhaCungCap=N'" +ten+ "'";
-		ResultSet rs =  ConnectionManager.getdata(sql);
+		String sql = "SELECT * FROM [dbo].[NhaCungCap] where tenNhaCungCap=N'"
+				+ ten + "'";
+		ResultSet rs = ConnectionManager.getdata(sql);
 		try {
 			while (rs.next()) {
 				return rs.getString("maNhaCungCap");
@@ -27,13 +28,12 @@ public class DAO_NhaCungCap {
 		}
 		return "";
 	}
-	
+
 	// tìm theo mã
 	public static NhaCungCap layNCCTheoMa(String MaNCC) {
 		String sql = "SELECT * FROM [dbo].[NhaCungCap] where maNhaCungCap =N'"
 				+ MaNCC + "'";
 		ResultSet rs = ConnectionManager.getdata(sql);
-		System.err.println("kq             :" + rs);
 		try {
 			while (rs.next())
 				return new NhaCungCap(rs.getString("maNhaCungCap"),
@@ -50,7 +50,7 @@ public class DAO_NhaCungCap {
 		ResultSet rs = ConnectionManager
 				.getdata("select tenNhaCungCap from SanPham join NhaCungCap on SanPham.maNhaCungCap = NhaCungCap.maNhaCungCap where SanPham.maSanPham =N'"
 						+ ma + "'");
-		String a = ""; 
+		String a = "";
 		try {
 			while (rs.next()) {
 				a += rs.getString("tenNhaCungCap").trim();

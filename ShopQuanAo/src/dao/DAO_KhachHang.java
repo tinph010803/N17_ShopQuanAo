@@ -26,22 +26,25 @@ public class DAO_KhachHang {
 				+ MaKH + "'";
 		return ConnectionManager.getdata(sql);
 	}
-	
+
 	public static KhachHang layKHTheoma(String MaKH) {
 		String sql = "SELECT * FROM [dbo].[KhachHang] where maKhachHang =N'"
 				+ MaKH + "'";
-		
-		ResultSet rs= ConnectionManager.getdata(sql);
-		entity.KhachHang kh= null;
+		ResultSet rs = ConnectionManager.getdata(sql);
+		KhachHang kh = null;
 		try {
-			while(rs.next()) {
-				kh= new KhachHang(rs.getString("maKhachHang").trim(),rs.getString("tenKhachHang").trim(), rs.getString("sdt").trim(), rs.getString("email").trim(), rs.getBoolean("gioiTinh"));
+			while (rs.next()) {
+				return new KhachHang(rs.getString("maKhachHang").trim(), rs
+						.getString("tenKhachHang").trim(), rs.getString("sdt")
+						.trim(), rs.getString("email").trim(),
+						rs.getBoolean("gioiTinh"), rs.getDouble("soTienDaMua"));
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return kh;
+		return null;
 	}
 
 	public static ResultSet layKHTheoSDT(String sdt) {
@@ -51,17 +54,6 @@ public class DAO_KhachHang {
 	}
 
 	public static void them(entity.KhachHang KH) {
-		// String sql = "INSERT INTO [dbo].[KhachHang] "
-		// +
-		// "           ([maKhachHang],[tenKhachHang],[sdt],[email],[gioiTinh],[soTienDaMua]) "
-		// + "  VALUES "
-		// + " (N'" + KH.getMaKhachHang()+ "' "
-		// + " ,N'" + KH.getTenKhachHang() + "' "
-		// + " ,N'" + KH.getSdt() + "' "
-		// + " ,'"+ KH.getEmail() + " '"
-		// + " ,'"+ KH.isGioiTinh()+ "' "
-		// + ",N'" + KH.getSoTienDaMua() + "' )";
-
 		String sql = "INSERT INTO [dbo].[KhachHang] "
 				+ "([maKhachHang], [tenKhachHang], [sdt], [email], [gioiTinh], [soTienDaMua]) "
 				+ "  VALUES " + "(N'" + KH.getMaKhachHang() + "', " + "N'"
@@ -97,7 +89,7 @@ public class DAO_KhachHang {
 				+ KH.getSoTienDaMua() + " " + " WHERE maKhachHang=N'"
 				+ KH.getMaKhachHang() + "'";
 		ConnectionManager.executeTruyVan(sql);
-		
+
 	}
 
 	public static ResultSet timKiem(String tukhoa, String bac, String gioiTinh) {
@@ -135,39 +127,12 @@ public class DAO_KhachHang {
 
 		return ConnectionManager.getdata(sql);
 	}
-	
-	public static void doDuLieuThongKe(JTable table) {
-	    ConnectionManager connectionManager = new ConnectionManager();
-	    Connection conn = connectionManager.conn;
-	    DecimalFormat decimalFormat = new DecimalFormat("#,###");
-	    // cái tổng tiền đã mua chưa lấy được từ cái tiền tính giá bán
-	    if (conn != null) {
-	        try {
-	            Statement statement = conn.createStatement();
-	            String query = "SELECT h.maKhachHang, kh.tenKhachHang, COUNT(h.maHoaDon) AS soHoaDonDaMua, SUM(kh.soTienDaMua) AS tongTienDaMua "
-	                        + "FROM HoaDon h "
-	                        + "JOIN KhachHang kh ON h.maKhachHang = kh.maKhachHang "
-	                        + "GROUP BY h.maKhachHang, kh.tenKhachHang";
-	            ResultSet resultSet = statement.executeQuery(query);
 
-	            DefaultTableModel model = (DefaultTableModel) table.getModel();
-	            model.setRowCount(0);
-
-	            while (resultSet.next()) {
-	                String maKhachHang = resultSet.getString("maKhachHang");
-	                String tenKhachHang = resultSet.getString("tenKhachHang");
-	                int soHoaDonDaMua = resultSet.getInt("soHoaDonDaMua");
-	                double tongTienDaMua = resultSet.getDouble("tongTienDaMua");
-
-	                Object[] rowData = { maKhachHang, tenKhachHang, soHoaDonDaMua, decimalFormat.format(tongTienDaMua) };
-	                model.addRow(rowData);
-	            }
-
-	            statement.close();
-	            conn.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+	public static void truTienHDDT(String maKH, double sotientru) {
+		KhachHang kh = DAO_KhachHang.layKHTheoma(maKH);
+		Double tienHienCo = kh.getSoTienDaMua();
+		Double tienDaTru = tienHienCo - sotientru;
+		String sql = "UPDATE [dbo].[KhachHang] " + "   SET [soTienDaMua] = "
+				+ tienDaTru + " " + " WHERE maKhachHang=N'" + maKH + "'";
 	}
 }

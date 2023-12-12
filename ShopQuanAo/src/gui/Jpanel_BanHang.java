@@ -132,7 +132,6 @@ public class Jpanel_BanHang extends JPanel {
 	private static JLabel lblTongKMTheoBacRong;
 	public static JTextField txtBac;
 	public static JTextField txtSoTienDaMua;
-	// private ChiTietHoaDon cthd = new ChiTietHoaDon();
 	public static ChiTietHoaDon cthd;
 	public static KhachHang kh;
 	public static NhanVien nhanVien;
@@ -140,17 +139,18 @@ public class Jpanel_BanHang extends JPanel {
 	public static Webcam webcam;
 	public static WebcamPanel webcamPanel;
 
-
 	/**
 	 * Create the panel.
 	 */
 	public Jpanel_BanHang(NhanVien nv) {
 		setLayout(null);
 		panel_left_bot = new JPanel();
+		panel_left_bot.setBackground(new Color(255, 255, 237));
 		panel_left_bot.setBounds(0, 535, 315, 440);
 		add(panel_left_bot);
 		panel_left_bot.setLayout(null);
-		panel_left_bot.setBorder(new MatteBorder(0, 0, 0, 2, (Color) new Color(0, 0, 0)));
+		panel_left_bot.setBorder(new MatteBorder(0, 0, 0, 2, (Color) new Color(
+				0, 0, 0)));
 
 		dsCTHD.clear();
 
@@ -211,6 +211,7 @@ public class Jpanel_BanHang extends JPanel {
 		panel_left_bot.add(txtMaHD);
 
 		panel_left_top = new JPanel();
+		panel_left_top.setBackground(new Color(255, 255, 237));
 		panel_left_top.setBounds(0, 0, 315, 535);
 		add(panel_left_top);
 		panel_left_top.setLayout(null);
@@ -298,6 +299,7 @@ public class Jpanel_BanHang extends JPanel {
 		});
 
 		panel_right_top = new JPanel();
+		panel_right_top.setBackground(new Color(255, 255, 237));
 		panel_right_top.setLayout(null);
 		panel_right_top.setForeground(Color.WHITE);
 		panel_right_top.setBorder(new MatteBorder(0, 0, 2, 0,
@@ -346,6 +348,7 @@ public class Jpanel_BanHang extends JPanel {
 		panel_right_top.add(lblAnh);
 
 		panel_right_bot = new JPanel();
+		panel_right_bot.setBackground(new Color(255, 255, 237));
 		panel_right_bot.setBounds(315, 287, 1331, 688);
 		add(panel_right_bot);
 		panel_right_bot.setLayout(null);
@@ -714,7 +717,6 @@ public class Jpanel_BanHang extends JPanel {
 		// TODO Auto-generated method stub
 		ConnectionManager conn = new ConnectionManager();
 		ResultSet rs = dao.DAO_HoaDon.layHD();
-		System.out.println(rs);
 		String currentDate = getCurrentDate();
 		String maxMaHD = "HD" + currentDate + "0000";
 		try {
@@ -729,10 +731,8 @@ public class Jpanel_BanHang extends JPanel {
 		if (maxMaHD.startsWith("HD" + currentDate)) {
 			int maxSoHD = extractSerialNumber(maxMaHD);
 			newMaHD = "HD" + currentDate + String.format("%04d", maxSoHD + 1);
-			System.out.println(newMaHD);
 		} else {
 			newMaHD = "HD" + currentDate + "0001";
-			System.out.println(newMaHD);
 		}
 
 		txtMaHD.setText(newMaHD);
@@ -749,8 +749,6 @@ public class Jpanel_BanHang extends JPanel {
 	private void btnDSChoActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (txtMaHD.getText().equals("")) {
-			// System.err.println(DanhSachCho.dsHoaDonCho.get(0).getMaHoaDon());
-			// System.err.println(DanhSachCho.listDanhSachCTHDCho.get(0).get(0).getSoLuong());
 			DanhSachCho frm = new DanhSachCho();
 			frm.setVisible(true);
 			frm.setLocationRelativeTo(null);
@@ -845,23 +843,6 @@ public class Jpanel_BanHang extends JPanel {
 				modelCTHD.removeRow(row);
 				dsCTHD.remove(row);
 				hd.setTongTienCanThu(dsCTHD);
-				// Xem tổng tiển có tính đúng không
-				System.out.println("-------------------------------------");
-				for (ChiTietHoaDon chiTietHoaDon : dsCTHD) {
-					System.out.println(chiTietHoaDon.getSanPham()
-							.getMaSanPham());
-					System.out.println(chiTietHoaDon.getSoLuong());
-					System.out.println(chiTietHoaDon.getThanhTien());
-
-				}
-				System.out.println("-------------------------------------");
-				// lblTongTienRong.setText(decimalFormat.format(hd
-				// .tinhTongTien(dsCTHD)));
-				// lblTongKMRong.setText(decimalFormat.format(hd
-				// .tinhTongTienKM(dsCTHD)));
-				// lblTongThueRong.setText(decimalFormat.format(hd.tinhTongTienThue(dsCTHD)));
-				// lblTongKMTheoBacRong.setText(decimalFormat.format(hd.tinhTongKhuyeMaiTheoBac(dsCTHD)));
-				// lblTongCanThuRong.setText(decimalFormat.format(hd.tinhTongTienCanThu(dsCTHD)));
 				setTien();
 				modelSP.setRowCount(0);
 				lblAnh.setIcon(new ImageIcon());
@@ -964,7 +945,6 @@ public class Jpanel_BanHang extends JPanel {
 				} else {
 					sp.setKhuyenMai(null);
 				}
-				
 
 				sp.setMaSanPham(maSP);
 				sp.setTenSanPham(tenSP);
@@ -1002,7 +982,6 @@ public class Jpanel_BanHang extends JPanel {
 		for (List<ChiTietHoaDon> listdsCTHD : DanhSachCho.listDanhSachCTHDCho) {
 			for (ChiTietHoaDon chiTietHoaDon : listdsCTHD) {
 				if (maSP.equals(chiTietHoaDon.getSanPham().getMaSanPham())) {
-					System.out.println("sds" + chiTietHoaDon.getSoLuong());
 					soLuongCho += chiTietHoaDon.getSoLuong();
 				}
 			}
@@ -1122,16 +1101,6 @@ public class Jpanel_BanHang extends JPanel {
 
 			}
 			hd.setTongTienCanThu(dsCTHD);
-
-			// Xem tổng tiển có tính đúng không
-			System.out.println("-------------------------------------");
-			for (ChiTietHoaDon chiTietHoaDon : dsCTHD) {
-				System.out.println(chiTietHoaDon.getSanPham().getMaSanPham());
-				System.out.println(chiTietHoaDon.getSoLuong());
-				System.out.println(chiTietHoaDon.getThanhTien());
-
-			}
-			System.out.println("-------------------------------------");
 			setTien();
 		} else {
 			thongbao.thongbao("Chỉ chọn 1 dòng để sửa !", "");
@@ -1164,8 +1133,6 @@ public class Jpanel_BanHang extends JPanel {
 				Double soTienKH = rs.getDouble("soTienDaMua");
 				String bacKH = layBacKhachHang(soTienKH);
 				boolean gioiTinh = rs.getBoolean("gioiTinh");
-				System.err.println(maKH);// Kiểm trả có khách hàng không
-
 				kh = new KhachHang(maKH, tenKH, sdt, emailKH, gioiTinh,
 						soTienKH);
 

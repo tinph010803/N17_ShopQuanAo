@@ -74,7 +74,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Jpanel_SanPham extends JPanel {
-	public static String imageName = null;
+	public static String imageName = "add.png";
 	ArrayList<SanPham> arrSanPham = new ArrayList<SanPham>();
 	private JTextField txtTimKiem;
 	private JTextField txtMa;
@@ -140,7 +140,9 @@ public class Jpanel_SanPham extends JPanel {
 		setLayout(null);
 
 		panelMain = new JPanel();
-		panelMain.setBorder(new MatteBorder(1, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		panelMain.setBackground(new Color(255, 255, 237));
+		panelMain.setBorder(new MatteBorder(1, 0, 1, 0, (Color) new Color(0, 0,
+				0)));
 		panelMain.setBounds(0, 0, 1646, 52);
 		add(panelMain);
 		panelMain.setLayout(null);
@@ -151,6 +153,7 @@ public class Jpanel_SanPham extends JPanel {
 		panelMain.add(lblTimLoai);
 
 		cboTimLoai = new JComboBox();
+		cboTimLoai.setBackground(new Color(240, 255, 241));
 		cboTimLoai.addItem("Tất cả");
 		for (Enum_BangLoaiSanPham loai : Enum_BangLoaiSanPham.values()) {
 			cboTimLoai.addItem(loai.getValue());
@@ -169,7 +172,7 @@ public class Jpanel_SanPham extends JPanel {
 				0, 0)));
 		txtTimKiem.setBounds(1170, 13, 200, 30);
 		panelMain.add(txtTimKiem);
-		txtTimKiem.setBackground(new Color(240, 240, 240));
+		txtTimKiem.setBackground(new Color(255, 255, 237));
 		txtTimKiem.setColumns(10);
 
 		lblTimGia = new JLabel("Giá:");
@@ -178,6 +181,7 @@ public class Jpanel_SanPham extends JPanel {
 		panelMain.add(lblTimGia);
 
 		cboTimGia = new JComboBox();
+		cboTimGia.setBackground(new Color(240, 255, 241));
 		cboTimGia.setModel(new DefaultComboBoxModel(new String[] { "Tất cả",
 				"Dưới 150,000đ", "150,000đ - 300,000đ", "300,000đ - 500,000đ",
 				"Trên 500,000đ" }));
@@ -191,6 +195,7 @@ public class Jpanel_SanPham extends JPanel {
 		panelMain.add(lblTimMau);
 
 		cboTimNH = new JComboBox();
+		cboTimNH.setBackground(new Color(240, 255, 241));
 		cboTimNH.addItem("Tất cả");
 		for (Enum_NhanHieu nh : Enum_NhanHieu.values()) {
 			cboTimNH.addItem(nh.getValue());
@@ -205,6 +210,7 @@ public class Jpanel_SanPham extends JPanel {
 		panelMain.add(lblTimCL);
 
 		cboTimCL = new JComboBox();
+		cboTimCL.setBackground(new Color(240, 255, 241));
 		cboTimCL.addItem("Tất cả");
 		for (Enum_ChatLieu cl : Enum_ChatLieu.values()) {
 			cboTimCL.addItem(cl.getValue());
@@ -214,7 +220,7 @@ public class Jpanel_SanPham extends JPanel {
 		panelMain.add(cboTimCL);
 
 		btnLoc = new JButton("LỌC");
-		btnLoc.setBackground(Color.LIGHT_GRAY);
+		btnLoc.setBackground(new Color(240, 255, 241));
 		btnLoc.setIcon(new ImageIcon("IMG_Hinh\\Icon_Loc.png"));
 		btnLoc.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnLoc.setBounds(1400, 13, 95, 30);
@@ -223,7 +229,7 @@ public class Jpanel_SanPham extends JPanel {
 
 		btnUpFile = new JButton("Thêm");
 		btnUpFile.setIcon(new ImageIcon("IMG_Hinh\\upload.png"));
-		btnUpFile.setBackground(Color.LIGHT_GRAY);
+		btnUpFile.setBackground(new Color(240, 255, 241));
 		btnUpFile.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnUpFile.setBounds(1520, 13, 120, 30);
 		btnUpFile.setFocusPainted(false);
@@ -231,13 +237,17 @@ public class Jpanel_SanPham extends JPanel {
 		panelMain.add(btnUpFile);
 
 		pnlLeft = new JPanel();
-		pnlLeft.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		pnlLeft.setBackground(new Color(255, 255, 237));
+		pnlLeft.setBorder(new MatteBorder(1, 0, 0, 0,
+				(Color) new Color(0, 0, 0)));
 		pnlLeft.setBounds(0, 52, 1154, 923);
 		add(pnlLeft);
 		pnlLeft.setLayout(new GridLayout(1, 0, 0, 0));
 
 		pnlRight = new JPanel();
-		pnlRight.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		pnlRight.setBackground(new Color(255, 255, 178));
+		pnlRight.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0,
+				0)));
 		pnlRight.setBounds(1154, 52, 492, 923);
 		add(pnlRight);
 		pnlRight.setLayout(null);
@@ -253,7 +263,7 @@ public class Jpanel_SanPham extends JPanel {
 		lblAnh.setBounds(0, 0, 108, 120);
 		lblAnh.setBorder(javax.swing.BorderFactory
 				.createLineBorder(new java.awt.Color(0, 0, 0)));
-		lblAnh.setIcon(new ImageIcon("IMG_Hinh//add.png"));
+		lblAnh.setIcon(new ImageIcon("IMG_SanPham//add.png"));
 
 		pnlAnh.add(lblAnh);
 
@@ -263,6 +273,8 @@ public class Jpanel_SanPham extends JPanel {
 		pnlRight.add(lblMa);
 
 		txtMa = new JTextField();
+		txtMa.setBackground(new Color(255, 255, 178));
+		txtMa.setBorder(null);
 		txtMa.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMa.setBounds(147, 167, 180, 30);
 		pnlRight.add(txtMa);
@@ -320,6 +332,7 @@ public class Jpanel_SanPham extends JPanel {
 		pnlRight.add(lblMoTa);
 
 		cboLoai = new JComboBox();
+		cboLoai.setBackground(new Color(240, 255, 241));
 		for (Enum_BangLoaiSanPham loai : Enum_BangLoaiSanPham.values()) {
 			cboLoai.addItem(loai.getValue());
 		}
@@ -347,6 +360,7 @@ public class Jpanel_SanPham extends JPanel {
 		});
 
 		cboMau = new JComboBox();
+		cboMau.setBackground(new Color(240, 255, 241));
 		for (Enum_Mau mau : Enum_Mau.values()) {
 			cboMau.addItem(mau.getValue());
 		}
@@ -355,6 +369,7 @@ public class Jpanel_SanPham extends JPanel {
 		pnlRight.add(cboMau);
 
 		cboCL = new JComboBox();
+		cboCL.setBackground(new Color(240, 255, 241));
 		for (Enum_ChatLieu cl : Enum_ChatLieu.values()) {
 			cboCL.addItem(cl.getValue());
 		}
@@ -363,6 +378,7 @@ public class Jpanel_SanPham extends JPanel {
 		pnlRight.add(cboCL);
 
 		cboNCC = new JComboBox();
+		cboNCC.setBackground(new Color(240, 255, 241));
 		addDataCboNCC();
 		cboNCC.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cboNCC.setBounds(147, 417, 180, 30);
@@ -374,6 +390,7 @@ public class Jpanel_SanPham extends JPanel {
 		pnlRight.add(lblNhanHieu);
 
 		cboNhanHieu = new JComboBox();
+		cboNhanHieu.setBackground(new Color(240, 255, 241));
 		for (Enum_NhanHieu nh : Enum_NhanHieu.values()) {
 			cboNhanHieu.addItem(nh.getValue());
 		}
@@ -402,6 +419,7 @@ public class Jpanel_SanPham extends JPanel {
 
 		txtAMoTa = new JTextArea();
 		txtAMoTa.setBounds(147, 567, 323, 234);
+		txtAMoTa.setBackground(new Color(237, 255, 241));
 		pnlRight.add(txtAMoTa);
 
 		btnThem = new JButton();
@@ -434,6 +452,8 @@ public class Jpanel_SanPham extends JPanel {
 		txtKichThuoc = new JTextField();
 		txtKichThuoc.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtKichThuoc.setColumns(10);
+		txtKichThuoc.setBorder(null);
+		txtKichThuoc.setBackground(new Color(255, 255, 178));
 		txtKichThuoc.setBounds(365, 267, 100, 30);
 		pnlRight.add(txtKichThuoc);
 
@@ -637,29 +657,8 @@ public class Jpanel_SanPham extends JPanel {
 				String hinhAnh = cellIterator.next().getStringCellValue()
 						.trim();
 				SanPham spCuoi = dao.DAO_SanPham.laySPCuoi();
-				String maxMaSP;
+				String maxMaSP = "SP0000000";
 				if (spCuoi == null) {
-					maxMaSP = "SP0000000";
-				} else {
-					maxMaSP = spCuoi.getMaSanPham();
-				}
-				if (spCuoi.getTenSanPham().equals(ten)
-						&& spCuoi.getLoai() == loaiSP
-						&& spCuoi.getChatLieu() == clSP
-						&& spCuoi.getMau() == mauSP
-						&& spCuoi.getNhanHieu() == nhSP) {
-					String maSPKhongSize = maxMaSP.substring(0,
-							maxMaSP.length() - 1);
-					String maSPMoi = maSPKhongSize + soSize(kt);
-					SanPham spMoi = new SanPham(maSPMoi, ten, loaiSP, giaNhap,
-							ncc, mauSP, clSP, nhSP, hinhAnh, ktSP, soLuong, "",
-							null);
-					kiemTra = dao.DAO_SanPham.them(spMoi);
-					if (!kiemTra) {
-						thongbao.thongbao("Thêm không thành công", "");
-						break;
-					}
-				} else {
 					int maxSoSP = Integer.parseInt(maxMaSP.substring(2, 6));
 					String maSPMoi = "SP" + String.format("%04d", maxSoSP + 1)
 							+ soMau(mau) + soSize(kt);
@@ -671,8 +670,39 @@ public class Jpanel_SanPham extends JPanel {
 						thongbao.thongbao("Thêm không thành công", "");
 						break;
 					}
+				} else {
+					maxMaSP = spCuoi.getMaSanPham();
+					if (spCuoi.getTenSanPham().equals(ten)
+							&& spCuoi.getLoai() == loaiSP
+							&& spCuoi.getChatLieu() == clSP
+							&& spCuoi.getMau() == mauSP
+							&& spCuoi.getNhanHieu() == nhSP) {
+						String maSPKhongSize = maxMaSP.substring(0,
+								maxMaSP.length() - 1);
+						String maSPMoi = maSPKhongSize + soSize(kt);
+						SanPham spMoi = new SanPham(maSPMoi, ten, loaiSP,
+								giaNhap, ncc, mauSP, clSP, nhSP, hinhAnh, ktSP,
+								soLuong, "", null);
+						kiemTra = dao.DAO_SanPham.them(spMoi);
+						if (!kiemTra) {
+							thongbao.thongbao("Thêm không thành công", "");
+							break;
+						}
+					} else {
+						int maxSoSP = Integer.parseInt(maxMaSP.substring(2, 6));
+						String maSPMoi = "SP"
+								+ String.format("%04d", maxSoSP + 1)
+								+ soMau(mau) + soSize(kt);
+						SanPham spMoi = new SanPham(maSPMoi, ten, loaiSP,
+								giaNhap, ncc, mauSP, clSP, nhSP, hinhAnh, ktSP,
+								soLuong, "", null);
+						kiemTra = dao.DAO_SanPham.them(spMoi);
+						if (!kiemTra) {
+							thongbao.thongbao("Thêm không thành công", "");
+							break;
+						}
+					}
 				}
-
 			}
 			if (kiemTra) {
 				thongbao.thongbao("Thêm thành công", "");
@@ -703,7 +733,6 @@ public class Jpanel_SanPham extends JPanel {
 			imageName = f.getName(); // LẤY TÊN FILE
 			// imageName = f.getAbsolutePath(); // LẤY ĐƯỜNG DẪN
 		}
-		System.out.println(imageName);
 	}
 
 	// Phương thức kiểm tra xem chuỗi có chứa chỉ số hay không
@@ -799,7 +828,8 @@ public class Jpanel_SanPham extends JPanel {
 		txtSoLuongXL.setText("0");
 		txtAMoTa.setText("");
 		lblSoLuong.setText("");
-		lblAnh.setIcon(new ImageIcon("IMG_Hinh//add.png"));
+		lblAnh.setIcon(new ImageIcon("IMG_SanPham//add.png"));
+		imageName = "add.png";
 		txtTen.requestFocus();
 		lblKM.setText("");
 		lblSoLuongCon.setText("");
@@ -812,7 +842,6 @@ public class Jpanel_SanPham extends JPanel {
 	private void btnThemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		ResultSet rs = dao.DAO_SanPham.laySP();
-		System.out.println(rs);
 		String maxMaSP = "SP0000000";
 		try {
 			while (rs.next()) {
@@ -824,7 +853,6 @@ public class Jpanel_SanPham extends JPanel {
 		}
 		// String newMaSP = "";
 		int maxSoSP = Integer.parseInt(maxMaSP.substring(2, 6));
-		System.out.println(maxMaSP);
 		String mau = cboMau.getSelectedItem().toString();
 		// String b= cb.getSelectedItem().toString();
 		int s = Integer.parseInt(txtSoLuongS.getText().trim());
@@ -846,14 +874,11 @@ public class Jpanel_SanPham extends JPanel {
 
 		String tenNCC = cboNCC.getSelectedItem().toString();
 		String maNCC = dao.DAO_NhaCungCap.layMaNCCTheoTen(tenNCC);
-		System.err.println(maNCC);
 		NhaCungCap ncc = new NhaCungCap(maNCC);
 		ncc.setTenNhaCungCap(tenNCC);
 		String moTa = txtAMoTa.getText().trim();
 		boolean kiemTra = false;
 		if (s > 0) {
-			System.out.println("SP" + String.format("%04d", maxSoSP + 1)
-					+ soMau(mau) + "1");
 			String maSP = "SP" + String.format("%04d", maxSoSP + 1)
 					+ soMau(mau) + soSize("S");
 			Enum_KichThuoc kt = Enum_KichThuoc.fromString("S");
@@ -866,8 +891,6 @@ public class Jpanel_SanPham extends JPanel {
 
 		}
 		if (m > 0) {
-			System.out.println("SP" + String.format("%04d", maxSoSP + 1)
-					+ soMau(mau) + "2");
 			String maSP = "SP" + String.format("%04d", maxSoSP + 1)
 					+ soMau(mau) + soSize("M");
 			Enum_KichThuoc kt = Enum_KichThuoc.fromString("M");
@@ -880,8 +903,6 @@ public class Jpanel_SanPham extends JPanel {
 
 		}
 		if (l > 0) {
-			System.out.println("SP" + String.format("%04d", maxSoSP + 1)
-					+ soMau(mau) + "3");
 			String maSP = "SP" + String.format("%04d", maxSoSP + 1)
 					+ soMau(mau) + soSize("L");
 			Enum_KichThuoc kt = Enum_KichThuoc.fromString("L");
@@ -893,8 +914,6 @@ public class Jpanel_SanPham extends JPanel {
 			}
 		}
 		if (xl > 0) {
-			System.out.println("SP" + String.format("%04d", maxSoSP + 1)
-					+ soMau(mau) + "4");
 			String maSP = "SP" + String.format("%04d", maxSoSP + 1)
 					+ soMau(mau) + soSize("XL");
 			Enum_KichThuoc kt = Enum_KichThuoc.fromString("XL");
@@ -1097,8 +1116,6 @@ public class Jpanel_SanPham extends JPanel {
 						txtTen.setText(ten);
 						cboLoai.setSelectedItem(loai.getValue());
 						txtGia.setText(decimalFormat.format(gia));
-						// NhaCungCap nhaCC = new NhaCungCap(ncc);
-						// nhaCC.setTenNhaCungCap(dao.DAO_NhaCungCap.layNCCTheoMa(ncc).getTenNhaCungCap().trim());
 						if (pt > 0) {
 							lblKM.setText("Khuyến mãi " + pt + " %");
 						} else {
@@ -1111,11 +1128,6 @@ public class Jpanel_SanPham extends JPanel {
 						cboCL.setSelectedItem(cl.getValue());
 						cboNhanHieu.setSelectedItem(nh.getValue());
 						cboMau.setSelectedItem(mau.getValue());
-						// lblSoLuongCon.setText("");
-						// if (soLuong <= 10) {
-						// lblSoLuongCon.setText("Còn "
-						// + decimalFormat.format(soLuong) + " cái");
-						// }
 						lblSoLuongCon.setText("Còn "
 								+ decimalFormat.format(soLuong) + " cái");
 						lbl_ImageSP(anh);

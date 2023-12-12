@@ -21,6 +21,8 @@ import connectDB.ConnectionManager;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -93,16 +95,19 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 
 		pnlThongKe = new JPanel();
 		pnlThongKe.setBounds(0, 0, 1646, 975);
+		pnlThongKe.setBackground(new Color(255, 255, 237));
 		add(pnlThongKe);
 		pnlThongKe.setLayout(null);
 
 		pnlChinh = new JPanel();
 		pnlChinh.setLayout(null);
 		pnlChinh.setBounds(0, 0, 1646, 975);
+		pnlChinh.setBackground(new Color(255, 255, 237));
 		pnlThongKe.add(pnlChinh);
 
 		pnlHeader = new JPanel();
 		pnlHeader.setBounds(0, 0, 1646, 154);
+		pnlHeader.setBackground(new Color(255, 255, 237));
 		pnlChinh.add(pnlHeader);
 		pnlHeader.setLayout(null);
 
@@ -110,6 +115,7 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 		rdoTKTonKho.setHorizontalAlignment(SwingConstants.CENTER);
 		rdoTKTonKho.setFont(new Font("Tahoma", Font.BOLD, 18));
 		rdoTKTonKho.setBounds(11, 15, 280, 30);
+		rdoTKTonKho.setBackground(new Color(255, 255, 237));
 		rdoTKTonKho.setSelected(true);
 		pnlHeader.add(rdoTKTonKho);
 
@@ -117,6 +123,7 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 		rdoTKSp.setHorizontalAlignment(SwingConstants.CENTER);
 		rdoTKSp.setFont(new Font("Tahoma", Font.BOLD, 18));
 		rdoTKSp.setBounds(350, 15, 280, 30);
+		rdoTKSp.setBackground(new Color(255, 255, 237));
 		pnlHeader.add(rdoTKSp);
 
 		ButtonGroup bg = new ButtonGroup();
@@ -134,7 +141,7 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 		txtTim.setColumns(10);
 		txtTim.setBounds(480, 80, 200, 35);
 		pnlHeader.add(txtTim);
-		
+
 		JLabel lblNewLabel = new JLabel("Tìm kiếm:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setBounds(360, 80, 100, 35);
@@ -142,16 +149,19 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 
 		pnlCenter = new JPanel();
 		pnlCenter.setBounds(0, 154, 1646, 821);
+		pnlCenter.setBackground(new Color(255, 255, 237));
 		pnlChinh.add(pnlCenter);
 		pnlCenter.setLayout(null);
 
 		pnlLeft = new JPanel();
 		pnlLeft.setBounds(0, 0, 966, 820);
+		pnlLeft.setBackground(new Color(255, 255, 237));
 		pnlCenter.add(pnlLeft);
 		pnlLeft.setLayout(null);
 
 		pnlRight = new JPanel();
 		pnlRight.setBounds(964, 0, 682, 820);
+		pnlRight.setBackground(new Color(255, 255, 237));
 		pnlCenter.add(pnlRight);
 		pnlRight.setLayout(null);
 
@@ -268,16 +278,16 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 		});
 
 		btnXuatHD.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent arg0) {
-		        try {
-		            exportToExcel();
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		    }
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					exportToExcel();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		});
 		btnXuatHD.setFocusPainted(false);
-		
+
 	}
 
 	// hàm xử lí tìm kiếm (1)
@@ -297,7 +307,6 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 					+ "%') or upper(a.tenSanPham) like upper(N'%" + tukhoa
 					+ "%' )) ";
 		}
-		System.err.println("277 :" + sql);
 		BUS_ThongKeSanPham.DeleteDataTable(model);
 		ConnectionManager con = new ConnectionManager();
 		List<SanPham> dsloc = DAO_SanPham.getDsSanPham_Querry(sql);
@@ -349,6 +358,7 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 			plot.setSectionOutlinesVisible(false);
 			ChartPanel chartPanel = new ChartPanel(chart);
 			chartPanel.setBounds(69, 52, 581, 517);
+			chartPanel.setBackground(new Color(255, 255, 237));
 			chartPanel.setBorder(null);
 			// pnlRight.removeAll(); // Trước khi thêm biểu đồ mới, xóa hết các
 			// thành phần trong pnlRight
@@ -396,6 +406,7 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 
 			ChartPanel chartPanel = new ChartPanel(chart);
 			chartPanel.setBounds(69, 52, 581, 517);
+			chartPanel.setBackground(new Color(255, 255, 237));
 			chartPanel.setBorder(null);
 			// pnlRight.removeAll(); // Trước khi thêm biểu đồ mới, xóa hết các
 			// thành phần trong pnlRight
@@ -424,83 +435,92 @@ public class Jpanel_TKSP_TonKho extends JPanel {
 			}
 		}
 	}
+
 	private void exportToExcel() throws IOException {
-	    Workbook workbook = new XSSFWorkbook();
-	    Sheet sheet = workbook.createSheet("DanhSachSanPhamTonKho");
+		int nutbam = JOptionPane.showConfirmDialog(new JFrame(),
+				"Bạn chắc chắn xuất file ?", "", JOptionPane.YES_NO_OPTION);
+		if (nutbam == JOptionPane.YES_OPTION) {
+			Workbook workbook = new XSSFWorkbook();
+			Sheet sheet = workbook.createSheet("DanhSachSanPhamTonKho");
 
-	 // Tạo dòng tiêu đề
-        Row headerRow = sheet.createRow(1);
+			// Tạo dòng tiêu đề
+			Row headerRow = sheet.createRow(1);
 
-        // Thêm cột STT vào đầu tiên
-        Cell sttHeaderCell = headerRow.createCell(0);
-        sttHeaderCell.setCellValue("STT");
-        sttHeaderCell.setCellStyle(getHeaderCellStyle(workbook));
-        sheet.autoSizeColumn(0);
+			// Thêm cột STT vào đầu tiên
+			Cell sttHeaderCell = headerRow.createCell(0);
+			sttHeaderCell.setCellValue("STT");
+			sttHeaderCell.setCellStyle(getHeaderCellStyle(workbook));
+			sheet.autoSizeColumn(0);
 
-        // Thêm các cột từ bảng vào tiếp theo
-        for (int col = 0; col < table.getColumnCount(); col++) {
-            Cell cell = headerRow.createCell(col + 1);
-            cell.setCellValue(table.getColumnName(col));
-            cell.setCellStyle(getHeaderCellStyle(workbook));
+			// Thêm các cột từ bảng vào tiếp theo
+			for (int col = 0; col < table.getColumnCount(); col++) {
+				Cell cell = headerRow.createCell(col + 1);
+				cell.setCellValue(table.getColumnName(col));
+				cell.setCellStyle(getHeaderCellStyle(workbook));
 
-            // Điều chỉnh chiều rộng của mỗi cột trong tiêu đề
-            sheet.setColumnWidth(col + 1, 15 * 256);
-        }
+				// Điều chỉnh chiều rộng của mỗi cột trong tiêu đề
+				sheet.setColumnWidth(col + 1, 15 * 256);
+			}
 
-        // Thêm dữ liệu từ bảng
-        for (int row = 0; row < table.getRowCount(); row++) {
-            Row sheetRow = sheet.createRow(row + 2);
-            Cell sttCell = sheetRow.createCell(0);
-            sttCell.setCellValue(row + 1);
-            sttCell.setCellStyle(getCellTextStyle(workbook, true));
-            sheet.setColumnWidth(0, 0 * 256);
+			// Thêm dữ liệu từ bảng
+			for (int row = 0; row < table.getRowCount(); row++) {
+				Row sheetRow = sheet.createRow(row + 2);
+				Cell sttCell = sheetRow.createCell(0);
+				sttCell.setCellValue(row + 1);
+				sttCell.setCellStyle(getCellTextStyle(workbook, true));
+				sheet.setColumnWidth(0, 0 * 256);
 
-            for (int col = 0; col < table.getColumnCount(); col++) {
-                Cell cell = sheetRow.createCell(col + 1);
-                cell.setCellValue(String.valueOf(table.getValueAt(row, col)));
-                cell.setCellStyle(getCellTextStyle(workbook, false));
-            }
+				for (int col = 0; col < table.getColumnCount(); col++) {
+					Cell cell = sheetRow.createCell(col + 1);
+					cell.setCellValue(String.valueOf(table.getValueAt(row, col)));
+					cell.setCellStyle(getCellTextStyle(workbook, false));
+				}
 
-            // Điều chỉnh chiều cao của từng dòng
-            sheetRow.setHeightInPoints(20); // Đặt giá trị chiều cao mong muốn (đơn vị là điểm)
-        }
+				// Điều chỉnh chiều cao của từng dòng
+				sheetRow.setHeightInPoints(20); // Đặt giá trị chiều cao mong
+												// muốn (đơn vị là điểm)
+			}
 
-        // Điều chỉnh chiều rộng của từng cột
-        for (int col = 0; col <= table.getColumnCount(); col++) {
-            sheet.autoSizeColumn(col);
-        }
-	    
-	    // Lưu workbook vào tệp Excel
-	    try (FileOutputStream outputStream = new FileOutputStream("ThongKe/DanhSachSanPhamTonKho.xlsx")) {
-	        workbook.write(outputStream);
-	        thongbao.thongbao("Xuất Excel thành công!", "Thống báo");
-	    } catch (Exception e) {
-			e.printStackTrace();
-			thongbao.thongbao("Xuất File thất bại!", "Thông báo");
+			// Điều chỉnh chiều rộng của từng cột
+			for (int col = 0; col <= table.getColumnCount(); col++) {
+				sheet.autoSizeColumn(col);
+			}
+
+			// Lưu workbook vào tệp Excel
+			try (FileOutputStream outputStream = new FileOutputStream(
+					"ThongKe/DanhSachSanPhamTonKho.xlsx")) {
+				workbook.write(outputStream);
+				thongbao.thongbao("Xuất Excel thành công!", "Thống báo");
+			} catch (Exception e) {
+				e.printStackTrace();
+				thongbao.thongbao("Xuất File thất bại!", "Thông báo");
+			}
+
+			workbook.close();
 		}
-	    
-	    workbook.close();
 	}
+
 	private CellStyle getHeaderCellStyle(Workbook workbook) {
-	    CellStyle style = workbook.createCellStyle();
-	    org.apache.poi.ss.usermodel.Font font = workbook.createFont();
-	    font.setBold(true);
-	    style.setFont(font);
-	    return style;
+		CellStyle style = workbook.createCellStyle();
+		org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+		font.setBold(true);
+		style.setFont(font);
+		return style;
 	}
+
 	private CellStyle getCellTextStyle(Workbook workbook, boolean isBold) {
-	    CellStyle style = workbook.createCellStyle();
-	    org.apache.poi.ss.usermodel.Font font = workbook.createFont();
-	    font.setBold(isBold);
-	    font.setFontHeightInPoints((short) 12);
-	    font.setColor(IndexedColors.BLACK.getIndex());
-	    style.setFont(font);
-	    style.setAlignment(HorizontalAlignment.LEFT);
-	    style.setVerticalAlignment(VerticalAlignment.CENTER);
-	    style.setBorderTop(BorderStyle.THIN);
-	    style.setBorderBottom(BorderStyle.THIN);
-	    style.setBorderLeft(BorderStyle.THIN);
-	    style.setBorderRight(BorderStyle.THIN);
-	    return style;
+		CellStyle style = workbook.createCellStyle();
+		org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+		font.setBold(isBold);
+		font.setFontHeightInPoints((short) 12);
+		font.setColor(IndexedColors.BLACK.getIndex());
+		style.setFont(font);
+		style.setAlignment(HorizontalAlignment.LEFT);
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
+		style.setBorderTop(BorderStyle.THIN);
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setBorderRight(BorderStyle.THIN);
+		return style;
 	}
 }

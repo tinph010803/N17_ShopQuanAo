@@ -116,15 +116,15 @@ public class BUS_QuenMatKhau {
 		}
 	}
 
-	public static boolean kiemTraMKCu(String manv,String matKhauCu) {
-		if (matKhauCu.equals(DAO_TaiKhoan.getTKtheoMa(manv).getMatKhau())){
+	public static boolean kiemTraMKCu(String manv, String matKhauCu) {
+		if (matKhauCu.equals(DAO_TaiKhoan.getTKtheoMa(manv).getMatKhau())) {
 			return true;
 		}
-			
+
 		else {
 			thongbao.thongbao("Mật khẩu Cũ không chính xác!", "");
 			return false;
 		}
-		
+
 	}
 }

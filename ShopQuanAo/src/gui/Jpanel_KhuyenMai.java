@@ -72,13 +72,13 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 	private JTextField txtMaKM;
 	private JTextField txtTenKM;
 	private JTextField txtPhanTram;
-	private DefaultTableModel model1;
-	private JTable table1;
-	private JTableHeader tbHeader1;
-	private JScrollPane scrollPane1;
+	private DefaultTableModel modelSP;
+	private JTable tableSP;
+	private JTableHeader tbHeaderSP;
+	private JScrollPane scrollPaneSP;
 	private JTextField txtTim;
 	private JTextField txtTimKhuyenMai;
-	private JPanel panel;
+	private JPanel pnlLeft;
 	private JLabel lblKM;
 	private JLabel lblMaKM;
 	private JLabel lblTenKM;
@@ -88,16 +88,16 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 	private JLabel lblMoTa;
 	private JTextArea txtMota;
 	private JButton btnTaoKM;
-	private JPanel panel_1;
+	private JPanel pnlRight_Bot;
 	private JLabel lblSanPham;
-	private JPanel panel_2;
+	private JPanel pnlRight_Top;
 	private JLabel lblLoai;
 	private JComboBox cboLoai;
 	private JLabel lblTen;
-	private DefaultTableModel model2;
-	private JTable table2;
-	private JTableHeader tbHeader2;
-	private JScrollPane scrollPane2;
+	private DefaultTableModel modelKM;
+	private JTable tableKM;
+	private JTableHeader tbHeaderKM;
+	private JScrollPane scrollPaneKM;
 	private JDateChooser txtNgayBD;
 	private JDateChooser txtNgayKetThuc;
 	ConnectionManager connectionManager = new ConnectionManager();
@@ -116,96 +116,86 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
 
-		panel = new JPanel();
-		panel.setBorder(new MatteBorder(0, 1, 0, 1, (Color) new Color(0, 0, 0)));
-		panel.setBounds(0, 0, 805, 975);
-		add(panel);
-		panel.setLayout(null);
+		pnlLeft = new JPanel();
+		pnlLeft.setBackground(new Color(255, 255, 237));
+		pnlLeft.setBorder(new MatteBorder(0, 1, 0, 1,
+				(Color) new Color(0, 0, 0)));
+		pnlLeft.setBounds(0, 0, 805, 975);
+		add(pnlLeft);
+		pnlLeft.setLayout(null);
 
 		lblKM = new JLabel("KHUYẾN MÃI");
 		lblKM.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblKM.setHorizontalAlignment(SwingConstants.CENTER);
-		lblKM.setBounds(381, 25, 172, 36);
-		panel.add(lblKM);
+		lblKM.setBounds(310, 25, 172, 36);
+		pnlLeft.add(lblKM);
 
 		lblMaKM = new JLabel("Mã khuyến mãi:");
-		lblMaKM.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMaKM.setBounds(12, 100, 177, 36);
-		panel.add(lblMaKM);
+		lblMaKM.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblMaKM.setBounds(12, 100, 177, 35);
+		pnlLeft.add(lblMaKM);
 
 		lblTenKM = new JLabel("Tên khuyến mãi:");
-		lblTenKM.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTenKM.setBounds(12, 165, 177, 36);
-		panel.add(lblTenKM);
+		lblTenKM.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTenKM.setBounds(12, 165, 177, 35);
+		pnlLeft.add(lblTenKM);
 
-		lblPhanTram = new JLabel("Phần trăm");
-		lblPhanTram.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPhanTram.setBounds(435, 165, 90, 36);
-		panel.add(lblPhanTram);
+		lblPhanTram = new JLabel("Phần trăm:");
+		lblPhanTram.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblPhanTram.setBounds(435, 165, 120, 35);
+		pnlLeft.add(lblPhanTram);
 
 		lblNgayBD = new JLabel("Ngày bắt đầu:");
-		lblNgayBD.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNgayBD.setBounds(12, 215, 177, 36);
-		panel.add(lblNgayBD);
+		lblNgayBD.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNgayBD.setBounds(12, 215, 177, 35);
+		pnlLeft.add(lblNgayBD);
 		txtNgayBD = new JDateChooser();
 		txtNgayBD.setDateFormatString("dd/MM/yyyy");
-		txtNgayBD.setBounds(196, 215, 200, 36);
-//		txtNgayBD.setMinSelectableDate(new Date());
-		 Calendar currentDate = Calendar.getInstance();
+		txtNgayBD.setBounds(196, 215, 200, 35);
+		Calendar currentDate = Calendar.getInstance();
 		txtNgayBD.setDate(currentDate.getTime());
 		txtNgayBD.setEnabled(false);
-		panel.add(txtNgayBD);
+		pnlLeft.add(txtNgayBD);
 
 		lblNgayKT = new JLabel("Ngày kết thúc:");
-		lblNgayKT.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNgayKT.setBounds(435, 215, 144, 36);
-		panel.add(lblNgayKT);
+		lblNgayKT.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNgayKT.setBounds(435, 215, 144, 35);
+		pnlLeft.add(lblNgayKT);
 		txtNgayKetThuc = new JDateChooser();
 		txtNgayKetThuc.setDateFormatString("dd/MM/yyyy");
-		txtNgayKetThuc.setBounds(583, 215, 200, 36);
+		txtNgayKetThuc.setBounds(583, 215, 200, 35);
 		txtNgayKetThuc.setMinSelectableDate(new Date());
-		panel.add(txtNgayKetThuc);
+		pnlLeft.add(txtNgayKetThuc);
 
 		lblMoTa = new JLabel("Mô tả:");
-		lblMoTa.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMoTa.setBounds(12, 276, 177, 36);
-		panel.add(lblMoTa);
+		lblMoTa.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblMoTa.setBounds(12, 276, 177, 35);
+		pnlLeft.add(lblMoTa);
 
 		txtMaKM = new JTextField();
-		txtMaKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtMaKM.setBounds(196, 100, 200, 36);
-		panel.add(txtMaKM);
+		txtMaKM.setBackground(new Color(255, 255, 237));
+		txtMaKM.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtMaKM.setBounds(196, 100, 200, 35);
+		txtMaKM.setBorder(null);
+		pnlLeft.add(txtMaKM);
 		txtMaKM.setColumns(10);
 
 		txtTenKM = new JTextField();
-		txtTenKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTenKM.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtTenKM.setColumns(10);
-		txtTenKM.setBounds(196, 166, 200, 36);
-		panel.add(txtTenKM);
+		txtTenKM.setBounds(196, 166, 200, 35);
+		pnlLeft.add(txtTenKM);
 
 		txtPhanTram = new JTextField();
-		txtPhanTram.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtPhanTram.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPhanTram.setColumns(10);
-		txtPhanTram.setBounds(583, 166, 90, 36);
-		panel.add(txtPhanTram);
+		txtPhanTram.setBounds(583, 166, 90, 35);
+		pnlLeft.add(txtPhanTram);
 		JLabel lbl_PhanTram = new JLabel("%");
 		lbl_PhanTram.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lbl_PhanTram.setBounds(685, 165, 29, 36);
-		panel.add(lbl_PhanTram);
+		pnlLeft.add(lbl_PhanTram);
 
-		// Chỉ cho nhập số ở txtPhanTram
-		// document = (AbstractDocument) txtPhanTram.getDocument();
-		// document.setDocumentFilter(new DocumentFilter() {
-		// @Override
-		// public void replace(FilterBypass fb, int offset, int length,
-		// String text, AttributeSet attrs)
-		// throws BadLocationException {
-		// if (isNumeric(text) && text.length() <= 2) {
-		// super.replace(fb, offset, length, text, attrs);
-		// }
-		// }
-		// });
-		// Chỉ cho nhập số (tối đa 2 ký tự) ở txtPhanTram
 		document = (AbstractDocument) txtPhanTram.getDocument();
 		document.setDocumentFilter(new DocumentFilter() {
 			@Override
@@ -220,119 +210,130 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		});
 
 		txtMota = new JTextArea();
+		txtMota.setBackground(new Color(237, 255, 241));
 		txtMota.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		txtMota.setBounds(196, 271, 277, 98);
-		panel.add(txtMota);
+		pnlLeft.add(txtMota);
 
 		btnReset = new JButton("");
 		btnReset.setIcon(new ImageIcon("IMG_Hinh\\reset.jpg"));
 		btnReset.setBackground(new Color(0, 191, 255));
 		btnReset.setBackground(new Color(0, 0, 255));
 		btnReset.setBounds(527, 324, 50, 45);
-		panel.add(btnReset);
+		pnlLeft.add(btnReset);
 
 		btnTaoKM = new JButton("Tạo khuyến mãi");
 		btnTaoKM.setBackground(Color.GREEN);
 		btnTaoKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnTaoKM.setBounds(589, 324, 172, 45);
-		panel.add(btnTaoKM);
+		pnlLeft.add(btnTaoKM);
 
-		String row2[] = { "Mã khuyến mãi", "Tên khuyến mãi", "Phần trăm",
+		String rowKM[] = { "Mã khuyến mãi", "Tên khuyến mãi", "Phần trăm",
 				"Ngày BĐ", "Ngày KT" };
-		model2 = new DefaultTableModel(row2, 0);
-		table2 = new JTable(model2);
-		table2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255,
+		modelKM = new DefaultTableModel(rowKM, 0);
+		tableKM = new JTable(modelKM);
+		tableKM.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255,
 				153)));
-		tbHeader2 = ((JTable) table2).getTableHeader();
-		tbHeader2.setBackground((Color.decode("#00c691")));
-		tbHeader2.setForeground(Color.white);
-		tbHeader2.setFont(new Font("Tahoma", Font.BOLD, 10));
-		scrollPane2 = new JScrollPane(table2);
-		scrollPane2.setBorder(null);
-		scrollPane2.setLocation(13, 453);
-		scrollPane2.setSize(770, 522);
-		panel.add(scrollPane2);
-		bus.BUS_KhuyenMai.dodulieu(table2);
+		tbHeaderKM = ((JTable) tableKM).getTableHeader();
+		tbHeaderKM.setBackground((Color.decode("#00c691")));
+		tbHeaderKM.setForeground(Color.white);
+		tbHeaderKM.setFont(new Font("Tahoma", Font.BOLD, 10));
+		scrollPaneKM = new JScrollPane(tableKM);
+		scrollPaneKM.setBorder(null);
+		scrollPaneKM.setLocation(13, 453);
+		scrollPaneKM.setSize(770, 522);
+		pnlLeft.add(scrollPaneKM);
+		bus.BUS_KhuyenMai.dodulieu(tableKM);
 
 		// Chỉnh chiều rộng
 
-		table2.getColumnModel().getColumn(0).setPreferredWidth(150); // Mã
+		tableKM.getColumnModel().getColumn(0).setPreferredWidth(150); // Mã
 																		// khuyến
 																		// mãi
-		table2.getColumnModel().getColumn(1).setPreferredWidth(200); // Tên
+		tableKM.getColumnModel().getColumn(1).setPreferredWidth(200); // Tên
 																		// khuyến
 																		// mãi
 		// Cài đặt kích thước cho các cột khác
 
-		table2.setRowHeight(30);
-		JTableHeader tableHeader = table2.getTableHeader();
-		tbHeader2.setFont(new Font("Tohoma", Font.BOLD, 18));
-		table2.setFont(new Font("Tohoma", Font.PLAIN, 18));
+		tableKM.setRowHeight(30);
+		JTableHeader tableHeader = tableKM.getTableHeader();
+		tbHeaderKM.setFont(new Font("Tohoma", Font.BOLD, 18));
+		tableKM.setFont(new Font("Tohoma", Font.PLAIN, 18));
 
-		panel_1 = new JPanel();
-		panel_1.setBounds(805, 77, 859, 898);
-		add(panel_1);
-		panel_1.setLayout(null);
+		pnlRight_Bot = new JPanel();
+		pnlRight_Bot.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0,
+				0, 0)));
+		pnlRight_Bot.setBackground(new Color(255, 255, 237));
+		pnlRight_Bot.setBounds(805, 77, 859, 898);
+		add(pnlRight_Bot);
+		pnlRight_Bot.setLayout(null);
 
-		String row1[] = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Loại",
+		String rowSP[] = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Loại",
 				"Giá bán" };
-		model1 = new DefaultTableModel(row1, 0);
-		table1 = new JTable(model1);
-		table1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255,
+		modelSP = new DefaultTableModel(rowSP, 0);
+		tableSP = new JTable(modelSP);
+		tableSP.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255,
 				153)));
-		tbHeader1 = ((JTable) table1).getTableHeader();
-		tbHeader1.setBackground((Color.decode("#00c691")));
-		tbHeader1.setForeground(Color.white);
-		tbHeader1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		scrollPane1 = new JScrollPane(table1);
-		scrollPane1.setBorder(null);
-		scrollPane1.setLocation(26, 51);
-		scrollPane1.setSize(809, 847);
-		panel_1.add(scrollPane1);
-		bus.BUS_KhuyenMai.dodulieu_SanPham(table1,DAO_SanPham.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
+		tbHeaderSP = ((JTable) tableSP).getTableHeader();
+		tbHeaderSP.setBackground((Color.decode("#00c691")));
+		tbHeaderSP.setForeground(Color.white);
+		tbHeaderSP.setFont(new Font("Tahoma", Font.BOLD, 10));
+		scrollPaneSP = new JScrollPane(tableSP);
+		scrollPaneSP.setBorder(null);
+		scrollPaneSP.setLocation(26, 51);
+		scrollPaneSP.setSize(809, 847);
+		pnlRight_Bot.add(scrollPaneSP);
+		bus.BUS_KhuyenMai
+				.dodulieu_SanPham(
+						tableSP,
+						DAO_SanPham
+								.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
 
-		table1.setRowHeight(30);
-		JTableHeader tableHeader1 = table1.getTableHeader();
+		tableSP.setRowHeight(30);
+		JTableHeader tableHeader1 = tableSP.getTableHeader();
 		tableHeader1.setFont(new Font("Tohoma", Font.BOLD, 18));
-		table1.setFont(new Font("Tohoma", Font.PLAIN, 18));
+		tableSP.setFont(new Font("Tohoma", Font.PLAIN, 18));
 
-		TableColumnModel columnModel = table1.getColumnModel();
+		TableColumnModel columnModel = tableSP.getColumnModel();
 		TableColumn giaBan = columnModel.getColumn(4);
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 		giaBan.setCellRenderer(rightRenderer);
-		
+
 		lblSanPham = new JLabel("SẢN PHẨM");
 		lblSanPham.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblSanPham.setBounds(28, 13, 172, 36);
-		panel_1.add(lblSanPham);
+		pnlRight_Bot.add(lblSanPham);
 
-		panel_2 = new JPanel();
-		panel_2.setBounds(805, 0, 859, 77);
-		add(panel_2);
-		panel_2.setLayout(null);
+		pnlRight_Top = new JPanel();
+		pnlRight_Top.setBackground(new Color(255, 255, 237));
+		pnlRight_Top.setBounds(805, 0, 859, 77);
+		add(pnlRight_Top);
+		pnlRight_Top.setLayout(null);
 
 		lblLoai = new JLabel("Loại:");
-		lblLoai.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblLoai.setBounds(26, 30, 56, 26);
-		panel_2.add(lblLoai);
+		lblLoai.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblLoai.setBounds(26, 25, 56, 35);
+		pnlRight_Top.add(lblLoai);
 
 		cboLoai = new JComboBox();
-		cboLoai.setBounds(80, 30, 100, 26);
-		cboLoai.setBackground(new Color(255, 128, 64));
+		cboLoai.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		cboLoai.setBounds(80, 25, 100, 35);
+		cboLoai.setBackground(new Color(240, 255, 241));
 		cboLoai.setModel(new DefaultComboBoxModel(new String[] { "Tất cả",
 				"Áo", "Quần", "Váy", "Đầm" }));
-		panel_2.add(cboLoai);
+		pnlRight_Top.add(cboLoai);
 
 		lblTen = new JLabel("Tìm sản phẩm:");
-		lblTen.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTen.setBounds(460, 30, 130, 26);
-		panel_2.add(lblTen);
+		lblTen.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTen.setBounds(450, 25, 140, 35);
+		pnlRight_Top.add(lblTen);
 
 		txtTim = new JTextField();
-		txtTim.setBounds(590, 31, 189, 26);
+		txtTim.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtTim.setBounds(590, 25, 189, 35);
 		txtTim.setColumns(10);
-		panel_2.add(txtTim);
+		pnlRight_Top.add(txtTim);
 
 		txtMaKM.setEnabled(false);
 		btnTaoKM.setFocusPainted(false);
@@ -341,54 +342,54 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		JLabel lblTimKhuyenMai = new JLabel("Tìm:");
 		lblTimKhuyenMai.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTimKhuyenMai.setBounds(30, 414, 50, 26);
-		panel.add(lblTimKhuyenMai);
+		pnlLeft.add(lblTimKhuyenMai);
 
 		txtTimKhuyenMai = new JTextField();
 		txtTimKhuyenMai.setColumns(10);
 		txtTimKhuyenMai.setBounds(79, 414, 189, 26);
-		panel.add(txtTimKhuyenMai);
+		pnlLeft.add(txtTimKhuyenMai);
 
 		JLabel lblTu = new JLabel("Từ");
 		lblTu.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTu.setBounds(318, 409, 29, 36);
-		panel.add(lblTu);
+		pnlLeft.add(lblTu);
 
 		txtTimNgayBD = new JDateChooser();
 		txtTimNgayBD.setDateFormatString("dd/MM/yyyy");
 		txtTimNgayBD.setBounds(345, 414, 150, 26);
-		panel.add(txtTimNgayBD);
+		pnlLeft.add(txtTimNgayBD);
 
 		txtTimNgayKT = new JDateChooser();
 		txtTimNgayKT.setDateFormatString("dd/MM/yyyy");
 		txtTimNgayKT.setBounds(543, 414, 150, 26);
-		panel.add(txtTimNgayKT);
+		pnlLeft.add(txtTimNgayKT);
 		txtTimNgayBD.setDate(new java.util.Date());
 		txtTimNgayKT.setDate(new java.util.Date());
 		JLabel lblDen = new JLabel("Đến");
 		lblDen.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblDen.setBounds(507, 414, 50, 26);
-		panel.add(lblDen);
+		pnlLeft.add(lblDen);
 
 		btnTimKM = new JButton("Tìm");
+		btnTimKM.setBackground(new Color(204, 255, 255));
 		btnTimKM.setFocusPainted(false);
 		btnReset.setBackground(new Color(0, 191, 255));
 		btnReset.setBackground(new Color(0, 0, 255));
 		btnTimKM.setBounds(705, 414, 67, 26);
 		btnTimKM.setContentAreaFilled(false);
-		panel.add(btnTimKM);
-		
-		table2.addMouseListener(new MouseAdapter() {
+		pnlLeft.add(btnTimKM);
+
+		tableKM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int row = table2.getSelectedRow();
-				String maKM = table2.getValueAt(row, 0).toString().trim();
+				int row = tableKM.getSelectedRow();
+				String maKM = tableKM.getValueAt(row, 0).toString().trim();
 				thongTinChiTiet(maKM);
 				hienThiSanPham(maKM);
-				
+
 			}
 		});
-		
-		
+
 		btnReset.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnLamMoiActionPerformed(evt);
@@ -405,31 +406,38 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 				txtTimKiemKMKeyReleased(evt);
 			}
 		});
-		
+
 		btnTimKM.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        // Gọi hàm để thực hiện tìm kiếm khuyến mãi
-		        timKiemKhuyenMai();
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Gọi hàm để thực hiện tìm kiếm khuyến mãi
+				timKiemKhuyenMai();
+			}
 		});
-	
+
 		btnTaoKM.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				try {
+				String pt= txtPhanTram.getText();
+				if(pt.equals(""))
+					thongbao.thongbao("Yêu cầu nhập phần trăm", "Chú ý");
+				
+				else {
+					
+					try {
 					btnTaoKMActionPerformed(evt);
 					kiemTraVaCapNhatSanPham();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				}
+				
 			}
 
 			private void ganThongTin() {
 				ResultSet rs = dao.DAO_KhuyenMai.layKM();
-				System.out.println(rs);// Xem có dữ liệu hay không
 				String maxMaKM = null;
-				String mota= txtMaKM.getText().trim();
+				String mota = txtMaKM.getText().trim();
 				try {
 					while (rs.next()) {
 						maxMaKM = rs.getString("maKhuyenMai");
@@ -444,10 +452,8 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 					int maxSoKM = extractSerialNumber(maxMaKM);
 					newMaKM = "KM" + currentDate
 							+ String.format("%02d", maxSoKM + 1);
-					System.out.println(newMaKM);// Xuất ra xem thử mã KH
 				} else {
 					newMaKM = "KM" + currentDate + "01";
-					System.out.println(newMaKM);
 				}
 				txtMaKM.setText(newMaKM);
 				khuyenMai.setMoTa(mota);
@@ -455,11 +461,6 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 				khuyenMai.setTenKhuyenMai(txtTenKM.getText().toString());
 				khuyenMai.setPhanTram(Integer.parseInt(txtPhanTram.getText()
 						.toString()));
-				// Date ngayBD = txtNgayBD.getDate();
-				// khuyenMai.setNgayBatDau(ngayBD);
-				// Date ngayKT = txtNgayKetThuc.getDate();
-				// khuyenMai.setNgayKetThuc(ngayKT);
-				// Chuyển đổi từ java.util.Date sang java.time.LocalDate
 				LocalDate ngayBD = txtNgayBD.getDate().toInstant()
 						.atZone(ZoneId.systemDefault()).toLocalDate();
 				khuyenMai.setNgayBatDau(ngayBD);
@@ -482,41 +483,45 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 				SimpleDateFormat dateFormat = new SimpleDateFormat(
 						"dd/MM/yyyy HH:mm:ss");
 				String ngayBDBienDang = dateFormat.format(ngayBD);
-				String ngayKTBienDang = dateFormat.format(ngayKT);
-
-				// Hiển thị ngày và giờ bắt đầu và kết thúc đã chọn
-				System.out.println("Ngày và giờ bắt đầu: " + ngayBDBienDang);
-				System.out.println("Ngày và giờ kết thúc: " + ngayKTBienDang);
+				try {
+						String ngayKTBienDang = dateFormat.format(ngayKT);
+				} catch (Exception e) {
+					// TODO: handle exception
+					thongbao.thongbao("Yêu cầu Nhập đúng định dạng ngày dd/mm/yyyy", "Chú ý ");
+					return;
+				}
+			
 
 				if (ngayBD.after(ngayKT)) {
 					ngayBD = currentDate;
 					txtNgayBD.setDate(currentDate);
+				}
+				int[] selectedRows = tableSP.getSelectedRows();
+				List<String> selectedProductIDs = new ArrayList<>();
+				for (int row : selectedRows) {
+					String productID = tableSP.getValueAt(row, 1).toString(); 
+					selectedProductIDs.add(productID);
+				}
+				if(selectedProductIDs.size()==0) {
+					thongbao.thongbao("Chọn sản phẩm khuyến mãi", "chú ý");
+					return;
 				}
 				ganThongTin();
 				boolean kt = bus.BUS_KhuyenMai.kt_Them(khuyenMai);
 				if (kt) {
 					dao.DAO_KhuyenMai.them(khuyenMai);
 
-					bus.BUS_KhuyenMai.dodulieu(table2);
+					bus.BUS_KhuyenMai.dodulieu(tableKM);
 				}
-				int[] selectedRows = table1.getSelectedRows();
-				List<String> selectedProductIDs = new ArrayList<>();
-				for (int row : selectedRows) {
-					String productID = table1.getValueAt(row, 1).toString(); // Lấy
-																				// mã
-																				// sản
-																				// phẩm
-					selectedProductIDs.add(productID);
-				}
-
+			
+					
+				
 				for (String productID : selectedProductIDs) {
 					// Thay thế "productTable" bằng tên bảng sản phẩm trong cơ
 					// sở dữ liệu của bạn
 					String updateQuery = "UPDATE SanPham SET maKhuyenMai = ? WHERE maSanPham = ?";
 					try {
-						ConnectionManager connectionManager = new ConnectionManager(); // Tạo
-																						// kết
-																						// nối
+						ConnectionManager connectionManager = new ConnectionManager(); 
 						Connection conn = connectionManager.conn;
 						PreparedStatement preparedStatement = conn
 								.prepareStatement(updateQuery);
@@ -528,14 +533,16 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 					}
 				}
 
-				bus.BUS_KhuyenMai.dodulieu(table2);
-				bus.BUS_KhuyenMai.dodulieu_SanPham(table1,DAO_SanPham.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
+				bus.BUS_KhuyenMai.dodulieu(tableKM);
+				bus.BUS_KhuyenMai.dodulieu_SanPham(
+						tableSP,
+						DAO_SanPham
+								.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
 
 				kiemTraVaCapNhatSanPham();
 			}
 		});
-		
-		
+
 	}
 
 	private int extractSerialNumber(String customerID) {
@@ -553,7 +560,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		String loai = cboLoai.getSelectedItem().toString();
 		String tuKhoa = txtTim.getText().trim();
 		// bus.BUS_KhachHang.timKiem(table, tuKhoa, bac, gioiTinh);
-		bus.BUS_SanPham.timKiem(table1, tuKhoa, loai);
+		bus.BUS_SanPham.timKiem(tableSP, tuKhoa, loai);
 	}
 
 	private void txtTimKiemKMKeyReleased(KeyEvent evt) {
@@ -561,25 +568,25 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		String phanTram = txtPhanTram.getText().trim(); // nếu đưa int vào thì
 														// khi nhập vào sẽ bị
 														// lỗi String ""
-		
+
 		// Lấy ngày bắt đầu và kết thúc từ JDateChooser
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	    Date ngayBD = txtTimNgayBD.getDate();
-	    Date ngayKT = txtTimNgayKT.getDate();
-	    java.sql.Date sqlNgayBD = null;
-	    java.sql.Date sqlNgayKT = null;
-	    // Chuyển đổi từ java.util.Date sang java.sql.Date để sử dụng trong câu truy vấn SQL
-	    if (!(ngayBD == null || ngayKT==null || ngayKT.before(ngayBD))) {
-	    	sqlNgayBD = new java.sql.Date(ngayBD.getTime());
-		    sqlNgayKT = new java.sql.Date(ngayKT.getTime());
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
+		java.sql.Date sqlNgayBD = null;
+		java.sql.Date sqlNgayKT = null;
+		// Chuyển đổi từ java.util.Date sang java.sql.Date để sử dụng trong câu
+		// truy vấn SQL
+		if (!(ngayBD == null || ngayKT == null || ngayKT.before(ngayBD))) {
+			sqlNgayBD = new java.sql.Date(ngayBD.getTime());
+			sqlNgayKT = new java.sql.Date(ngayKT.getTime());
 		}
-	    
-	    
+
 		String tuKhoa = txtTimKhuyenMai.getText().trim();
-//		bus.BUS_KhuyenMai.timKiem(table2, tuKhoa, phanTram);
-		bus.BUS_KhuyenMai.timKiem(table2, tuKhoa, phanTram,sqlNgayBD, sqlNgayKT);
+		// bus.BUS_KhuyenMai.timKiem(table2, tuKhoa, phanTram);
+		bus.BUS_KhuyenMai.timKiem(tableKM, tuKhoa, phanTram, sqlNgayBD,
+				sqlNgayKT);
 	}
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -588,7 +595,7 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		String tuKhoa = txtTim.getText().trim();
 		Object o = e.getSource();
 		if (o.equals(cboLoai)) {
-			bus.BUS_SanPham.timKiem(table1, tuKhoa, loai);
+			bus.BUS_SanPham.timKiem(tableSP, tuKhoa, loai);
 		}
 	}
 
@@ -598,34 +605,29 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 
 	private void tableMouseClicked(MouseEvent evt) {
 
-		if (table2.getSelectedRowCount() == 1) {
-			vitri = table2.getSelectedRow();
-			String maKM = table2.getValueAt(vitri, 0).toString();
+		if (tableKM.getSelectedRowCount() == 1) {
+			vitri = tableKM.getSelectedRow();
+			String maKM = tableKM.getValueAt(vitri, 0).toString();
 			thongTinChiTiet(maKM);
-//			hienThiSanPhamTheoKhuyenMai(maKM);
+			// hienThiSanPhamTheoKhuyenMai(maKM);
 		}
 
 	}
-	
-	
-
-
-
 
 	private void thongTinChiTiet(String ma) {
-		
-	
-		KhuyenMai km= DAO_KhuyenMai.layKhuyenMaiTheoMa(ma);
+
+		KhuyenMai km = DAO_KhuyenMai.layKhuyenMaiTheoMa(ma);
 		txtMaKM.setText(km.getMaKhuyenMai().trim());
 		txtTenKM.setText(km.getTenKhuyenMai().trim());
-		txtPhanTram.setText(km.getPhanTram()+"");
+		txtPhanTram.setText(km.getPhanTram() + "");
 		txtMota.setText(km.getMoTa());
-		Date datebd = Date.from( km.getNgayBatDau().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Date datekt = Date.from( km.getNgayKetThuc().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date datebd = Date.from(km.getNgayBatDau()
+				.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date datekt = Date.from(km.getNgayKetThuc()
+				.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		txtNgayBD.setDate(datebd);
 		txtNgayKetThuc.setDate(datekt);
-		
-		
+
 	}
 
 	private static boolean isNumeric(String text) {
@@ -641,8 +643,9 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		}
 
 		Connection conn = connectionManager.conn;
-		 String query ="SELECT maKhuyenMai FROM KhuyenMai WHERE ngayKetThuc >= CONVERT(DATE, GETDATE()) AND ngayKetThuc < DATEADD(DAY, 1, CONVERT(DATE, GETDATE()));";
-		//String query = "SELECT maKhuyenMai FROM KhuyenMai WHERE ngayKetThuc > CONVERT(DATE, GETDATE())";
+		String query = "SELECT maKhuyenMai FROM KhuyenMai WHERE ngayKetThuc >= CONVERT(DATE, GETDATE()) AND ngayKetThuc < DATEADD(DAY, 1, CONVERT(DATE, GETDATE()));";
+		// String query =
+		// "SELECT maKhuyenMai FROM KhuyenMai WHERE ngayKetThuc > CONVERT(DATE, GETDATE())";
 
 		try (PreparedStatement statement = conn.prepareStatement(query);
 				ResultSet resultSet = statement.executeQuery()) {
@@ -676,15 +679,18 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		txtTimKhuyenMai.setText("");
 		txtTimNgayBD.setDate(new java.util.Date());
 		txtTimNgayKT.setDate(new java.util.Date());
-		bus.BUS_KhuyenMai.dodulieu(table2);
-		bus.BUS_KhuyenMai.dodulieu_SanPham(table1,DAO_SanPham.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
+		bus.BUS_KhuyenMai.dodulieu(tableKM);
+		bus.BUS_KhuyenMai
+				.dodulieu_SanPham(
+						tableSP,
+						DAO_SanPham
+								.getDsSanPham_Querry("select * from SanPham  where SanPham.maKhuyenMai  is null"));
 		// ganTXTMaKM();
 
 	}
 
 	private void ganTXTMaKM() {
 		ResultSet rs = dao.DAO_KhuyenMai.layKM();
-		System.out.println(rs);// Xem có dữ liệu hay không
 		String currentDate = getCurrentDate(); // Ngày hiện tại
 		String maxMaKM = "KM" + currentDate + "00";
 		try {
@@ -700,89 +706,83 @@ public class Jpanel_KhuyenMai extends JPanel implements ActionListener {
 		if (maxMaKM != null && maxMaKM.startsWith("KM" + currentDate)) {
 			int maxSoKM = extractSerialNumber(maxMaKM);
 			newMaKM = "KM" + currentDate + String.format("%02d", maxSoKM + 1);
-			System.out.println(newMaKM);// Xuất ra xem thử mã KH
 		} else {
 			newMaKM = "KM" + currentDate + "01";
-			System.out.println(newMaKM);
 		}
 		txtMaKM.setText(newMaKM);
 	}
 
 	private void hienThiSanPham(String maKhuyenMai) {
-		String sql = "select * from SanPham \n where SanPham.maKhuyenMai= '"+maKhuyenMai+"'";
-		System.err.println(sql);
-		List<SanPham> dsSP= DAO_SanPham.getDsSanPham_Querry(sql);
-		BUS_KhuyenMai.dodulieu_SanPham(table1,dsSP);
+		String sql = "select * from SanPham \n where SanPham.maKhuyenMai= '"
+				+ maKhuyenMai + "'";
+		List<SanPham> dsSP = DAO_SanPham.getDsSanPham_Querry(sql);
+		BUS_KhuyenMai.dodulieu_SanPham(tableSP, dsSP);
 	}
-	
+
 	private boolean validateNgayTimKiem() {
-	    Date ngayBD = txtTimNgayBD.getDate();
-	    Date ngayKT = txtTimNgayKT.getDate();
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
 
-	    if (ngayBD == null || ngayKT == null) {
-	        thongbao.thongbao("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.", "");
-	        return false;
-	    }
+		if (ngayBD == null || ngayKT == null) {
+			thongbao.thongbao(
+					"Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.", "");
+			return false;
+		}
 
-	    if (ngayBD.after(ngayKT)) {
+		if (ngayBD.after(ngayKT)) {
 
-	        thongbao.thongbao("Ngày kết thúc không thể trước ngày bắt đầu.", "");
-	        return false;
-	    }
+			thongbao.thongbao("Ngày kết thúc không thể trước ngày bắt đầu.", "");
+			return false;
+		}
 
-	    return true;
+		return true;
 	}
 
 	private void timKiemKhuyenMai() {
 		Connection conn = connectionManager.conn;
-		 if (!validateNgayTimKiem()) {
-		        return; // Dừng nếu ngày không hợp lệ
-		    }
-	    // Lấy ngày bắt đầu và kết thúc từ JDateChooser
+		if (!validateNgayTimKiem()) {
+			return; // Dừng nếu ngày không hợp lệ
+		}
+		// Lấy ngày bắt đầu và kết thúc từ JDateChooser
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	    Date ngayBD = txtTimNgayBD.getDate();
-	    Date ngayKT = txtTimNgayKT.getDate();
-	    
-	    // Chuyển đổi từ java.util.Date sang java.sql.Date để sử dụng trong câu truy vấn SQL
-	    java.sql.Date sqlNgayBD = new java.sql.Date(ngayBD.getTime());
-	    java.sql.Date sqlNgayKT = new java.sql.Date(ngayKT.getTime());
-	    String tuKhoa = txtTimKhuyenMai.getText().trim();
-	    // Thực hiện truy vấn SQL để lấy danh sách khuyến mãi dựa trên ngày bắt đầu và kết thúc
-	    String sql = "SELECT * FROM KhuyenMai WHERE (ngayBatDau >= ? AND ngayKetThuc <= ?) and (tenKhuyenMai LIKE N'%"
-				+ tuKhoa + "%' OR maKhuyenMai LIKE N'%" + tuKhoa
-				+ "%')";
-//	    String sql = "SELECT * FROM KhuyenMai WHERE (tenKhuyenMai LIKE N'%"
-//				+ tukhoa + "%' OR maKhuyenMai LIKE N'%" + tukhoa
-//				+ "%' OR ngayBatDau LIKE N'%" + tukhoa
-//				+ "%' OR ngayKetThuc LIKE N'%" + tukhoa + "%')";
-	    try (
-	         PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
 
-	        preparedStatement.setDate(1, sqlNgayBD);
-	        preparedStatement.setDate(2, sqlNgayKT);
+		// Chuyển đổi từ java.util.Date sang java.sql.Date để sử dụng trong câu
+		// truy vấn SQL
+		java.sql.Date sqlNgayBD = new java.sql.Date(ngayBD.getTime());
+		java.sql.Date sqlNgayKT = new java.sql.Date(ngayKT.getTime());
+		String tuKhoa = txtTimKhuyenMai.getText().trim();
+		// Thực hiện truy vấn SQL để lấy danh sách khuyến mãi dựa trên ngày bắt
+		// đầu và kết thúc
+		String sql = "SELECT * FROM KhuyenMai WHERE (ngayBatDau >= ? AND ngayKetThuc <= ?) and (tenKhuyenMai LIKE N'%"
+				+ tuKhoa + "%' OR maKhuyenMai LIKE N'%" + tuKhoa + "%')";
+		try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-	        ResultSet resultSet = preparedStatement.executeQuery();
+			preparedStatement.setDate(1, sqlNgayBD);
+			preparedStatement.setDate(2, sqlNgayKT);
 
-	        // Xóa dữ liệu cũ trong table2
-	        model2.setRowCount(0);
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-	        // Đổ dữ liệu mới vào table2
-	        Object obj[] = new Object[5];
-	        while (resultSet.next()) {
-	            obj[0] = resultSet.getString("maKhuyenMai");
-	            obj[1] = resultSet.getString("tenKhuyenMai");
-	            obj[2] = resultSet.getInt("phanTram");
-	            ngayBD = resultSet.getDate("ngayBatDau");
+			// Xóa dữ liệu cũ trong table2
+			modelKM.setRowCount(0);
+
+			// Đổ dữ liệu mới vào table2
+			Object obj[] = new Object[5];
+			while (resultSet.next()) {
+				obj[0] = resultSet.getString("maKhuyenMai");
+				obj[1] = resultSet.getString("tenKhuyenMai");
+				obj[2] = resultSet.getInt("phanTram");
+				ngayBD = resultSet.getDate("ngayBatDau");
 				obj[3] = sdf.format(ngayBD);
-				ngayKT=resultSet.getDate("ngayKetThuc");
+				ngayKT = resultSet.getDate("ngayKetThuc");
 				obj[4] = sdf.format(ngayKT);
-	            model2.addRow(obj);
-	        }
+				modelKM.addRow(obj);
+			}
 
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	    }
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 	}
-	
-	
+
 }

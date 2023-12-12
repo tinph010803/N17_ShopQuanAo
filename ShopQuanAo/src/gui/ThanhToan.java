@@ -9,8 +9,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -215,6 +213,7 @@ public class ThanhToan extends JFrame {
 		lblTienTra = new JLabel();
 		lblTienTra.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTienTra.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTienTra.setForeground(Color.red);
 		lblTienTra.setBounds(260, 218, 300, 25);
 		pnlCenter.add(lblTienTra);
 
@@ -225,14 +224,6 @@ public class ThanhToan extends JFrame {
 		pnlCenter.add(btnThanhToan);
 		btnThanhToan.setFocusPainted(false);
 		btnThanhToan.setEnabled(false);
-		// txtTienKhachDua.addActionListener(new ActionListener() {
-		// @Override
-		// public void actionPerformed(ActionEvent e) {
-		// hd.setTienKhachDua(Double.parseDouble(txtTienKhachDua.getText()));
-		// lblTienTra.setText(decimalFormat.format(hd.tinhTienThua(dsCTHD)));
-		// }
-		//
-		// });
 
 		txtTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -262,7 +253,7 @@ public class ThanhToan extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dao.DAO_HoaDon.them(hd);
 				// xuatHDFilePDF();
-				
+
 				if (hd.getKhachHang() != null) {
 					hd.getKhachHang()
 							.capNhatSoTienDaMua(hd.getTongTienCanThu());
@@ -270,7 +261,8 @@ public class ThanhToan extends JFrame {
 				}
 				for (ChiTietHoaDon chiTietHoaDon : dsCTHD) {
 					dao.DAO_ChiTietHoaDon.them(chiTietHoaDon);
-					dao.DAO_SanPham.capNhatSoLuongGiam(chiTietHoaDon.getSanPham(),
+					dao.DAO_SanPham.capNhatSoLuongGiam(
+							chiTietHoaDon.getSanPham(),
 							chiTietHoaDon.getSoLuong());
 				}
 				xuatHoaDon();
@@ -292,26 +284,25 @@ public class ThanhToan extends JFrame {
 					.compileReport("src/gui/rp_XuatHoaDon.jrxml");
 
 			map.put("MaHD", hoaDon.getMaHoaDon());
-			if (hoaDon.getKhachHang()!=null) {
+			if (hoaDon.getKhachHang() != null) {
 				map.put("MaKH", hoaDon.getKhachHang().getMaKhachHang());
-			}else{
+			} else {
 				map.put("MaKH", "Khách vãng lai");
 			}
-			
+
 			map.put("NgayBan", getCurrentTimestamp());
 			map.put("TenNV", hoaDon.getNhanVien().getTenNhanVien());
 			map.put("TongThanhTien", hoaDon.tinhTongTien(dsChiTietHoaDon));
 			map.put("TienKM", hoaDon.tinhTongTienKM(dsChiTietHoaDon));
 			map.put("TienThue", hoaDon.tinhTongTienThue(dsChiTietHoaDon));
-			map.put("TienKMBac", hoaDon.tinhTongKhuyeMaiTheoBac(dsChiTietHoaDon));
+			map.put("TienKMBac",
+					hoaDon.tinhTongKhuyeMaiTheoBac(dsChiTietHoaDon));
 			map.put("TienCanThu", hoaDon.getTongTienCanThu());
 			map.put("TienKhachDua", hoaDon.getTienKhachDua());
 			map.put("TienThua", hoaDon.tinhTienThua(dsChiTietHoaDon));
 
-			
-			
-			
-			JasperPrint p = JasperFillManager.fillReport(report,map,connectDB.ConnectionManager.conn);
+			JasperPrint p = JasperFillManager.fillReport(report, map,
+					connectDB.ConnectionManager.conn);
 			JasperViewer.viewReport(p, false);
 			JasperExportManager.exportReportToPdfFile(p, "test.pdf");
 		} catch (Exception ex) {
@@ -319,12 +310,9 @@ public class ThanhToan extends JFrame {
 		}
 	}
 
-
 	private String getCurrentTimestamp() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		return sdf.format(new Date());
 	}
-
-	
 
 }

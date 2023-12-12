@@ -66,38 +66,42 @@ public class DAO_KhuyenMai {
 		String sql = "SELECT * FROM [dbo].[KhuyenMai]";
 		return ConnectionManager.getdata(sql);
 	}
-	
+
 	public static KhuyenMai layKhuyenMaiTheoMa(String ma) {
-		KhuyenMai km=null;
-		ResultSet rs= ConnectionManager.getdata("select *from KhuyenMai where maKhuyenMai='"+ma+"'");
+		KhuyenMai km = null;
+		ResultSet rs = ConnectionManager
+				.getdata("select *from KhuyenMai where maKhuyenMai='" + ma
+						+ "'");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate ngayBD,ngayKT;
-		
+		LocalDate ngayBD, ngayKT;
+
 		try {
-			while(rs.next()) {
+			while (rs.next()) {
 				ngayBD = LocalDate.parse(rs.getString("ngayBatDau"), formatter);
-				ngayKT = LocalDate.parse(rs.getString("ngayKetThuc"), formatter);
-				km=new KhuyenMai(rs.getString("maKhuyenMai").trim(), rs.getString("tenKhuyenMai").trim(), rs.getString("moTa").trim(),rs.getInt("phanTram"), ngayBD, ngayKT);
+				ngayKT = LocalDate
+						.parse(rs.getString("ngayKetThuc"), formatter);
+				km = new KhuyenMai(rs.getString("maKhuyenMai").trim(), rs
+						.getString("tenKhuyenMai").trim(), rs.getString("moTa")
+						.trim(), rs.getInt("phanTram"), ngayBD, ngayKT);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return km;
 	}
 
 	public static ResultSet layKMTheoMa(String MaKM) {
 		String sql = "SELECT * FROM [dbo].[KhuyenMai] where maKhuyenMai = N'"
 				+ MaKM + "'";
-		// System.err.println(sql);
 		return ConnectionManager.getdata(sql);
 	}
-	
+
 	public static int layPhanTramTheoMaKM(String MaKM) {
 		String sql = "SELECT * FROM [dbo].[KhuyenMai] where maKhuyenMai =N'"
 				+ MaKM + "'";
-		ResultSet rs =  ConnectionManager.getdata(sql);
+		ResultSet rs = ConnectionManager.getdata(sql);
 		int phanTram = 0;
 		try {
 			while (rs != null && rs.next()) {
@@ -125,8 +129,6 @@ public class DAO_KhuyenMai {
 			pstmt.setString(1, KM.getMaKhuyenMai());
 			pstmt.setString(2, KM.getTenKhuyenMai());
 			pstmt.setString(3, KM.getMoTa());
-			// pstmt.setDate(4, new Date(KM.getNgayBatDau().getTime()));
-			// pstmt.setDate(5, new Date(KM.getNgayKetThuc().getTime()));
 			pstmt.setDate(4, java.sql.Date.valueOf(KM.getNgayBatDau()));
 			pstmt.setDate(5, java.sql.Date.valueOf(KM.getNgayKetThuc()));
 
@@ -144,14 +146,16 @@ public class DAO_KhuyenMai {
 		}
 	}
 
-	public static ResultSet timKiem(String tukhoa, String phanTram,java.sql.Date sqlNgayBD ,java.sql.Date sqlNgayKT) {
+	public static ResultSet timKiem(String tukhoa, String phanTram,
+			java.sql.Date sqlNgayBD, java.sql.Date sqlNgayKT) {
 		String sql = "SELECT * FROM KhuyenMai WHERE (tenKhuyenMai LIKE N'%"
 				+ tukhoa + "%' OR maKhuyenMai LIKE N'%" + tukhoa
 				+ "%' OR ngayBatDau LIKE N'%" + tukhoa
 				+ "%' OR ngayKetThuc LIKE N'%" + tukhoa + "%')";
-		
-		if (sqlNgayBD!= null&& sqlNgayKT!=null) {
-			sql += "and ngayBatDau >=" + "'" + sqlNgayBD + "'"  +  "and ngayKetThuc <=" + "'" + sqlNgayKT + "'";
+
+		if (sqlNgayBD != null && sqlNgayKT != null) {
+			sql += "and ngayBatDau >=" + "'" + sqlNgayBD + "'"
+					+ "and ngayKetThuc <=" + "'" + sqlNgayKT + "'";
 		}
 
 		if (phanTram.equals(0)) {

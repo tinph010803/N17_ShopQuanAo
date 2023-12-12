@@ -21,6 +21,8 @@ import connectDB.ConnectionManager;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -49,6 +51,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -56,6 +60,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -64,6 +69,8 @@ import entity.SanPham;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.toedter.calendar.JDateChooser;
 
 public class Jpanel_TKSP_DaBan extends JPanel {
 	private DefaultTableModel model;
@@ -92,6 +99,8 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 	private JLabel lblTbTien;
 	private JComboBox cbosoLuong;
 	private JComboBox cboTien;
+	private JDateChooser txtTimNgayBD;
+	private JDateChooser txtTimNgayKT;
 
 	/**
 	 * Create the panel.
@@ -103,6 +112,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 
 		pnlThongKe = new JPanel();
 		pnlThongKe.setBounds(0, 0, 1646, 975);
+		pnlThongKe.setBackground(new Color(255, 255, 237));
 		add(pnlThongKe);
 		pnlThongKe.setLayout(null);
 
@@ -112,7 +122,8 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		pnlThongKe.add(pnlChinh);
 
 		pnlHeader = new JPanel();
-		pnlHeader.setBounds(0, 0, 1646, 154);
+		pnlHeader.setBounds(0, 0, 1646, 177);
+		pnlHeader.setBackground(new Color(255, 255, 237));
 		pnlChinh.add(pnlHeader);
 		pnlHeader.setLayout(null);
 
@@ -120,6 +131,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		rdoTKTonKho.setHorizontalAlignment(SwingConstants.CENTER);
 		rdoTKTonKho.setFont(new Font("Tahoma", Font.BOLD, 18));
 		rdoTKTonKho.setBounds(11, 15, 280, 30);
+		rdoTKTonKho.setBackground(new Color(255, 255, 237));
 
 		pnlHeader.add(rdoTKTonKho);
 
@@ -127,6 +139,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		rdoTKSp.setHorizontalAlignment(SwingConstants.CENTER);
 		rdoTKSp.setFont(new Font("Tahoma", Font.BOLD, 18));
 		rdoTKSp.setBounds(350, 15, 280, 30);
+		rdoTKSp.setBackground(new Color(255, 255, 237));
 		rdoTKSp.setSelected(true);
 		pnlHeader.add(rdoTKSp);
 
@@ -134,8 +147,29 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		bg.add(rdoTKSp);
 		bg.add(rdoTKTonKho);
 
+		JLabel lblTu = new JLabel("Từ");
+		lblTu.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTu.setBounds(49, 71, 75, 28);
+		pnlHeader.add(lblTu);
+		// jtextfield ngày
+		txtTimNgayBD = new JDateChooser();
+		txtTimNgayBD.setDateFormatString("dd/MM/yyyy");
+		txtTimNgayBD.setBounds(89, 71, 120, 35);
+		pnlHeader.add(txtTimNgayBD);
+		
+		JLabel lblDen = new JLabel("Đến");
+		lblDen.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblDen.setBounds(240, 71, 50, 30);
+		pnlHeader.add(lblDen);
+		// jtextfield ngày
+		txtTimNgayKT = new JDateChooser();
+		txtTimNgayKT.setDateFormatString("dd/MM/yyyy");
+		txtTimNgayKT.setBounds(290, 71, 120, 35);
+		pnlHeader.add(txtTimNgayKT);
+		
+		
 		cboLoai = new JComboBox();
-		cboLoai.setBounds(63, 91, 120, 35);
+		cboLoai.setBounds(55, 142, 120, 35);
 		cboLoai.setBackground(new Color(255, 128, 64));
 		cboLoai.setModel(new DefaultComboBoxModel(new String[] { "Tất cả",
 				"Áo", "Quần", "Váy", "Đầm" }));
@@ -145,7 +179,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		cbosoLuong.setModel(new DefaultComboBoxModel(new String[] { "Tất cả",
 				"10", "20", "50" }));
 		cbosoLuong.setBackground(new Color(255, 128, 64));
-		cbosoLuong.setBounds(277, 91, 120, 35);
+		cbosoLuong.setBounds(255, 142, 120, 35);
 		pnlHeader.add(cbosoLuong);
 
 		cboTien = new JComboBox();
@@ -153,33 +187,36 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 				"500,000 VND", "1,000,000 VND", "2,000,000 VND",
 				"5,000,000 VND", "10,000,000 VND" }));
 		cboTien.setBackground(new Color(255, 128, 64));
-		cboTien.setBounds(510, 91, 120, 35);
+		cboTien.setBounds(439, 142, 120, 35);
 		pnlHeader.add(cboTien);
 
 		JLabel lblLocLoaiSP = new JLabel("Loại sản phẩm");
-		lblLocLoaiSP.setBounds(86, 68, 87, 20);
+		lblLocLoaiSP.setBounds(78, 119, 87, 20);
 		pnlHeader.add(lblLocLoaiSP);
 
 		JLabel lblLocSoLuong = new JLabel("Số lượng ");
-		lblLocSoLuong.setBounds(296, 68, 87, 20);
+		lblLocSoLuong.setBounds(274, 119, 87, 20);
 		pnlHeader.add(lblLocSoLuong);
 
 		JLabel lblLocTien = new JLabel("Tiền");
-		lblLocTien.setBounds(523, 68, 87, 20);
+		lblLocTien.setBounds(452, 119, 87, 20);
 		pnlHeader.add(lblLocTien);
 
 		pnlCenter = new JPanel();
 		pnlCenter.setBounds(0, 154, 1646, 821);
+		pnlCenter.setBackground(new Color(255, 255, 237));
 		pnlChinh.add(pnlCenter);
 		pnlCenter.setLayout(null);
 
 		pnlLeft = new JPanel();
-		pnlLeft.setBounds(0, 0, 966, 820);
+		pnlLeft.setBounds(0, 13, 966, 807);
+		pnlLeft.setBackground(new Color(255, 255, 237));
 		pnlCenter.add(pnlLeft);
 		pnlLeft.setLayout(null);
 
 		pnlRight = new JPanel();
 		pnlRight.setBounds(964, 0, 682, 820);
+		pnlRight.setBackground(new Color(255, 255, 237));
 		pnlCenter.add(pnlRight);
 		pnlRight.setLayout(null);
 
@@ -226,9 +263,15 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		tbHeader.setFont(new Font("Tahoma", Font.BOLD, 10));
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBorder(null);
-		scrollPane.setLocation(30, 0);
-		scrollPane.setSize(908, 804);
+		scrollPane.setLocation(30, 37);
+		scrollPane.setSize(908, 767);
 		pnlLeft.add(scrollPane);
+
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn tongTien = columnModel.getColumn(4);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+		tongTien.setCellRenderer(rightRenderer);
 
 		table.setRowHeight(30);
 		JTableHeader tableHeader = table.getTableHeader();
@@ -239,29 +282,36 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		lblTien.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblTien.setBounds(493, 650, 145, 25);
 		pnlRight.add(lblTien);
-		
-		
-		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn tongTien = columnModel.getColumn(4);
-		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-		rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
-		tongTien.setCellRenderer(rightRenderer);
 
 		lblTbTien = new JLabel("");
 		lblTbTien.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTbTien.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblTbTien.setBounds(493, 610, 145, 20);
 		pnlRight.add(lblTbTien);
-
 		// thêm dữ liệu lên bảng
 		ConnectionManager connectionManager = new ConnectionManager();
 		List<String> ds = DAO_SanPham.getDuLieu_SPDaBan();
 		BUS_ThongKeSanPham.docDuLieu_DaBan(model, ds);
 		capNhatThongTin();
 		veBieuDoTron();
-
+		btnXuatHD.setFocusPainted(false);
+		
 		// SỰ KIỆN
-
+		txtTimNgayKT.getDateEditor().addPropertyChangeListener(
+				new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent evt) {
+						if ("date".equals(evt.getPropertyName())) {
+							try {
+								timKiemThongKe();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				});
+		
+		
+		
 		rdoTKTonKho.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -338,7 +388,40 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 				}
 			}
 		});
-		btnXuatHD.setFocusPainted(false);
+
+	}
+	private void timKiemThongKe() throws SQLException {
+		if (validateNgayTimKiem()) {
+			Date ngayBD = txtTimNgayBD.getDate();
+			Date ngayKT = txtTimNgayKT.getDate();
+
+//			// Gọi các phương thức cập nhật dữ liệu dựa trên khoảng ngày đã chọn
+//			dao.DAO_ThongKe.doDuLieuThongKeTheoTG(table, ngayBD, ngayKT);
+			List<String> ds = dao.DAO_SanPham.getDuLieu_SPDaBanTheoTG(ngayBD, ngayKT);
+			BUS_ThongKeSanPham.docDuLieu_DaBan(model, ds);
+			capNhatThongTinTheoTG();
+//			// Cập nhật biểu đồ cột
+//			veBieuDoCot(ngayBD, ngayKT);
+			veBieuDoTronTheoTG(ngayBD, ngayKT);
+		}
+	}
+	private boolean validateNgayTimKiem() {
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
+
+		if (ngayBD == null || ngayKT == null) {
+
+			return false;
+		}
+
+		if (ngayBD.after(ngayKT)) {
+
+			thongbao.thongbao("Ngày kết thúc không thể trước ngày bắt đầu.", "");
+			txtTimNgayKT.requestFocus();
+			return false;
+		}
+
+		return true;
 	}
 
 	public void Loc() {
@@ -388,7 +471,6 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 				if (tien.trim().equals("Tất cả")) {
 					query1 += "\n where upper(p.loai) = upper(N'" + loai + "')"
 							+ query2;
-					// System.err.println(query1);
 					System.out.println("Dạng 05 : #-SL-T");// #-SL-T
 
 				} else {
@@ -397,8 +479,6 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 					query1 += "\n where upper(p.loai) = upper(N'" + loai + "')"
 							+ query2;
 					query1 += "\n having  sum(c.tienCuoiCung) >= " + tien + " ";
-					// System.err.println(query1);
-					System.out.println("Dạng 06 : #-SL-#");// #-SL-#
 				}
 			} else {
 				if (tien.trim().equals("Tất cả")) {
@@ -406,7 +486,6 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 					query1 += "\n where upper(p.loai) = upper(N'" + loai + "')"
 							+ query2;
 					query1 += "\n having  SUM(c.soLuong) >= " + sl + "";
-					// System.err.println(query1);
 					System.out.println("Dạng 07 : #-SL-T");// #-#-T
 
 				} else {
@@ -442,12 +521,34 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 		lblTbSoLuong.setText("" + count);
 		lblTbTien.setText(df.format(tong));
 	}
+	private void capNhatThongTinTheoTG() {
+		Date ngayBD = txtTimNgayBD.getDate();
+		Date ngayKT = txtTimNgayKT.getDate();
+		ConnectionManager con = new ConnectionManager();
+		List<String> ds = new DAO_SanPham().getDuLieu_SPDaBanTheoTG(ngayBD, ngayKT);
+		DecimalFormat df = new DecimalFormat("#,###");
+		int count = 0;
+		double tong = 0;
+		for (String e : ds) {
+			String[] str = e.split(":");
+			count += Integer.valueOf(str[1]);
+			tong += Double.valueOf(str[2]);
+		}
+		;
+		lblTbSLLoaiSP.setText("" + ds.size());
+		lblTbSoLuong.setText("" + count);
+		lblTbTien.setText(df.format(tong));
+	}
 
 	public void veBieuDoTron() throws SQLException {
 		ConnectionManager connectionManager = new ConnectionManager();
 		Connection conn = connectionManager.conn;
 		try {
-			String sqlQuery = "SELECT loai, COUNT(*) AS soluong FROM SanPham GROUP BY loai";
+			// String sqlQuery =
+			// "SELECT loai, COUNT(*) AS soluong FROM SanPham GROUP BY loai";
+			String sqlQuery = "SELECT sp.loai, COUNT(*) AS soluong FROM SanPham sp "
+					+ "JOIN CHiTietHoaDon cthd ON sp.maSanPham = cthd.maSanPham "
+					+ "GROUP BY sp.loai";
 			PreparedStatement statement = conn.prepareStatement(sqlQuery);
 			ResultSet resultSet = statement.executeQuery();
 			DefaultPieDataset dataset = new DefaultPieDataset();
@@ -477,6 +578,7 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 			plot.setSectionOutlinesVisible(false);
 			ChartPanel chartPanel = new ChartPanel(chart);
 			chartPanel.setBounds(69, 52, 581, 517);
+			chartPanel.setBackground(new Color(255, 255, 237));
 			chartPanel.setBorder(null);
 			// pnlRight.removeAll(); // Trước khi thêm biểu đồ mới, xóa hết các
 			// thành phần
@@ -497,54 +599,64 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 			}
 		}
 	}
-
-	public void veBieuDoTronTonKho() throws SQLException {
+	public void veBieuDoTronTheoTG(Date ngayBD, Date ngayKT) throws SQLException {
 		ConnectionManager connectionManager = new ConnectionManager();
 		Connection conn = connectionManager.conn;
 		try {
-			ResultSet rs = connectionManager
-					.getdata("SELECT loai, SUM(soLuong) AS soluong FROM SanPham GROUP BY loai");
+			// String sqlQuery =
+			// "SELECT loai, COUNT(*) AS soluong FROM SanPham GROUP BY loai";
+//			String sqlQuery = "SELECT sp.loai, COUNT(*) AS soluong FROM SanPham sp "
+//					+ "JOIN CHiTietHoaDon cthd ON sp.maSanPham = cthd.maSanPham "
+//					+ "GROUP BY sp.loai";
+			java.sql.Date sqlNgayBD = new java.sql.Date(ngayBD.getTime());
+			java.sql.Date sqlNgayKT = new java.sql.Date(ngayKT.getTime());
+			String sqlQuery = "SELECT sp.loai, COUNT(*) AS soluong FROM SanPham sp "
+	                + "JOIN CHiTietHoaDon cthd ON sp.maSanPham = cthd.maSanPham "
+	                + "JOIN HoaDon hd ON cthd.maHoaDon = hd.maHoaDon "
+	                + "WHERE hd.ngay BETWEEN ? AND ? "  // Thêm điều kiện WHERE cho ngày
+	                + "GROUP BY sp.loai";
+			PreparedStatement statement = conn.prepareStatement(sqlQuery);
+			statement.setDate(1, sqlNgayBD);
+			statement.setDate(2, sqlNgayKT);
+			ResultSet resultSet = statement.executeQuery();
 			DefaultPieDataset dataset = new DefaultPieDataset();
-			while (rs.next()) {
-				String loai = rs.getString("loai");
-				int soLuong = rs.getInt("soluong");
+			while (resultSet.next()) {
+				String loai = resultSet.getString("loai");
+				int soLuong = resultSet.getInt("soluong");
 				dataset.setValue(loai, soLuong);
 			}
 			JFreeChart chart = ChartFactory.createRingChart(
-					"Biểu đồ thống kê sản phẩm tồn kho", dataset, true, true,
+					"Biểu đồ thống kê sản phẩm đã bán", dataset, true, true,
 					false);
 			chart.setBackgroundPaint(null);
 			LegendTitle legend = chart.getLegend();
 			legend.setBackgroundPaint(new Color(0, 0, 0, 0));
-			legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18));
-			legend.setPosition(RectangleEdge.RIGHT);
+			legend.setItemFont(new Font("Tahoma", Font.PLAIN, 18)); // Đặt kích
+																	// thước
+																	// font
+			legend.setPosition(RectangleEdge.RIGHT); // Đặt vị trí của chú th
 
 			RingPlot plot = (RingPlot) chart.getPlot();
-			plot.setBackgroundPaint(null);
+			// Xóa màu nền trắng ở ngoài biểu đồ
+			plot.setBackgroundPaint(null); // Đặt màu nền của plot thành màu
+											// trắng trong suốt
 			plot.setOutlineVisible(false);
-			plot.setSectionOutlinesVisible(false);
 
+			// Tắt viền cho các phần tử
+			plot.setSectionOutlinesVisible(false);
 			ChartPanel chartPanel = new ChartPanel(chart);
 			chartPanel.setBounds(69, 52, 581, 517);
+			chartPanel.setBackground(new Color(255, 255, 237));
 			chartPanel.setBorder(null);
 			// pnlRight.removeAll(); // Trước khi thêm biểu đồ mới, xóa hết các
 			// thành phần
 			// trong pnlRight
 			pnlRight.repaint(); // Gọi repaint trên panel chứa biểu đồ
-
+			xoaBieuDoCu();
+			pnlRight.revalidate();
+			pnlRight.repaint();
 			pnlRight.add(chartPanel);
 
-			lblTongTien = new JLabel("Tổng tiền ");
-			lblTongTien.setHorizontalAlignment(SwingConstants.CENTER);
-			lblTongTien.setFont(new Font("Tahoma", Font.BOLD, 18));
-			lblTongTien.setBounds(496, 650, 145, 25);
-			pnlRight.add(lblTongTien);
-
-			lblTbTien = new JLabel("");
-			lblTbTien.setHorizontalAlignment(SwingConstants.CENTER);
-			lblTbTien.setFont(new Font("Tahoma", Font.BOLD, 18));
-			lblTbTien.setBounds(496, 610, 145, 20);
-			pnlRight.add(lblTbTien);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -557,7 +669,6 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 			}
 		}
 	}
-
 	// Thêm phương thức xóa biểu đồ cũ
 	private void xoaBieuDoCu() {
 		Component[] components = pnlRight.getComponents();
@@ -569,62 +680,67 @@ public class Jpanel_TKSP_DaBan extends JPanel {
 	}
 
 	private void exportToExcel(TableModel model) throws Exception {
-		Workbook workbook = new XSSFWorkbook();
-		Sheet sheet = workbook.createSheet("DanhSachSanPhamDaBan");
+		int nutbam = JOptionPane.showConfirmDialog(new JFrame(),
+				"Bạn chắc chắn xuất file ?", "", JOptionPane.YES_NO_OPTION);
+		if (nutbam == JOptionPane.YES_OPTION) {
+			Workbook workbook = new XSSFWorkbook();
+			Sheet sheet = workbook.createSheet("DanhSachSanPhamDaBan");
 
-		// Tạo dòng tiêu đề
-		Row headerRow = sheet.createRow(1);
+			// Tạo dòng tiêu đề
+			Row headerRow = sheet.createRow(1);
 
-		// Thêm cột STT vào đầu tiên
-		Cell sttHeaderCell = headerRow.createCell(0);
-		sttHeaderCell.setCellValue("STT");
-		sttHeaderCell.setCellStyle(getHeaderCellStyle(workbook));
-		sheet.autoSizeColumn(0);
+			// Thêm cột STT vào đầu tiên
+			Cell sttHeaderCell = headerRow.createCell(0);
+			sttHeaderCell.setCellValue("STT");
+			sttHeaderCell.setCellStyle(getHeaderCellStyle(workbook));
+			sheet.autoSizeColumn(0);
 
-		// Thêm các cột từ bảng vào tiếp theo
-		for (int col = 0; col < table.getColumnCount(); col++) {
-			Cell cell = headerRow.createCell(col + 1);
-			cell.setCellValue(table.getColumnName(col));
-			cell.setCellStyle(getHeaderCellStyle(workbook));
-
-			// Điều chỉnh chiều rộng của mỗi cột trong tiêu đề
-			sheet.setColumnWidth(col + 1, 15 * 256);
-		}
-
-		// Thêm dữ liệu từ bảng
-		for (int row = 0; row < table.getRowCount(); row++) {
-			Row sheetRow = sheet.createRow(row + 2);
-			Cell sttCell = sheetRow.createCell(0);
-			sttCell.setCellValue(row + 1);
-			sttCell.setCellStyle(getCellTextStyle(workbook, true));
-			sheet.setColumnWidth(0, 0 * 256);
-
+			// Thêm các cột từ bảng vào tiếp theo
 			for (int col = 0; col < table.getColumnCount(); col++) {
-				Cell cell = sheetRow.createCell(col + 1);
-				cell.setCellValue(String.valueOf(table.getValueAt(row, col)));
-				cell.setCellStyle(getCellTextStyle(workbook, false));
+				Cell cell = headerRow.createCell(col + 1);
+				cell.setCellValue(table.getColumnName(col));
+				cell.setCellStyle(getHeaderCellStyle(workbook));
+
+				// Điều chỉnh chiều rộng của mỗi cột trong tiêu đề
+				sheet.setColumnWidth(col + 1, 15 * 256);
 			}
 
-			// Điều chỉnh chiều cao của từng dòng
-			sheetRow.setHeightInPoints(20); // Đặt giá trị chiều cao mong muốn
-											// (đơn vị là điểm)
-		}
+			// Thêm dữ liệu từ bảng
+			for (int row = 0; row < table.getRowCount(); row++) {
+				Row sheetRow = sheet.createRow(row + 2);
+				Cell sttCell = sheetRow.createCell(0);
+				sttCell.setCellValue(row + 1);
+				sttCell.setCellStyle(getCellTextStyle(workbook, true));
+				sheet.setColumnWidth(0, 0 * 256);
 
-		// Điều chỉnh chiều rộng của từng cột
-		for (int col = 0; col <= table.getColumnCount(); col++) {
-			sheet.autoSizeColumn(col);
-		}
+				for (int col = 0; col < table.getColumnCount(); col++) {
+					Cell cell = sheetRow.createCell(col + 1);
+					cell.setCellValue(String.valueOf(table.getValueAt(row, col)));
+					cell.setCellStyle(getCellTextStyle(workbook, false));
+				}
 
-		// Lưu workbook xuống file
-		try (FileOutputStream outputStream = new FileOutputStream(
-				"ThongKe/DanhSachSanPhamDaBan.xlsx")) {
-			workbook.write(outputStream);
-			thongbao.thongbao("Xuất File thành công!", "Thông báo");
-		} catch (Exception e) {
-			e.printStackTrace();
-			thongbao.thongbao("Xuất File thất bại!", "Thông báo");
+				// Điều chỉnh chiều cao của từng dòng
+				sheetRow.setHeightInPoints(20); // Đặt giá trị chiều cao mong
+												// muốn
+												// (đơn vị là điểm)
+			}
+
+			// Điều chỉnh chiều rộng của từng cột
+			for (int col = 0; col <= table.getColumnCount(); col++) {
+				sheet.autoSizeColumn(col);
+			}
+
+			// Lưu workbook xuống file
+			try (FileOutputStream outputStream = new FileOutputStream(
+					"ThongKe/DanhSachSanPhamDaBan.xlsx")) {
+				workbook.write(outputStream);
+				thongbao.thongbao("Xuất File thành công!", "Thông báo");
+			} catch (Exception e) {
+				e.printStackTrace();
+				thongbao.thongbao("Xuất File thất bại!", "Thông báo");
+			}
+			workbook.close();
 		}
-		workbook.close();
 
 	}
 

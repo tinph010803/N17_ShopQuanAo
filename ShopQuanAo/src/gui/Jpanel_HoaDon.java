@@ -143,9 +143,10 @@ public class Jpanel_HoaDon extends JPanel {
 		pnl_HoaDon.setLayout(null);
 
 		panel_left = new JPanel();
-		panel_left.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0,
+		panel_left.setBackground(new Color(255, 255, 237));
+		panel_left.setBorder(new MatteBorder(0, 0, 1, 1, (Color) new Color(0,
 				0, 0)));
-		panel_left.setBounds(0, 0, 320, 975);
+		panel_left.setBounds(0, 0, 326, 975);
 		pnl_HoaDon.add(panel_left);
 		panel_left.setLayout(null);
 
@@ -201,7 +202,10 @@ public class Jpanel_HoaDon extends JPanel {
 		panel_right.setLayout(null);
 
 		panel_right_top = new JPanel();
-		panel_right_top.setBounds(10, 0, 1323, 347);
+		panel_right_top.setBorder(new MatteBorder(0, 0, 1, 0,
+				(Color) new Color(0, 0, 0)));
+		panel_right_top.setBackground(new Color(255, 255, 237));
+		panel_right_top.setBounds(10, 0, 1320, 347);
 		panel_right.add(panel_right_top);
 		panel_right_top.setLayout(null);
 
@@ -226,16 +230,17 @@ public class Jpanel_HoaDon extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(tableHD);
 		scrollPane.setBorder(null);
 		scrollPane.setLocation(30, 58);
-		scrollPane.setSize(1281, 277);
+		scrollPane.setSize(1281, 270);
 		JTableHeader tableHeader = tableHD.getTableHeader();
 		tableHeader.setFont(new Font("Tohoma", Font.BOLD, 18));
 		tableHD.setFont(new Font("Tohoma", Font.PLAIN, 16));
 		panel_right_top.add(scrollPane);
 
 		panel_right_bot = new JPanel();
+		panel_right_bot.setBackground(new Color(255, 255, 237));
 		panel_right_bot.setBounds(10, 348, 1323, 620);
 		tableHD.setRowHeight(30);
-		
+
 		TableColumnModel columnModelHD = tableHD.getColumnModel();
 		TableColumn tongTien = columnModelHD.getColumn(5);
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
@@ -251,26 +256,26 @@ public class Jpanel_HoaDon extends JPanel {
 		panel_right.add(panel_right_bot);
 
 		String row1[] = { "Tên SP", "Loại", "Màu sắc", "Kích thước",
-				"Số lượng", "Giá bán", "Tiền KM", "Thành tiền",
-				"Tiền Thuế", "Tiền Bậc", "Tổng Tiền" };
+				"Số lượng", "Giá bán", "Tiền KM", "Thành tiền", "Tiền Thuế",
+				"Tiền Bậc", "Tổng Tiền" };
 		modelCTHD = new DefaultTableModel(row1, 0);
 		tableCTHD = new JTable(modelCTHD);
-		tableCTHD.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 255,
-				153)));
+		tableCTHD.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
+				255, 153)));
 		tableCTHD.setRowHeight(30);
-		JTableHeader tbHeader1 = tableCTHD.getTableHeader();
-		tbHeader1.setBackground((Color.decode("#00c691")));
-		tbHeader1.setForeground(Color.white);
-		tbHeader1.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JTableHeader tbHeaderCTHD = tableCTHD.getTableHeader();
+		tbHeaderCTHD.setBackground((Color.decode("#00c691")));
+		tbHeaderCTHD.setForeground(Color.white);
+		tbHeaderCTHD.setFont(new Font("Tahoma", Font.BOLD, 10));
 		panel_right_bot.setLayout(null);
-		JScrollPane scrollPane1 = new JScrollPane(tableCTHD);
-		scrollPane1.setBorder(null);
-		scrollPane1.setLocation(26, 46);
-		scrollPane1.setSize(1276, 351);
-		tbHeader1.setFont(new Font("Tohoma", Font.BOLD, 18));
+		JScrollPane scrollPaneCTHD = new JScrollPane(tableCTHD);
+		scrollPaneCTHD.setBorder(null);
+		scrollPaneCTHD.setLocation(26, 46);
+		scrollPaneCTHD.setSize(1276, 351);
+		tbHeaderCTHD.setFont(new Font("Tohoma", Font.BOLD, 18));
 		tableCTHD.setFont(new Font("Tohoma", Font.PLAIN, 16));
-		panel_right_bot.add(scrollPane1);
-		
+		panel_right_bot.add(scrollPaneCTHD);
+
 		TableColumnModel columnModelCTHD = tableCTHD.getColumnModel();
 		TableColumn soLuong = columnModelCTHD.getColumn(4);
 		TableColumn gia = columnModelCTHD.getColumn(5);
@@ -295,6 +300,7 @@ public class Jpanel_HoaDon extends JPanel {
 		panel_right_bot.add(lblTongTien);
 
 		panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 237));
 		panel.setBorder(new MatteBorder(2, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		panel.setBounds(100, 580, 375, 33);
 		panel_right_bot.add(panel);
@@ -357,9 +363,10 @@ public class Jpanel_HoaDon extends JPanel {
 		panel_right_bot.add(lblTbTienBac);
 
 		pnl_left_bot = new JPanel();
-		pnl_left_bot.setBorder(new MatteBorder(2, 0, 0, 2, (Color) new Color(0,
+		pnl_left_bot.setBackground(new Color(255, 255, 237));
+		pnl_left_bot.setBorder(new MatteBorder(1, 0, 0, 1, (Color) new Color(0,
 				0, 0)));
-		pnl_left_bot.setBounds(0, 488, 320, 487);
+		pnl_left_bot.setBounds(0, 488, 326, 487);
 		panel_left.add(pnl_left_bot);
 		pnl_left_bot.setLayout(null);
 
@@ -437,7 +444,6 @@ public class Jpanel_HoaDon extends JPanel {
 			e.printStackTrace();
 		}
 		String a[] = new String[i + 1];
-		// System.err.println(a.length);
 		rs = DAO_NhanVien.layNV();
 		int j = 1;
 		a[0] = "Tất cả";
@@ -450,7 +456,6 @@ public class Jpanel_HoaDon extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.err.println(a);
 		cboNhanvien = new JComboBox();
 		cboNhanvien.setModel(new DefaultComboBoxModel(a));
 		cboNhanvien.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -467,18 +472,21 @@ public class Jpanel_HoaDon extends JPanel {
 		btnIn.setFocusPainted(false);
 
 		pnl_rdo = new JPanel();
-		pnl_rdo.setBorder(new MatteBorder(0, 0, 2, 2,
+		pnl_rdo.setBackground(new Color(255, 255, 237));
+		pnl_rdo.setBorder(new MatteBorder(0, 0, 1, 1,
 				(Color) new Color(0, 0, 0)));
-		pnl_rdo.setBounds(0, 0, 320, 129);
+		pnl_rdo.setBounds(0, 0, 326, 129);
 		panel_left.add(pnl_rdo);
 		pnl_rdo.setLayout(null);
 
 		JRadioButton rdoHD = new JRadioButton("Hóa đơn");
+		rdoHD.setBackground(new Color(255, 255, 237));
 		rdoHD.setBounds(11, 25, 200, 35);
 		pnl_rdo.add(rdoHD);
 		rdoHD.setFont(new Font("Tahoma", Font.BOLD, 21));
 
 		JRadioButton rdoHDDT = new JRadioButton("Hóa đơn đổi trả");
+		rdoHDDT.setBackground(new Color(255, 255, 237));
 		rdoHDDT.setBounds(11, 70, 200, 35);
 		pnl_rdo.add(rdoHDDT);
 		rdoHDDT.setFont(new Font("Tahoma", Font.BOLD, 21));
@@ -538,41 +546,38 @@ public class Jpanel_HoaDon extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				int soRowChon = tableHD.getSelectedRowCount();
 				if (soRowChon == 1) {
 					HoaDon hd = null;
 					int row = tableHD.getSelectedRow();
-					hd = daoHD.layHoaDonTheoMa(tableHD.getValueAt(row, 0).toString()
-							.trim());
-						int result = JOptionPane.showConfirmDialog(null,
-								"Bạn có chắc chắn muốn đổi trả HÓA ĐƠN này?",
-								"Xác nhận Đổi Trả", JOptionPane.YES_NO_OPTION);
-						if (result == 0) {
-							int day = (int) ChronoUnit.DAYS.between(hd.getNgay(),
-									LocalDate.now());
+					hd = daoHD.layHoaDonTheoMa(tableHD.getValueAt(row, 0)
+							.toString().trim());
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn đổi trả HÓA ĐƠN này?",
+							"Xác nhận Đổi Trả", JOptionPane.YES_NO_OPTION);
+					if (result == 0) {
+						int day = (int) ChronoUnit.DAYS.between(hd.getNgay(),
+								LocalDate.now());
 
-							if (day >= 3) {
-								thongbao.thongbao("Hóa đơn này đã quá hạn đổi trả",
-										"Thông báo");
-							} else {
-								// System.out.println(hd);
-								pnl_HoaDon.removeAll();
-								pnl_HoaDon.setLayout(new BorderLayout());
-								pnl_HoaDon.add(new Jpanel_DoiTra(hd, nvhientai));
-								pnl_HoaDon.revalidate();
-								pnl_HoaDon.repaint();
-								btnChon = btnDoiTra;
-								tableHD.clearSelection();
-							}
+						if (day > 3) {
+							thongbao.thongbao("Hóa đơn này đã quá hạn đổi trả",
+									"Thông báo");
+						} else {
+							pnl_HoaDon.removeAll();
+							pnl_HoaDon.setLayout(new BorderLayout());
+							pnl_HoaDon.add(new Jpanel_DoiTra(hd, nvhientai));
+							pnl_HoaDon.revalidate();
+							pnl_HoaDon.repaint();
+							btnChon = btnDoiTra;
+							tableHD.clearSelection();
+						}
 
 					}
 
-					
-				}else{
+				} else {
 					thongbao.thongbao("Chọn 1 hóa đơn để đổi trả", "");
 				}
-				
 
 			}
 		});
@@ -588,7 +593,6 @@ public class Jpanel_HoaDon extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				int row = tableHD.getSelectedRow();
 				String mahd = tableHD.getValueAt(row, 0).toString().trim();
-				// System.err.println("ma hoa don CTHD :" + mahd);
 				List<ChiTietHoaDon> ds = DAO_ChiTietHoaDon
 						.layDSCTHDTheoMaHd(mahd);
 				HoaDon hd = new HoaDon();
@@ -614,7 +618,12 @@ public class Jpanel_HoaDon extends JPanel {
 				busHD.docDuLieu_HoaDon(modelHD, daoHD.layDSHoaDon());
 				lblKqTimKiem.setText("");
 				busHD.DeleteDataTable(modelCTHD);
-
+				lblTbTienBac.setText("");
+				lblTbTienCanThu.setText("");
+				lblTbTienKM.setText("");
+				lblTbTienThue.setText("");
+				lblTbTongTien.setText("");
+				
 			}
 		});
 
@@ -674,25 +683,26 @@ public class Jpanel_HoaDon extends JPanel {
 
 		});
 	}
-	
+
 	public void xuatHoaDon() {
 		try {
 			DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			Map<String, Object> map = new Hashtable();
 			JasperReport report = JasperCompileManager
 					.compileReport("src/gui/rp_XuatHoaDon.jrxml");
-			if (tableHD.getSelectedRowCount()==1) {
+			if (tableHD.getSelectedRowCount() == 1) {
 				int viTri = tableHD.getSelectedRow();
 				String maHD = tableHD.getValueAt(viTri, 0).toString();
 				HoaDon hd = dao.DAO_HoaDon.layHoaDonTheoMa(maHD);
-				List<ChiTietHoaDon> dsCTHD = dao.DAO_ChiTietHoaDon.layDSCTHDTheoMaHd(maHD);
+				List<ChiTietHoaDon> dsCTHD = dao.DAO_ChiTietHoaDon
+						.layDSCTHDTheoMaHd(maHD);
 				map.put("MaHD", hd.getMaHoaDon());
-				if (hd.getKhachHang()!=null) {
+				if (hd.getKhachHang() != null) {
 					map.put("MaKH", hd.getKhachHang().getMaKhachHang());
-				}else{
+				} else {
 					map.put("MaKH", "Khách vãng lai");
 				}
-				
+
 				map.put("NgayBan", d.format(hd.getNgay()));
 				map.put("TenNV", hd.getNhanVien().getTenNhanVien());
 				map.put("TongThanhTien", hd.tinhTongTien(dsCTHD));
@@ -702,18 +712,16 @@ public class Jpanel_HoaDon extends JPanel {
 				map.put("TienCanThu", hd.getTongTienCanThu());
 				map.put("TienKhachDua", hd.getTienKhachDua());
 				map.put("TienThua", hd.tinhTienThua(dsCTHD));
-				
-				
-				JasperPrint p = JasperFillManager.fillReport(report,map,connectDB.ConnectionManager.conn);
+
+				JasperPrint p = JasperFillManager.fillReport(report, map,
+						connectDB.ConnectionManager.conn);
 				JasperViewer.viewReport(p, false);
 				JasperExportManager.exportReportToPdfFile(p, "test.pdf");
-			}else{
+			} else {
 				thongbao.thongbao("Chọn 1 hóa đơn để in hóa đơn", "");
 			}
 
-			
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
 		}
 	}
 
@@ -744,15 +752,12 @@ public class Jpanel_HoaDon extends JPanel {
 					+ "%') and b.sdt like N'%" + sdt + "%'";
 			List<HoaDon> ds = daoHD.timDSHD(sql);
 
-			// System.err.println("\n" + ds + "\n");
-
 			if (maHD.equals(maKH) && maHD.equals(sdt) && maHD.equals("")) {
 				busHD.DeleteDataTable(modelHD);
 				busHD.DeleteDataTable(modelCTHD);
 				lblKqTimKiem.setText("");
 				busHD.docDuLieu_HoaDon(modelHD, daoHD.layDSHoaDon());
 			} else {
-				// System.err.println(sql + "\n");
 				if (!ds.isEmpty()) {
 					busHD.DeleteDataTable(modelHD);
 					busHD.DeleteDataTable(modelCTHD);

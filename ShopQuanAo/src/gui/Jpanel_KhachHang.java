@@ -67,10 +67,10 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 	private JComponent lblLoc;
 	private JLabel lblBc;
 	private JComboBox cboBac;
-	private JPanel pnCenter;
-	private JPanel pnCenterLeft;
+	private JPanel pnlCenter;
+	private JPanel pnlCenterLeft;
 	private JScrollPane scrollPane;
-	private JPanel pnCenterRight;
+	private JPanel pnlCenterRight;
 	private JLabel lblTenKH;
 	private JLabel lblEmail;
 	private JLabel lblGioiTinh;
@@ -103,14 +103,16 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		panel.setLayout(null);
 
 		pnTieuDe = new JPanel();
-		pnTieuDe.setBackground(new Color(240, 248, 255));
+		pnTieuDe.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0,
+				0)));
+		pnTieuDe.setBackground(new Color(255, 255, 237));
 		pnTieuDe.setBounds(new Rectangle(0, 0, 1422, 30));
 		pnTieuDe.setBounds(0, 0, 1646, 112);
 		panel.add(pnTieuDe);
 		pnTieuDe.setLayout(null);
 		lblLocGioiTinh = new JLabel("Giới tính :");
 		lblLocGioiTinh.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblLocGioiTinh.setBounds(71, 50, 101, 25);
+		lblLocGioiTinh.setBounds(70, 55, 100, 35);
 		pnTieuDe.add(lblLocGioiTinh);
 
 		groupGT = new ButtonGroup();
@@ -119,7 +121,7 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		lblTimKiem.setIcon(new ImageIcon(
 				"N:\\Phát Triển Ứng Dụng\\Code\\Icon\\search.png"));
 		lblTimKiem.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblTimKiem.setBounds(884, 50, 146, 25);
+		lblTimKiem.setBounds(885, 50, 130, 35);
 		pnTieuDe.add(lblTimKiem);
 
 		txtTimKiem = new JTextField();
@@ -130,59 +132,61 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtTimKiem.setCaretColor(Color.pink);
 		txtTimKiem.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0,
 				0, 0)));
-		txtTimKiem.setBackground(new Color(240, 246, 251));
+		txtTimKiem.setBackground(new Color(255, 255, 237));
 		txtTimKiem.setBounds(1024, 50, 220, 25);
 		pnTieuDe.add(txtTimKiem);
 
 		lblLoc = new JLabel("Lọc ");
 		lblLoc.setForeground(new Color(255, 153, 51));
 		lblLoc.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblLoc.setBounds(313, 0, 62, 31);
+		lblLoc.setBounds(333, 10, 65, 35);
 		pnTieuDe.add(lblLoc);
 
 		lblBc = new JLabel("Bậc : ");
 		lblBc.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblBc.setBounds(370, 50, 56, 25);
+		lblBc.setBounds(370, 55, 60, 35);
 		pnTieuDe.add(lblBc);
 
 		cboBac = new JComboBox();
+		cboBac.setBackground(new Color(240, 255, 241));
 		cboBac.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cboBac.setModel(new DefaultComboBoxModel(new String[] { "Bậc", "Bạc",
 				"Vàng", "Kim cương" }));
-		cboBac.setBounds(445, 50, 146, 25);
+		cboBac.setBounds(445, 55, 145, 35);
 		pnTieuDe.add(cboBac);
 
 		cboGioiTinh = new JComboBox();
+		cboGioiTinh.setBackground(new Color(240, 255, 241));
 		cboGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cboGioiTinh.setModel(new DefaultComboBoxModel(new String[] { "Tất cả",
 				"Nam", "Nữ" }));
-		cboGioiTinh.setBounds(193, 50, 146, 25);
+		cboGioiTinh.setBounds(193, 55, 145, 35);
 		pnTieuDe.add(cboGioiTinh);
 
-		pnCenter = new JPanel();
-		pnCenter.setBounds(0, 112, 1646, 863);
-		panel.add(pnCenter);
-		pnCenter.setLayout(null);
+		pnlCenter = new JPanel();
+		pnlCenter.setBounds(0, 112, 1646, 863);
+		panel.add(pnlCenter);
+		pnlCenter.setLayout(null);
 
-		pnCenterLeft = new JPanel();
-		pnCenterLeft.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
-				null, null));
-		pnCenterLeft.setBackground(new Color(255, 255, 204));
-		pnCenterLeft.setBounds(0, 0, 1026, 863);
-		pnCenter.add(pnCenterLeft);
+		pnlCenterLeft = new JPanel();
+		pnlCenterLeft.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(
+				0, 0, 0)));
+		pnlCenterLeft.setBackground(new Color(255, 255, 237));
+		pnlCenterLeft.setBounds(0, 0, 1026, 863);
+		pnlCenter.add(pnlCenterLeft);
 
 		String row[] = { "Mã khách hàng", "Tên khách hàng", "Email",
 				"Số điện thoại" };
 		model = new DefaultTableModel(row, 0);
-		pnCenterLeft.setLayout(null);
+		pnlCenterLeft.setLayout(null);
 		table = new JTable(model);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		table.setSelectionBackground(new java.awt.Color(255, 204, 102));
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(new Rectangle(0, 0, 135, 251));
-		scrollPane.setBounds(42, 20, 912, 817);
-		pnCenterLeft.add(scrollPane);
+		scrollPane.setBounds(45, 30, 912, 817);
+		pnlCenterLeft.add(scrollPane);
 		bus.BUS_KhachHang.dodulieu(table);
 
 		table.setRowHeight(30);
@@ -194,11 +198,11 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		table.setFont(new Font("Tohoma", Font.PLAIN, 18));
 
 		// Chỉnh chiều rộng
-		 table.getColumnModel().getColumn(3).setPreferredWidth(70); 
-	
-		 table.getColumnModel().getColumn(1).setPreferredWidth(140); 
-		
-		 table.getColumnModel().getColumn(2).setPreferredWidth(190);
+		table.getColumnModel().getColumn(3).setPreferredWidth(70);
+
+		table.getColumnModel().getColumn(1).setPreferredWidth(140);
+
+		table.getColumnModel().getColumn(2).setPreferredWidth(190);
 
 		// set chữ trong cot ở giữa
 		// DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -206,98 +210,114 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		// renderer.setFont(new Font("Arial", Font.BOLD, 50));
 		// table.setDefaultRenderer(Object.class, renderer);
 
-		pnCenterRight = new JPanel();
-		pnCenterRight.setBackground(new Color(255, 255, 153));
-		pnCenterRight.setBounds(1025, 0, 621, 863);
-		pnCenter.add(pnCenterRight);
-		pnCenterRight.setLayout(null);
+		pnlCenterRight = new JPanel();
+		pnlCenterRight.setBackground(new Color(255, 255, 178));
+		pnlCenterRight.setBounds(1025, 0, 621, 863);
+		pnlCenter.add(pnlCenterRight);
+		pnlCenterRight.setLayout(null);
 
 		txtMaKH = new JTextField();
 		txtMaKH.setSelectionColor(new Color(255, 128, 0));
 		txtMaKH.setForeground(Color.BLACK);
-		txtMaKH.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtMaKH.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtMaKH.setColumns(10);
 		txtMaKH.setCaretColor(Color.RED);
 		txtMaKH.setBorder(null);
-		txtMaKH.setBackground(new Color(240, 246, 251));
-		txtMaKH.setBounds(317, 60, 211, 25);
-		pnCenterRight.add(txtMaKH);
+		txtMaKH.setBackground(new Color(255, 255, 178));
+		txtMaKH.setBounds(300, 60, 250, 35);
+		pnlCenterRight.add(txtMaKH);
 
 		lblTenKH = new JLabel("Tên khách hàng : ");
-		lblTenKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTenKH.setBounds(81, 130, 154, 25);
-		pnCenterRight.add(lblTenKH);
+		lblTenKH.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTenKH.setBounds(80, 130, 165, 35);
+		pnlCenterRight.add(lblTenKH);
 
 		lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblEmail.setBounds(81, 270, 154, 25);
-		pnCenterRight.add(lblEmail);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEmail.setBounds(80, 270, 165, 35);
+		pnlCenterRight.add(lblEmail);
 
 		txtTenKH = new JTextField();
 		txtTenKH.setSelectionColor(new Color(255, 128, 0));
 		txtTenKH.setForeground(Color.BLACK);
-		txtTenKH.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtTenKH.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtTenKH.setColumns(10);
 		txtTenKH.setCaretColor(Color.RED);
 		txtTenKH.setBackground(new Color(240, 246, 251));
-		txtTenKH.setBounds(317, 130, 211, 25);
-		pnCenterRight.add(txtTenKH);
+		txtTenKH.setBounds(300, 130, 250, 35);
+		pnlCenterRight.add(txtTenKH);
+		
+		AbstractDocument document2 = (AbstractDocument) txtTenKH.getDocument();
+		document2.setDocumentFilter(new DocumentFilter() {
+			@Override
+			public void replace(FilterBypass fb, int offset, int length,
+					String text, AttributeSet attrs)
+					throws BadLocationException {
+				if (IsChart(text)) {
+					super.replace(fb, offset, length, text, attrs);
+				}
+			}
+		});
 
 		lblGioiTinh = new JLabel("Giới Tính : ");
-		lblGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGioiTinh.setBounds(81, 200, 154, 25);
-		pnCenterRight.add(lblGioiTinh);
+		lblGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblGioiTinh.setBounds(80, 200, 165, 35);
+		pnlCenterRight.add(lblGioiTinh);
 
 		radNam = new JRadioButton("Nam");
-		radNam.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radNam.setBackground(new Color(255, 255, 178));
+		radNam.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		radNam.setSelected(true);
-		radNam.setBounds(317, 200, 77, 25);
-		pnCenterRight.add(radNam);
+		radNam.setBounds(300, 200, 80, 35);
+		pnlCenterRight.add(radNam);
 
 		radNu = new JRadioButton("Nữ");
-		radNu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radNu.setBounds(446, 200, 77, 25);
-		pnCenterRight.add(radNu);
+		radNu.setBackground(new Color(255, 255, 178));
+		radNu.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		radNu.setBounds(420, 200, 80, 35);
+		pnlCenterRight.add(radNu);
 
 		groupLoc = new ButtonGroup();
 		groupLoc.add(radNam);
 		groupLoc.add(radNu);
 
 		lblSDT = new JLabel("Số điện thoại : ");
-		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSDT.setBounds(81, 340, 154, 25);
-		pnCenterRight.add(lblSDT);
+		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblSDT.setBounds(80, 340, 165, 35);
+		pnlCenterRight.add(lblSDT);
 
 		txtEmail = new JTextField();
 		txtEmail.setSelectionColor(new Color(255, 128, 0));
 		txtEmail.setForeground(Color.BLACK);
-		txtEmail.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtEmail.setColumns(10);
 		txtEmail.setCaretColor(Color.RED);
 		txtEmail.setBackground(new Color(240, 246, 251));
-		txtEmail.setBounds(317, 270, 211, 25);
-		pnCenterRight.add(txtEmail);
+		txtEmail.setBounds(300, 270, 250, 35);
+		pnlCenterRight.add(txtEmail);
 
 		txtSDT = new JTextField();
 		txtSDT.setSelectionColor(new Color(255, 128, 0));
 		txtSDT.setForeground(Color.BLACK);
-		txtSDT.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtSDT.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtSDT.setColumns(10);
 		txtSDT.setCaretColor(Color.RED);
 		txtSDT.setBackground(new Color(240, 246, 251));
-		txtSDT.setBounds(317, 340, 211, 25);
-		pnCenterRight.add(txtSDT);
-		
+		txtSDT.setBounds(300, 340, 250, 35);
+		pnlCenterRight.add(txtSDT);
+
 		// Tạo một DocumentFilter để chỉ cho phép số
-        AbstractDocument document = (AbstractDocument) txtSDT.getDocument();
-        document.setDocumentFilter(new DocumentFilter() {
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                if (isNumeric(text)) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
+		AbstractDocument document = (AbstractDocument) txtSDT.getDocument();
+		document.setDocumentFilter(new DocumentFilter() {
+			@Override
+			public void replace(FilterBypass fb, int offset, int length,
+					String text, AttributeSet attrs)
+					throws BadLocationException {
+				if (isNumeric(text)) {
+					super.replace(fb, offset, length, text, attrs);
+				}
+			}
+		});
 
 		btnThem = new JButton("");
 		btnThem.setBackground(new Color(51, 255, 255));
@@ -305,43 +325,42 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		btnThem.setIcon(new ImageIcon("IMG_Hinh\\them.jpg"));
 		btnThem.setBackground(new Color(77, 176, 61));
 		btnThem.setBounds(90, 560, 92, 45);
-		pnCenterRight.add(btnThem);
+		pnlCenterRight.add(btnThem);
 
 		btnSua = new JButton("");
-		btnSua.setIcon(new ImageIcon(
-				"IMG_Hinh\\sua.jpg"));
+		btnSua.setIcon(new ImageIcon("IMG_Hinh\\sua.jpg"));
 		btnSua.setBackground(new Color(242, 223, 48));
 		btnSua.setBackground(new Color(255, 128, 64));
 		btnSua.setBounds(254, 559, 92, 45);
-		pnCenterRight.add(btnSua);
+		pnlCenterRight.add(btnSua);
 
 		btnLamMoi = new JButton("");
-		btnLamMoi.setIcon(new ImageIcon(
-				"IMG_Hinh\\reset.jpg"));
+		btnLamMoi.setIcon(new ImageIcon("IMG_Hinh\\reset.jpg"));
 		btnLamMoi.setBackground(new Color(0, 191, 255));
 		btnLamMoi.setBackground(new Color(0, 0, 255));
 		btnLamMoi.setBounds(424, 559, 92, 45);
-		pnCenterRight.add(btnLamMoi);
+		pnlCenterRight.add(btnLamMoi);
 
 		lblMaKH = new JLabel("Mã khách hàng : ");
-		lblMaKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMaKH.setBounds(81, 60, 154, 25);
-		pnCenterRight.add(lblMaKH);
+		lblMaKH.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMaKH.setBounds(80, 60, 165, 35);
+		pnlCenterRight.add(lblMaKH);
 
 		lblSTDM = new JLabel("Số tiền đã mua:");
-		lblSTDM.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSTDM.setBounds(81, 410, 154, 25);
-		pnCenterRight.add(lblSTDM);
+		lblSTDM.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblSTDM.setBounds(80, 410, 165, 35);
+		pnlCenterRight.add(lblSTDM);
 
 		txtSTDM = new JTextField();
 		txtSTDM.setSelectionColor(new Color(255, 128, 0));
+		txtSTDM.setBorder(null);
 		txtSTDM.setForeground(Color.BLACK);
-		txtSTDM.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtSTDM.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtSTDM.setColumns(10);
 		txtSTDM.setCaretColor(Color.RED);
-		txtSTDM.setBackground(new Color(240, 246, 251));
-		txtSTDM.setBounds(317, 410, 211, 25);
-		pnCenterRight.add(txtSTDM);
+		txtSTDM.setBackground(new Color(255, 255, 178));
+		txtSTDM.setBounds(300, 410, 250, 35);
+		pnlCenterRight.add(txtSTDM);
 
 		ganTXTMaKH();
 
@@ -387,15 +406,17 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		cboGioiTinh.addActionListener(this);
 
 	}
-	
+
 	private static boolean isNumeric(String text) {
-        return text.matches("^[0-9]*$");
-    }
+		return text.matches("^[0-9]*$");
+	}
+	private static boolean IsChart(String text) {
+		return text.matches("[\\p{L} ]*");
+	}
 
 	private void ganTXTMaKH() {
 		ResultSet rs = dao.DAO_KhachHang.layKH();
 		String currentDate = getCurrentDate(); // Ngày hiện tại
-		System.out.println(rs);// Xem có dữ liệu hay không
 		String maxMaKH = "KH" + currentDate + "0000";
 		try {
 			while (rs.next()) {
@@ -409,10 +430,8 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		if (maxMaKH.startsWith("KH" + currentDate)) {
 			int maxSoKH = extractSerialNumber(maxMaKH);
 			newMaKH = "KH" + currentDate + String.format("%04d", maxSoKH + 1);
-			System.out.println(newMaKH);// Xuất ra xem thử mã KH
 		} else {
 			newMaKH = "KH" + currentDate + "0001";
-			System.out.println(newMaKH);
 		}
 		txtMaKH.setText(newMaKH);
 	}
@@ -434,6 +453,7 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 		txtSDT.setText("");
 		txtSTDM.setText("");
 		txtTenKH.requestFocus();
+		table.clearSelection();
 		ganTXTMaKH();
 	}
 
@@ -475,8 +495,9 @@ public class Jpanel_KhachHang extends JPanel implements ActionListener {
 				}
 				txtEmail.setText(rs.getString("email"));
 				txtSDT.setText(rs.getString("sdt"));
-				
-				txtSTDM.setText(decimalFormat.format(rs.getDouble("soTienDaMua")));
+
+				txtSTDM.setText(decimalFormat.format(rs
+						.getDouble("soTienDaMua")));
 
 			}
 		} catch (SQLException e) {

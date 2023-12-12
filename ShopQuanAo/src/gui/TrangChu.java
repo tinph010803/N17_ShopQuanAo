@@ -102,8 +102,8 @@ public class TrangChu extends JFrame implements ActionListener {
 	private JMenu menuThongKe;
 	private JPanel pnlThongKe;
 	private String tenNhanVien;
-//	private DAO_NhanVien daonv;
 
+	// private DAO_NhanVien daonv;
 
 	void showtime() {
 		new Timer(0, new ActionListener() {
@@ -126,7 +126,6 @@ public class TrangChu extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		showtime();
-	
 
 		panel = new JPanel();
 		panel.setBounds(5, 5, 1910, 1045);
@@ -136,7 +135,8 @@ public class TrangChu extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		pnlHead = new JPanel();
-		pnlHead.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		pnlHead.setBorder(new MatteBorder(0, 0, 0, 0,
+				(Color) new Color(0, 0, 0)));
 		pnlHead.setBackground(new Color(0, 250, 154));
 		pnlHead.setBounds(0, 0, 1910, 70);
 		panel.add(pnlHead);
@@ -151,7 +151,8 @@ public class TrangChu extends JFrame implements ActionListener {
 		pnlHead.add(lblTenShop);
 
 		pnlMenu = new JPanel();
-		pnlMenu.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		pnlMenu.setBorder(new MatteBorder(0, 0, 0, 0,
+				(Color) new Color(0, 0, 0)));
 		pnlMenu.setBackground(new Color(0, 250, 154));
 		pnlMenu.setBounds(0, 0, 264, 1045);
 		panel.add(pnlMenu);
@@ -160,13 +161,13 @@ public class TrangChu extends JFrame implements ActionListener {
 		btnDangXuat = new JButton("Đăng xuất");
 		btnDangXuat.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnDangXuat.setBackground(Color.decode("#ffa500"));
-		
+
 		btnDangXuat.setBounds(12, 150, 111, 35);
 		pnlMenu.add(btnDangXuat);
 
 		btnCaNhan = new JButton("Cá nhân");
 		btnCaNhan.setFont(new Font("Tahoma", Font.BOLD, 13));
-		
+
 		btnCaNhan.setBackground(Color.decode("#ffa500"));
 		btnCaNhan.setBounds(141, 150, 111, 35);
 		pnlMenu.add(btnCaNhan);
@@ -176,22 +177,20 @@ public class TrangChu extends JFrame implements ActionListener {
 		lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTenNV.setBounds(47, 210, 170, 30);
 		pnlMenu.add(lblTenNV);
-		
-//		System.err.println("mã:"+nv.getMaNhanVien());
-		lblTenNV.setText(nv.getTenNhanVien()); 
-		
-		
+
+		lblTenNV.setText(nv.getTenNhanVien());
+
 		lblVaiTro = new JLabel("");
 		lblVaiTro.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVaiTro.setForeground(new Color(0, 0, 205));
 		lblVaiTro.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblVaiTro.setBounds(55, 250, 154, 30);
 		pnlMenu.add(lblVaiTro);
-		DAO_TaiKhoan daotk= new DAO_TaiKhoan();
-		
-		if(daotk.getTKtheoMa(nv.getMaNhanVien()).isVaiTro()){
+		DAO_TaiKhoan daotk = new DAO_TaiKhoan();
+
+		if (daotk.getTKtheoMa(nv.getMaNhanVien()).isVaiTro()) {
 			lblVaiTro.setText("QUẢN LÝ");
-		}else {
+		} else {
 			lblVaiTro.setText("NHÂN VIÊN");
 		}
 
@@ -257,9 +256,10 @@ public class TrangChu extends JFrame implements ActionListener {
 
 		lblNen = new JLabel("");
 		lblNen.setBounds(0, 0, 1646, 975);
-		ImageIcon ii = new ImageIcon(new ImageIcon("IMG_Hinh//Nen_TrangChu.jpg").getImage()
-				.getScaledInstance(lblNen.getWidth(), lblNen.getHeight(),
-						Image.SCALE_SMOOTH));
+		ImageIcon ii = new ImageIcon(
+				new ImageIcon("IMG_Hinh//Nen_TrangChu.jpg").getImage()
+						.getScaledInstance(lblNen.getWidth(),
+								lblNen.getHeight(), Image.SCALE_SMOOTH));
 		lblNen.setIcon(ii);
 		pnlMain.add(lblNen);
 
@@ -303,11 +303,11 @@ public class TrangChu extends JFrame implements ActionListener {
 		menuBarThongKe = new JMenuBar();
 		menuBarThongKe.setBounds(0, 0, 264, 53);
 		pnlThongKe.add(menuBarThongKe);
-//		menuBarThongKe.setBackground(Color.decode("#ffa500"));
+		// menuBarThongKe.setBackground(Color.decode("#ffa500"));
 
 		menuThongKe = new JMenu("      Quản lý thống kê");
 		menuThongKe.setFont(new Font("Tahoma", Font.BOLD, 21));
-//		menuThongKe.setBackground(new Color(0, 250, 154));
+		// menuThongKe.setBackground(new Color(0, 250, 154));
 		menuBarThongKe.add(menuThongKe);
 
 		menuThongKe.setPreferredSize(new Dimension(menuBarThongKe.getWidth(),
@@ -324,7 +324,6 @@ public class TrangChu extends JFrame implements ActionListener {
 
 		// =====================================================================================
 
-//		System.err.println(nv.getMaNhanVien());
 		if (daotk.getTKtheoMa(nv.getMaNhanVien()).isVaiTro()) {
 			btnTrangChu.setVisible(true);
 			btnTrangChu.setBounds(0, 302, 264, 54);
@@ -357,7 +356,7 @@ public class TrangChu extends JFrame implements ActionListener {
 			btnKhachHang.setBounds(0, 544, 264, 54);
 			btnSanPham.setBounds(0, 635, 264, 54);
 			btnHoaDon.setBounds(0, 726, 264, 54);
-			
+
 		}
 
 		btnDangXuat.addActionListener(new ActionListener() {
@@ -367,7 +366,8 @@ public class TrangChu extends JFrame implements ActionListener {
 						"Bạn có chắc chắn muốn đăng xuất?",
 						"Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
-					if (Jpanel_BanHang.webcam != null && Jpanel_BanHang.webcam.isOpen()) {
+					if (Jpanel_BanHang.webcam != null
+							&& Jpanel_BanHang.webcam.isOpen()) {
 						Jpanel_BanHang.webcam.close();
 					}
 					dispose();
@@ -385,7 +385,7 @@ public class TrangChu extends JFrame implements ActionListener {
 				}
 			}
 		});
-		
+
 		btnTrangChu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -411,11 +411,11 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.revalidate();
 				pnlMain.repaint();
 				btnChon = btnTrangChu;
-				
+
 				setLaiMau();
 			}
 		});
-		
+
 		btnBanHang.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -438,11 +438,10 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.removeAll();
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_BanHang(nv));
-				System.out.println(nv.getMaNhanVien());
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnBanHang;
-				
+				pnlMain.repaint();
+				btnChon = btnBanHang;
+
 				setLaiMau();
 			}
 		});
@@ -470,9 +469,9 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_KhachHang());
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnKhachHang;
-				
+				pnlMain.repaint();
+				btnChon = btnKhachHang;
+
 				setLaiMau();
 			}
 		});
@@ -500,14 +499,13 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_SanPham());
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnSanPham;
-				
+				pnlMain.repaint();
+				btnChon = btnSanPham;
+
 				setLaiMau();
 			}
 		});
 
-		
 		btnHoaDon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -531,13 +529,13 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_HoaDon(nv));
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnHoaDon;
-				
+				pnlMain.repaint();
+				btnChon = btnHoaDon;
+
 				setLaiMau();
 			}
 		});
-		
+
 		btnNhanVien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -561,13 +559,13 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_NhanVien());
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnNhanVien;
-				
+				pnlMain.repaint();
+				btnChon = btnNhanVien;
+
 				setLaiMau();
 			}
 		});
-		
+
 		btnKhuyenMai.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -591,13 +589,13 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_KhuyenMai());
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnKhuyenMai;
-				
+				pnlMain.repaint();
+				btnChon = btnKhuyenMai;
+
 				setLaiMau();
 			}
 		});
-		
+
 		btnNCC.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -621,13 +619,13 @@ public class TrangChu extends JFrame implements ActionListener {
 				pnlMain.setLayout(new BorderLayout());
 				pnlMain.add(new Jpanel_NhaCungCap());
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnNCC;
-				
+				pnlMain.repaint();
+				btnChon = btnNCC;
+
 				setLaiMau();
 			}
 		});
-		
+
 		btnTroGiup.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -650,7 +648,7 @@ public class TrangChu extends JFrame implements ActionListener {
 				btnTroGiupActionPerformed();
 			}
 		});
-		
+
 		btnCaNhan.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -673,11 +671,11 @@ public class TrangChu extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				pnlMain.removeAll();
 				pnlMain.setLayout(new BorderLayout());
-				pnlMain.add(new ThongTinNV(nv,vt));
+				pnlMain.add(new Jpanel_CaNhan(nv, vt));
 				pnlMain.revalidate();
-		        pnlMain.repaint();
-		        btnChon = btnCaNhan;
-				
+				pnlMain.repaint();
+				btnChon = btnCaNhan;
+
 				setLaiMau();
 			}
 		});
@@ -708,19 +706,18 @@ public class TrangChu extends JFrame implements ActionListener {
 				}
 			}
 		});
-				
-		
+
 	}
-	
+
 	private void btnTroGiupActionPerformed() {
 		// TODO Auto-generated method stub
 		try {
-			Desktop.getDesktop().browse(new URI("https://phanhuutin.gitbook.io/tro-giup/"));
+			Desktop.getDesktop().browse(
+					new URI("https://phanhuutin.gitbook.io/tro-giup/"));
 		} catch (IOException | URISyntaxException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
 
 	private void setMenuInterface(JPanel panel) {
 		btnChon = null;
@@ -729,7 +726,7 @@ public class TrangChu extends JFrame implements ActionListener {
 		pnlMain.add(panel);
 		pnlMain.revalidate();
 		pnlMain.repaint();
-		
+
 		btnSanPham.setBackground(Color.decode("#ffa500"));
 		btnTrangChu.setBackground(Color.decode("#ffa500"));
 		btnTroGiup.setBackground(Color.decode("#ffa500"));
@@ -741,12 +738,11 @@ public class TrangChu extends JFrame implements ActionListener {
 		btnNhanVien.setBackground(Color.decode("#ffa500"));
 		btnCaNhan.setBackground(Color.decode("#ffa500"));
 		menuBarThongKe.setBackground(Color.decode("#DA81F5"));
-		
+
 		if (Jpanel_BanHang.webcam != null && Jpanel_BanHang.webcam.isOpen()) {
 			Jpanel_BanHang.webcam.close();
 		}
 	}
-	
 
 	private void setLaiMau() {
 		if (btnChon == btnTrangChu) {
@@ -886,8 +882,6 @@ public class TrangChu extends JFrame implements ActionListener {
 				Jpanel_BanHang.webcam.close();
 			}
 		}
-		
-		
 
 	}
 

@@ -85,54 +85,64 @@ public class ManHinhChao extends javax.swing.JFrame {
 
 		javax.swing.GroupLayout pnlTieuDeLayout = new javax.swing.GroupLayout(
 				pnlTieuDe);
-		pnlTieuDeLayout.setHorizontalGroup(
-			pnlTieuDeLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, pnlTieuDeLayout.createSequentialGroup()
-					.addGap(142)
-					.addComponent(lbl_TieuDe0, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(650, Short.MAX_VALUE))
-				.addGroup(pnlTieuDeLayout.createSequentialGroup()
-					.addContainerGap(331, Short.MAX_VALUE)
-					.addComponent(lblTieuDe, GroupLayout.PREFERRED_SIZE, 677, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		pnlTieuDeLayout.setVerticalGroup(
-			pnlTieuDeLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(pnlTieuDeLayout.createSequentialGroup()
-					.addContainerGap(22, Short.MAX_VALUE)
-					.addComponent(lbl_TieuDe0, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblTieuDe)
-					.addGap(32))
-		);
+		pnlTieuDeLayout.setHorizontalGroup(pnlTieuDeLayout
+				.createParallelGroup(Alignment.TRAILING)
+				.addGroup(
+						Alignment.LEADING,
+						pnlTieuDeLayout
+								.createSequentialGroup()
+								.addGap(142)
+								.addComponent(lbl_TieuDe0,
+										GroupLayout.PREFERRED_SIZE, 228,
+										GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(650, Short.MAX_VALUE))
+				.addGroup(
+						pnlTieuDeLayout
+								.createSequentialGroup()
+								.addContainerGap(331, Short.MAX_VALUE)
+								.addComponent(lblTieuDe,
+										GroupLayout.PREFERRED_SIZE, 677,
+										GroupLayout.PREFERRED_SIZE)
+								.addContainerGap()));
+		pnlTieuDeLayout.setVerticalGroup(pnlTieuDeLayout.createParallelGroup(
+				Alignment.TRAILING).addGroup(
+				pnlTieuDeLayout
+						.createSequentialGroup()
+						.addContainerGap(22, Short.MAX_VALUE)
+						.addComponent(lbl_TieuDe0, GroupLayout.PREFERRED_SIZE,
+								37, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(lblTieuDe).addGap(32)));
 		pnlTieuDe.setLayout(pnlTieuDeLayout);
 
 		getContentPane().add(pnlTieuDe);
 		pnlTieuDe.setBounds(0, 0, 1020, 160);
 
-		lblAnhNen.setIcon(new javax.swing.ImageIcon("IMG_Hinh//manhinhchao.png")); // NOI18N
+		lblAnhNen
+				.setIcon(new javax.swing.ImageIcon("IMG_Hinh//manhinhchao.png")); // NOI18N
 		getContentPane().add(lblAnhNen);
 		lblAnhNen.setBounds(0, 0, 1020, 650);
 
 		pack();
 		setLocationRelativeTo(null);
 		xoaKhuyenMaiSP();
-		
+
 	}
-	
+
 	public void xoaKhuyenMaiSP() {
-		
-		List<SanPham> dsSPCoKM= DAO_SanPham.getDsSanPham_Querry("select * from SanPham where SanPham.maKhuyenMai is not null");
-		
+
+		List<SanPham> dsSPCoKM = DAO_SanPham
+				.getDsSanPham_Querry("select * from SanPham where SanPham.maKhuyenMai is not null");
+
 		for (SanPham a : dsSPCoKM) {
-			int day= (int) ChronoUnit.DAYS.between( a.getKhuyenMai().getNgayKetThuc(),LocalDate.now());
-			if(day>0) {
+			int day = (int) ChronoUnit.DAYS.between(a.getKhuyenMai()
+					.getNgayKetThuc(), LocalDate.now());
+			if (day > 0) {
 				a.setKhuyenMai(null);
 				DAO_SanPham.capNhatKhuyenMai(a.getMaSanPham().trim());
 			}
 		}
 	}
-
 
 	public static void main(String args[]) {
 
